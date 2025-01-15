@@ -1,0 +1,5 @@
+out
+.vs
+
+# Ignore SDL2 dll file
+SDL2.dll
