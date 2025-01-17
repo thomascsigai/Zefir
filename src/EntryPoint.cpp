@@ -1,11 +1,8 @@
 // Defines application entry point.
 //
 
-#include <iostream>
+#include <GameConfig.h>
 #include <SDL.h>
-
-const std::uint16_t SCREEN_WIDTH = 800;
-const std::uint16_t SCREEN_HEIGHT = 600;
 
 // The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -19,7 +16,7 @@ bool init()
 	// SDL Initialization
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		std::cerr << "SDL could not initialize ! SDL_Error: " << SDL_GetError() << std::endl;
+		cerr << "SDL could not initialize ! SDL_Error: " << SDL_GetError() << endl;
 	}
 	else
 	{
@@ -28,7 +25,7 @@ bool init()
 
 		if (gWindow == NULL)
 		{
-			std::cerr << "Window could not be created ! SDL_Error: " << SDL_GetError() << std::endl;
+			cerr << "Window could not be created ! SDL_Error: " << SDL_GetError() << endl;
 			success = false;
 		}
 		else
@@ -74,23 +71,23 @@ int main(int argc, char* argv[])
 				switch (e.key.keysym.sym)
 				{
 					case SDLK_UP:
-					std::cout << "UP pressed" << std::endl;
+					cout << "UP pressed" << endl;
 					break;
 					
 					case SDLK_DOWN:
-					std::cout << "DOWN pressed" << std::endl;
+					cout << "DOWN pressed" << endl;
 					break;
 					
 					case SDLK_RIGHT:
-					std::cout << "RIGHT pressed" << std::endl;
+					cout << "RIGHT pressed" << endl;
 					break;
 					
 					case SDLK_LEFT:
-					std::cout << "LEFT pressed" << std::endl;
+					cout << "LEFT pressed" << endl;
 					break;
 
 					default:
-					std::cout << "A key is pressed" << std::endl;
+					cout << "A key is pressed" << endl;
 					break;
 				}
 			}

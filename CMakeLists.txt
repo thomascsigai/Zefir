@@ -10,7 +10,8 @@ project ("GameDev-QuickStart")
 
 find_package(SDL2 REQUIRED)
 
-add_executable (GameDev-QuickStart "src/EntryPoint.cpp" )
+add_executable (GameDev-QuickStart "src/EntryPoint.cpp" "include/GameConfig.h")
+target_include_directories(GameDev-QuickStart PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 target_link_libraries(GameDev-QuickStart PRIVATE SDL2::SDL2 SDL2::SDL2main)
 
