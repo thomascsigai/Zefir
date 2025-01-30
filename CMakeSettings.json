@@ -7,7 +7,7 @@
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "${projectDir}\\out\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Dev\\packages\\SDL2-2.30.11",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Dev\\packages\\SDL2-2.30.11;C:\\Dev\\packages\\SDL2_ttf-2.24.0;C:\\Dev\\packages\\SDL2_mixer-2.8.0",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     },
@@ -20,8 +20,7 @@
       "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Dev\\packages\\SDL2-2.30.11",
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
-      "inheritEnvironments": [ "msvc_x64_x64" ],
-      "variables": []
+      "inheritEnvironments": [ "msvc_x64_x64" ]
     }
   ]
 }

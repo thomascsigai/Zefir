@@ -2,4 +2,6 @@ out
 .vs
 
 # Ignore SDL2 dll file
-SDL2.dll
+/SDL2.dll
+/SDL2_ttf.dll
+/SDL2_mixer.dll
