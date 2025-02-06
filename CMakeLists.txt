@@ -12,11 +12,35 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-add_executable (Djipi-App "src/App.cpp" "Djipi/utils/Timer.cpp" "Djipi/utils/Texture.h" "Djipi/utils/Texture.cpp" "Djipi/UserEvents.h" "Djipi/Djipi.h" "Djipi/utils/Window.h" "Djipi/utils/Window.cpp" "Djipi/utils/GameObject.h" "src/Player.h" "src/Player.cpp" "Djipi/utils/Transform.h")
-target_include_directories(Djipi-App PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Djipi" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils")
+add_executable(Djipi-App
+    "src/App.cpp"
+    "Djipi/utils/Timer.cpp"
+    "Djipi/utils/Texture.h"
+    "Djipi/utils/Texture.cpp"
+    "Djipi/UserEvents.h"
+    "Djipi/Djipi.h"
+    "Djipi/core/Window.h"
+    "Djipi/core/Window.cpp"
+    "Djipi/core/GameObject.h"
+    "src/Player.h"
+    "src/Player.cpp"
+    "Djipi/core/Transform.h"
+ "Djipi/core/math/Vector2.h")
 
-target_link_libraries(Djipi-App PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
+target_include_directories(Djipi-App PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/math"
+)
 
+target_link_libraries(Djipi-App PRIVATE
+    SDL2::SDL2
+    SDL2::SDL2main
+    SDL2_ttf::SDL2_ttf
+    SDL2_mixer::SDL2_mixer
+)
 # Copy SDL2.dll that exists in base project folder
 # If it does not exist, find it in your SDL2 folder and copy it.
 if (EXISTS ${CMAKE_SOURCE_DIR}/SDL2.dll)
