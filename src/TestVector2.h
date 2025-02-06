@@ -17,6 +17,7 @@ namespace DjipiApp
 
 			TestPrintVectors();
             TestScalarMultDiv();
+            TestBasicOperations();
 		}
 
 		// Test : print the vec1 and vec2 using component index
@@ -33,10 +34,9 @@ namespace DjipiApp
 			cout << "vec 2 = " << vec2 << endl;
 		}
 
-        // Test scalar mult / div
+        // Test : scalar mult / div operators
 		void TestScalarMultDiv()
 		{
-            std::cout << endl << "Test scalar mult / div :" << endl;
             Djipi::Vector2 v1(3.0f, 4.0f);
             v1 *= 2.0f;
             v1 /= 2.0f;
@@ -77,5 +77,58 @@ namespace DjipiApp
                 std::cout << "Test failed: v4" << std::endl;
             }
 		}
+
+        // Test : basic operations
+        void TestBasicOperations()
+        {
+            Djipi::Vector2 v1(3.0f, 4.0f);
+
+            // Test multiplication par un scalaire
+            Djipi::Vector2 result = v1 * 2.0f;
+            if (result.x == 6.0f && result.y == 8.0f) {
+                std::cout << "Test passed: v1 * 2" << std::endl;
+            }
+            else {
+                std::cout << "Test failed: v1 * 2" << std::endl;
+            }
+
+            // Test division par un scalaire
+            result = v1 / 2.0f;
+            if (result.x == 1.5f && result.y == 2.0f) {
+                std::cout << "Test passed: v1 / 2" << std::endl;
+            }
+            else {
+                std::cout << "Test failed: v1 / 2" << std::endl;
+            }
+
+            // Test inversion du vecteur (négatif)
+            result = -v1;
+            if (result.x == -3.0f && result.y == -4.0f) {
+                std::cout << "Test passed: -v1" << std::endl;
+            }
+            else {
+                std::cout << "Test failed: -v1" << std::endl;
+            }
+
+            // Test magnitude du vecteur
+            float magnitude = Magnitude(v1);
+            if (std::fabs(magnitude - 5.0f) < 0.001f) {
+                std::cout << "Test passed: Magnitude of v1" << std::endl;
+            }
+            else {
+                std::cout << "Test failed: Magnitude of v1" << std::endl;
+            }
+
+            // Test normalisation du vecteur
+            Djipi::Vector2 normalized = Normalize(v1);
+            float normMagnitude = Magnitude(normalized);
+            if (std::fabs(normMagnitude - 1.0f) < 0.001f) {
+                std::cout << "Test passed: Normalized v1" << std::endl;
+            }
+            else {
+                std::cout << "Test failed: Normalized v1" << std::endl;
+            }
+
+        }
 	};
 }
