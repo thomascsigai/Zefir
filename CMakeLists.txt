@@ -13,26 +13,28 @@ find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
 add_executable(Djipi-App
-    "src/App.cpp"
-    "Djipi/utils/Timer.cpp"
-    "Djipi/utils/Texture.h"
-    "Djipi/utils/Texture.cpp"
-    "Djipi/UserEvents.h"
-    "Djipi/Djipi.h"
-    "Djipi/core/Window.h"
-    "Djipi/core/Window.cpp"
-    "Djipi/core/GameObject.h"
-    "src/Player.h"
-    "src/Player.cpp"
-    "Djipi/core/Transform.h"
- "Djipi/core/math/Vector2.h")
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/App.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Timer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/UserEvents.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/Djipi.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Window.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Window.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/GameObject.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/Player.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/Player.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Transform.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math/Vector2.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/TestVector2.h"
+  "Djipi/core/math/Vector2.cpp")
 
 target_include_directories(Djipi-App PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi"
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/math"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math"
 )
 
 target_link_libraries(Djipi-App PRIVATE

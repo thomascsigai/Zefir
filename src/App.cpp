@@ -9,6 +9,7 @@
 #include <SDL_mixer.h>
 
 #include <Player.h>
+#include <TestVector2.h>
 
 // The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -35,6 +36,8 @@ int main(int argc, char* argv[])
 	// Create your gameobjects here
 	
 	DjipiApp::Player player = DjipiApp::Player();
+
+	DjipiApp::TestVector2 testVec2 = DjipiApp::TestVector2();
 
 	// GAME LOOP
 	while (!quit)

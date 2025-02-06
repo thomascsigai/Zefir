@@ -6,3 +6,6 @@
 #include <GameObject.h>
 #include <Texture.h>
 #include <Timer.h>
+
+// Math
+#include <Vector2.h>

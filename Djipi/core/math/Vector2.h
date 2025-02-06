@@ -1,21 +1,29 @@
 #pragma once 
 
-struct Vector2
+#include <iostream>
+
+namespace Djipi
 {
-	float x, y;
-
-	Vector2() = default;
-
-	Vector2(float _x, float _y)
-		: x(_x), y(_y) { }
-
-	float& operator [](int i)
+	struct Vector2
 	{
-		return ((&x)[i]);
-	}
+		float x, y;
+
+		Vector2() = default;
+
+		Vector2(float _x, float _y)
+			: x(_x), y(_y) {}
+
+		// Operators overloads ------------------
+
+		// Access components by index
+		float& operator [](int i);
+		const float& operator [](int i) const;
+
+		// Scalar multiplication
+		Vector2& operator /=(float s);
+		Vector2& operator *=(float s);
+	};
 	
-	const float& operator [](int i) const
-	{
-		return ((&x)[i]);
-	}
-};
+	// << operator overload to cout vector components
+	std::ostream& operator<<(std::ostream& os, const Vector2& v);
+}
