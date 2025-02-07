@@ -24,6 +24,17 @@ namespace Djipi
 		return (*this);
 	}
 
+	Vector2& Vector2::operator +=(const Vector2& v)
+	{
+		x += v.x, y += v.y;
+		return (*this);
+	}
+	Vector2& Vector2::operator -=(const Vector2& v)
+	{
+		x -= v.x; y -= v.y;
+		return (*this);
+	}
+
 	std::ostream& operator<<(std::ostream& os, const Vector2& v)
 	{
 		std::cout << "(" << v[0] << ", " << v[1] << ")";
