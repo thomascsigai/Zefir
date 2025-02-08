@@ -18,6 +18,7 @@ namespace DjipiApp
 			TestPrintVectors();
             TestScalarMultDiv();
             TestBasicOperations();
+            TestAddSub();
 		}
 
 		// Test : print the vec1 and vec2 using component index
@@ -129,6 +130,165 @@ namespace DjipiApp
                 std::cout << "Test failed: Normalized v1" << std::endl;
             }
 
+        }
+
+        void TestAddSub()
+        {
+            // Test de l'opérateur += avec des nombres positifs
+            Djipi::Vector2 v1(1.0f, 2.0f);
+            Djipi::Vector2 v2(3.0f, 4.0f);
+            v1 += v2;
+            if (v1.x == 4.0f && v1.y == 6.0f)
+            {
+                std::cout << "Test passed: Operator += (positive numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator += (positive numbers)" << endl;
+            }
+
+            // Test de l'opérateur += avec des nombres négatifs
+            Djipi::Vector2 v3(-1.0f, -2.0f);
+            Djipi::Vector2 v4(-3.0f, -4.0f);
+            v3 += v4;
+            if (v3.x == -4.0f && v3.y == -6.0f)
+            {
+                std::cout << "Test passed: Operator += (negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator += (negative numbers)" << endl;
+            }
+
+            // Test de l'opérateur += avec un mélange de nombres positifs et négatifs
+            Djipi::Vector2 v5(1.0f, -2.0f);
+            Djipi::Vector2 v6(-3.0f, 4.0f);
+            v5 += v6;
+            if (v5.x == -2.0f && v5.y == 2.0f)
+            {
+                std::cout << "Test passed: Operator += (mixed positive and negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator += (mixed positive and negative numbers)" << endl;
+            }
+
+            // Test de l'opérateur -= avec des nombres positifs
+            Djipi::Vector2 v7(5.0f, 7.0f);
+            Djipi::Vector2 v8(2.0f, 3.0f);
+            v7 -= v8;
+            if (v7.x == 3.0f && v7.y == 4.0f)
+            {
+                std::cout << "Test passed: Operator -= (positive numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator -= (positive numbers)" << endl;
+            }
+
+            // Test de l'opérateur -= avec des nombres négatifs
+            Djipi::Vector2 v9(-5.0f, -7.0f);
+            Djipi::Vector2 v10(-2.0f, -3.0f);
+            v9 -= v10;
+            if (v9.x == -3.0f && v9.y == -4.0f)
+            {
+                std::cout << "Test passed: Operator -= (negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator -= (negative numbers)" << endl;
+            }
+
+            // Test de l'opérateur -= avec un mélange de nombres positifs et négatifs
+            Djipi::Vector2 v11(5.0f, -7.0f);
+            Djipi::Vector2 v12(-2.0f, 3.0f);
+            v11 -= v12;
+            if (v11.x == 7.0f && v11.y == -10.0f)
+            {
+                std::cout << "Test passed: Operator -= (mixed positive and negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator -= (mixed positive and negative numbers)" << endl;
+            }
+
+            // Test de l'opérateur + avec des nombres positifs
+            Djipi::Vector2 v13(1.0f, 2.0f);
+            Djipi::Vector2 v14(3.0f, 4.0f);
+            Djipi::Vector2 v15 = v13 + v14;
+            if (v15.x == 4.0f && v15.y == 6.0f)
+            {
+                std::cout << "Test passed: Operator + (positive numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator + (positive numbers)" << endl;
+            }
+
+            // Test de l'opérateur + avec des nombres négatifs
+            Djipi::Vector2 v16(-1.0f, -2.0f);
+            Djipi::Vector2 v17(-3.0f, -4.0f);
+            Djipi::Vector2 v18 = v16 + v17;
+            if (v18.x == -4.0f && v18.y == -6.0f)
+            {
+                std::cout << "Test passed: Operator + (negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator + (negative numbers)" << endl;
+            }
+
+            // Test de l'opérateur + avec un mélange de nombres positifs et négatifs
+            Djipi::Vector2 v19(1.0f, -2.0f);
+            Djipi::Vector2 v20(-3.0f, 4.0f);
+            Djipi::Vector2 v21 = v19 + v20;
+            if (v21.x == -2.0f && v21.y == 2.0f)
+            {
+                std::cout << "Test passed: Operator + (mixed positive and negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator + (mixed positive and negative numbers)" << endl;
+            }
+
+            // Test de l'opérateur - avec des nombres positifs
+            Djipi::Vector2 v22(5.0f, 7.0f);
+            Djipi::Vector2 v23(2.0f, 3.0f);
+            Djipi::Vector2 v24 = v22 - v23;
+            if (v24.x == 3.0f && v24.y == 4.0f)
+            {
+                std::cout << "Test passed: Operator - (positive numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator - (positive numbers)" << endl;
+            }
+
+            // Test de l'opérateur - avec des nombres négatifs
+            Djipi::Vector2 v25(-5.0f, -7.0f);
+            Djipi::Vector2 v26(-2.0f, -3.0f);
+            Djipi::Vector2 v27 = v25 - v26;
+            if (v27.x == -3.0f && v27.y == -4.0f)
+            {
+                std::cout << "Test passed: Operator - (negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator - (negative numbers)" << endl;
+            }
+
+            // Test de l'opérateur - avec un mélange de nombres positifs et négatifs
+            Djipi::Vector2 v28(5.0f, -7.0f);
+            Djipi::Vector2 v29(-2.0f, 3.0f);
+            Djipi::Vector2 v30 = v28 - v29;
+            if (v30.x == 7.0f && v30.y == -10.0f)
+            {
+                std::cout << "Test passed: Operator - (mixed positive and negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed: Operator - (mixed positive and negative numbers)" << endl;
+            }
         }
 	};
 }
