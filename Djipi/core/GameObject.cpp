@@ -32,11 +32,11 @@ namespace Djipi
 
 	void GameObject::OnCollide(GameObject& other)
 	{
-		cout << m_Name << "Collided with " << other.m_Name << "." << endl;
+		std::cout << m_Name << "Collided with " << other.m_Name << "." << std::endl;
 	}
 
 	void GameObject::HandleEvent(SDL_Event& e)
 	{
-		cerr << "HandleEvent method used but not implemented for GameObject " << m_Name << "." << endl;
+		std::cerr << "HandleEvent method used but not implemented for GameObject " << m_Name << "." << std::endl;
 	}
 }

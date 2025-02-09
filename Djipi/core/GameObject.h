@@ -1,25 +1,23 @@
 #pragma once
 
-#include <iostream>
-
 #include <SDL.h>
 #include <Transform2D.h>
 
-using namespace std;
+#include <iostream>
 
 namespace Djipi
 {
 	class GameObject
 	{
 	protected:
-		string m_Name;
+		std::string m_Name;
 		Transform2D m_Transform;
 		Vector2 m_Velocity;
 
 	public:
 		GameObject() : m_Name("GameObject"), m_Velocity(0, 0) {}
-		GameObject(string name) : m_Name(name), m_Velocity(0, 0) {}
-		GameObject(string name, int x, int y) : m_Name(name), m_Velocity(0, 0)
+		GameObject(std::string name) : m_Name(name), m_Velocity(0, 0) {}
+		GameObject(std::string name, int x, int y) : m_Name(name), m_Velocity(0, 0)
 		{ 
 			m_Transform.SetPosition(x, y); 
 		}
@@ -32,10 +30,10 @@ namespace Djipi
 
 		// Getters
 		Transform2D GetTransform2D() const { return m_Transform; }
-		string GetName() const { return m_Name; }
+		std::string GetName() const { return m_Name; }
 		SDL_FRect GetCollider() const { return m_Transform.collider; }
 
 		//Setters
-		void SetName(string name) { m_Name = name; }
+		void SetName(std::string name) { m_Name = name; }
 	};
 }
