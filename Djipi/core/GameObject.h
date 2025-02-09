@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include <SDL.h>
-#include <Transform.h>
+#include <Transform2D.h>
 
 using namespace std;
 
@@ -13,52 +13,25 @@ namespace Djipi
 	{
 	protected:
 		string m_Name;
-		Transform m_Transform;
-		int m_VelX = 0, m_VelY = 0;
+		Transform2D m_Transform;
+		Vector2 m_Velocity;
 
 	public:
-		GameObject() {}
-		GameObject(string name) : m_Name(name) {}
-		GameObject(string name, int x, int y) { m_Transform.x = x; m_Transform.y = y; }
-
-		virtual void Render(SDL_Renderer* renderer)
-		{
-			SDL_FRect rect = { m_Transform.x, m_Transform.y, m_Transform.w, m_Transform.h };
-			SDL_RenderFillRectF(renderer, &rect);
-
-
-			//Debug draw collider
-			/*SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-			SDL_RenderDrawRectF(renderer, &transform.collider);
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);*/
+		GameObject() : m_Name("GameObject"), m_Velocity(0, 0) {}
+		GameObject(string name) : m_Name(name), m_Velocity(0, 0) {}
+		GameObject(string name, int x, int y) : m_Name(name), m_Velocity(0, 0)
+		{ 
+			m_Transform.SetPosition(x, y); 
 		}
 
-		virtual void Update(double deltaTime)
-		{
-			Move(deltaTime);
-		}
-
-		virtual void Move(double deltaTime)
-		{
-			m_Transform.x += m_VelX * deltaTime;
-			m_Transform.y += m_VelY * deltaTime;
-
-			m_Transform.UpdateCollider();
-		}
-
-		virtual void OnCollide(GameObject& other)
-		{
-			cout << m_Name << "Collided with " << other.m_Name << "." << endl;
-		}
-
-		virtual void HandleEvent(SDL_Event& e)
-		{
-			cerr << "HandleEvent method used but not implemented for GameObject " << m_Name << "." << endl;
-		}
-
+		virtual void Render(SDL_Renderer* renderer);
+		virtual void Update(double deltaTime);
+		virtual void Move(double deltaTime);
+		virtual void OnCollide(GameObject& other);
+		virtual void HandleEvent(SDL_Event& e);
 
 		// Getters
-		Transform GetTransform() const { return m_Transform; }
+		Transform2D GetTransform2D() const { return m_Transform; }
 		string GetName() const { return m_Name; }
 		SDL_FRect GetCollider() const { return m_Transform.collider; }
 

@@ -14,10 +14,10 @@
         {
             "name": "x64-Release",
             "generator": "Ninja",
-            "configurationType": "RelWithDebInfo",
+            "configurationType": "Release",
             "buildRoot": "${projectDir}\\out\\build\\${name}",
             "installRoot": "${projectDir}\\out\\install\\${name}",
-            "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Dev\\packages\\SDL2-2.30.11",
+            "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=D:\\Dev\\Packages\\SDL2-2.30.12;D:\\Dev\\Packages\\SDL2_ttf-2.24.0;D:\\Dev\\Packages\\SDL2_mixer-2.8.0",
             "buildCommandArgs": "",
             "ctestCommandArgs": "",
             "inheritEnvironments": [ "msvc_x64_x64" ]
