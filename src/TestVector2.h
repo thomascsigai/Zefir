@@ -19,10 +19,9 @@ namespace DjipiApp
             TestScalarMultDiv();
             TestBasicOperations();
             TestAddSub();
+            TestDotProduct();
 		}
 
-		// Test : print the vec1 and vec2 using component index
-		// and << operator overload
 		void TestPrintVectors()
 		{
             cout << "Print vectors :" << endl;
@@ -35,7 +34,6 @@ namespace DjipiApp
 			cout << "vec 2 = " << vec2 << endl;
 		}
 
-        // Test : scalar mult / div operators
 		void TestScalarMultDiv()
 		{
             Djipi::Vector2 v1(3.0f, 4.0f);
@@ -79,7 +77,6 @@ namespace DjipiApp
             }
 		}
 
-        // Test : basic operations
         void TestBasicOperations()
         {
             Djipi::Vector2 v1(3.0f, 4.0f);
@@ -288,6 +285,74 @@ namespace DjipiApp
             else
             {
                 std::cout << "Failed: Operator - (mixed positive and negative numbers)" << endl;
+            }
+        }
+
+        void TestDotProduct()
+        {
+            // Test avec des nombres positifs
+            Djipi::Vector2 v1(1.0f, 2.0f);
+            Djipi::Vector2 v2(3.0f, 4.0f);
+            float result1 = Dot(v1, v2);
+            if (result1 == 11.0f) // 1*3 + 2*4 = 3 + 8 = 11
+            {
+                std::cout << "Test passed: Dot (positive numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Dot (positive numbers)" << std::endl;
+            }
+
+            // Test avec des nombres négatifs
+            Djipi::Vector2 v3(-1.0f, -2.0f);
+            Djipi::Vector2 v4(-3.0f, -4.0f);
+            float result2 = Dot(v3, v4);
+            if (result2 == 11.0f) // (-1)*(-3) + (-2)*(-4) = 3 + 8 = 11
+            {
+                std::cout << "Test passed: Dot (negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Dot (negative numbers)" << std::endl;
+            }
+
+            // Test avec un mélange de nombres positifs et négatifs
+            Djipi::Vector2 v5(1.0f, -2.0f);
+            Djipi::Vector2 v6(-3.0f, 4.0f);
+            float result3 = Dot(v5, v6);
+            if (result3 == -11.0f) // (1)*(-3) + (-2)*(4) = -3 - 8 = -11
+            {
+                std::cout << "Test passed: Dot (mixed positive and negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Dot (mixed positive and negative numbers)" << std::endl;
+            }
+
+            // Test avec un vecteur nul
+            Djipi::Vector2 v7(0.0f, 0.0f);
+            Djipi::Vector2 v8(2.0f, 3.0f);
+            float result4 = Dot(v7, v8);
+            if (result4 == 0.0f) // 0*2 + 0*3 = 0
+            {
+                std::cout << "Test passed: Dot (zero vector)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Dot (zero vector)" << std::endl;
+            }
+
+            // Test avec deux vecteurs orthogonaux
+            Djipi::Vector2 v9(1.0f, 0.0f);
+            Djipi::Vector2 v10(0.0f, 1.0f);
+            float result5 = Dot(v9, v10);
+            if (result5 == 0.0f) // 1*0 + 0*1 = 0
+            {
+                std::cout << "Test passed: Dot (orthogonal vectors)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Dot (orthogonal vectors)" << std::endl;
             }
         }
 	};
