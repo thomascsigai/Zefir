@@ -11,7 +11,8 @@ namespace Djipi
 		Vector2() = default;
 
 		Vector2(float _x, float _y)
-			: x(_x), y(_y) {}
+			: x(_x), y(_y) {
+		}
 
 		// Operators overloads ------------------
 
@@ -68,6 +69,16 @@ namespace Djipi
 	inline float Dot(const Vector2& v1, const Vector2& v2)
 	{
 		return (v1.x * v2.x + v1.y * v2.y);
+	}
+
+	inline Vector2 Project(const Vector2& v1, const Vector2 v2)
+	{
+		return (v2 * (Dot(v1, v2) / Dot(v2, v2)));
+	}
+
+	inline Vector2 Reject(const Vector2& v1, const Vector2& v2)
+	{
+		return (v1 - v2 * (Dot(v1, v2) / Dot(v2, v2)));
 	}
 
 	

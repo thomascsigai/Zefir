@@ -20,6 +20,7 @@ namespace DjipiApp
             TestBasicOperations();
             TestAddSub();
             TestDotProduct();
+            TestProjectAndReject();
 		}
 
 		void TestPrintVectors()
@@ -353,6 +354,129 @@ namespace DjipiApp
             else
             {
                 std::cout << "Test failed: Dot (orthogonal vectors)" << std::endl;
+            }
+        }
+
+        void TestProjectAndReject()
+        {
+            // Test de Project avec des nombres positifs
+            Djipi::Vector2 v1(4.0f, 0.0f);
+            Djipi::Vector2 v2(2.0f, 0.0f);
+            Djipi::Vector2 proj1 = Project(v1, v2);
+            if (proj1.x == 4.0f && proj1.y == 0.0f) // Projection de (4, 0) sur (2, 0) = (4, 0)
+            {
+                std::cout << "Test passed: Project (positive numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Project (positive numbers)" << std::endl;
+            }
+
+            // Test de Reject avec des nombres positifs
+            Djipi::Vector2 rej1 = Reject(v1, v2);
+            if (rej1.x == 0.0f && rej1.y == 0.0f) // Rejet de (4, 0) sur (2, 0) = (0, 0)
+            {
+                std::cout << "Test passed: Reject (positive numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Reject (positive numbers)" << std::endl;
+            }
+
+            // Test de Project avec des nombres négatifs
+            Djipi::Vector2 v3(-4.0f, 0.0f);
+            Djipi::Vector2 v4(-2.0f, 0.0f);
+            Djipi::Vector2 proj2 = Project(v3, v4);
+            if (proj2.x == -4.0f && proj2.y == 0.0f) // Projection de (-4, 0) sur (-2, 0) = (-4, 0)
+            {
+                std::cout << "Test passed: Project (negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Project (negative numbers)" << std::endl;
+            }
+
+            // Test de Reject avec des nombres négatifs
+            Djipi::Vector2 rej2 = Reject(v3, v4);
+            if (rej2.x == 0.0f && rej2.y == 0.0f) // Rejet de (-4, 0) sur (-2, 0) = (0, 0)
+            {
+                std::cout << "Test passed: Reject (negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Reject (negative numbers)" << std::endl;
+            }
+
+            // Test de Project avec un mélange de nombres positifs et négatifs
+            Djipi::Vector2 v5(3.0f, 4.0f);
+            Djipi::Vector2 v6(1.0f, 0.0f);
+            Djipi::Vector2 proj3 = Project(v5, v6);
+            if (proj3.x == 3.0f && proj3.y == 0.0f) // Projection de (3, 4) sur (1, 0) = (3, 0)
+            {
+                std::cout << "Test passed: Project (mixed positive and negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Project (mixed positive and negative numbers)" << std::endl;
+            }
+
+            // Test de Reject avec un mélange de nombres positifs et négatifs
+            Djipi::Vector2 rej3 = Reject(v5, v6);
+            if (rej3.x == 0.0f && rej3.y == 4.0f) // Rejet de (3, 4) sur (1, 0) = (0, 4)
+            {
+                std::cout << "Test passed: Reject (mixed positive and negative numbers)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Reject (mixed positive and negative numbers)" << std::endl;
+            }
+
+            // Test de Project avec un vecteur nul
+            Djipi::Vector2 v7(0.0f, 0.0f);
+            Djipi::Vector2 v8(2.0f, 3.0f);
+            Djipi::Vector2 proj4 = Project(v7, v8);
+            if (proj4.x == 0.0f && proj4.y == 0.0f) // Projection de (0, 0) sur (2, 3) = (0, 0)
+            {
+                std::cout << "Test passed: Project (zero vector)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Project (zero vector)" << std::endl;
+            }
+
+            // Test de Reject avec un vecteur nul
+            Djipi::Vector2 rej4 = Reject(v7, v8);
+            if (rej4.x == 0.0f && rej4.y == 0.0f) // Rejet de (0, 0) sur (2, 3) = (0, 0)
+            {
+                std::cout << "Test passed: Reject (zero vector)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Reject (zero vector)" << std::endl;
+            }
+
+            // Test de Project avec des vecteurs orthogonaux
+            Djipi::Vector2 v9(0.0f, 1.0f);
+            Djipi::Vector2 v10(1.0f, 0.0f);
+            Djipi::Vector2 proj5 = Project(v9, v10);
+            if (proj5.x == 0.0f && proj5.y == 0.0f) // Projection de (0, 1) sur (1, 0) = (0, 0)
+            {
+                std::cout << "Test passed: Project (orthogonal vectors)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Project (orthogonal vectors)" << std::endl;
+            }
+
+            // Test de Reject avec des vecteurs orthogonaux
+            Djipi::Vector2 rej5 = Reject(v9, v10);
+            if (rej5.x == 0.0f && rej5.y == 1.0f) // Rejet de (0, 1) sur (1, 0) = (0, 1)
+            {
+                std::cout << "Test passed: Reject (orthogonal vectors)" << std::endl;
+            }
+            else
+            {
+                std::cout << "Test failed: Reject (orthogonal vectors)" << std::endl;
             }
         }
 	};
