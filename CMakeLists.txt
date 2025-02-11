@@ -26,7 +26,7 @@ add_executable(Djipi-App
     "${CMAKE_CURRENT_SOURCE_DIR}/src/Player.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Transform2D.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math/Vector2.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/TestVector2.h"
+    
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math/Vector2.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/GameObject.cpp"
 )

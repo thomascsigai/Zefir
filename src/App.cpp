@@ -37,8 +37,6 @@ int main(int argc, char* argv[])
 	
 	DjipiApp::Player player = DjipiApp::Player();
 
-	DjipiApp::TestVector2 testVec2 = DjipiApp::TestVector2();
-
 	// GAME LOOP
 	while (!quit)
 	{
