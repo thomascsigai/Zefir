@@ -6,6 +6,7 @@
 #include <GameObject.h>
 #include <Texture.h>
 #include <Timer.h>
+#include <Collision.h>
 
 // Math
 #include <Vector2.h>
