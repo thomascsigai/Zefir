@@ -9,7 +9,6 @@
 #include <SDL_mixer.h>
 
 #include <Player.h>
-#include <TestVector2.h>
 
 // The window we'll be rendering to
 SDL_Window* gWindow = NULL;
