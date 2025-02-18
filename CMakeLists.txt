@@ -21,6 +21,7 @@ add_executable(Djipi-App
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Timer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Collision.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/UserEvents.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/Djipi.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Window.h"
