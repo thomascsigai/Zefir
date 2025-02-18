@@ -21,6 +21,8 @@ int main(int argc, char* argv[])
 
 	SDL_Event e;
 
+	Djipi::ResourceManager resourceManager = Djipi::ResourceManager();
+
 	Djipi::Window appWindow = Djipi::Window();
 	appWindow.Init();
 

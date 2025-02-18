@@ -19,19 +19,17 @@ find_package(SDL2_mixer REQUIRED)
 add_executable(Djipi-App
     "${CMAKE_CURRENT_SOURCE_DIR}/src/App.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Timer.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Collision.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/UserEvents.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/Djipi.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Window.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Window.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/GameObject.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/ResourceManager.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/Player.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/Player.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Transform2D.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math/Vector2.h"
-    
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math/Vector2.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/GameObject.cpp"
 )
@@ -42,6 +40,7 @@ target_include_directories(Djipi-App PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource"
 )
 
 target_link_libraries(Djipi-App PRIVATE

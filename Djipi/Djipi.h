@@ -7,6 +7,9 @@
 #include <Texture.h>
 #include <Timer.h>
 #include <Collision.h>
+#include <Log.h>
+#include <ResourceManager.h>
+#include <Resource.h>
 
 // Math
 #include <Vector2.h>
