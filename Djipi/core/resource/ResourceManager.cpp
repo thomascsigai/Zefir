@@ -1,5 +1,10 @@
 #include <ResourceManager.h>
 #include <Log.h>
+#include <GameConfig.h>
+
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 namespace Djipi
 {
@@ -25,7 +30,40 @@ namespace Djipi
 
 	bool ResourceManager::LoadAllResources()
 	{
-		return true;
+		if (!fs::exists(RESOURCES_BASE_DIR) && !fs::is_directory(RESOURCES_BASE_DIR))
+		{
+			LOG_WARN("\"resources\" base directory could not be found.");
+			return false;
+		}
+
+		int filesFound = 0;
+		int filesLoaded = 0;
+		int filesNotLoaded = 0;
+
+		// Iterate through all resources sub-directories to load the ressources 
+		for (const auto& entry : fs::recursive_directory_iterator(RESOURCES_BASE_DIR))
+		{
+			if (fs::is_regular_file(entry.path()))
+			{
+				std::string filePath = entry.path().string();
+				std::string parentFolder = entry.path().parent_path().filename().string();
+
+				if (!LoadResource(filePath))
+				{
+					filesNotLoaded++;
+				}
+				else
+				{
+					filesLoaded++;
+				}
+			}
+		}
+		
+		filesFound = filesLoaded + filesNotLoaded;
+		LOG_INFO("Files found: " << filesFound << " (" << filesLoaded << " loaded, " << filesNotLoaded << " not loaded).");
+		
+		// If a file has not been loaded, return false
+		return (filesNotLoaded == 0);
 	}
 
 	bool ResourceManager::UnloadAllResources()
@@ -35,11 +73,7 @@ namespace Djipi
 
 	bool ResourceManager::LoadResource(const std::string& path)
 	{
-		if (m_Textures.count(path))
-		{
-			LOG_WARN("Trying to load an already loaded resource : " + path);
-		}
-
+		LOG_INFO("Loaded : " + path);
 		return true;
 	}
 
