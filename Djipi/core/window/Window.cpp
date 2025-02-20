@@ -4,7 +4,10 @@ namespace Djipi
 {
 	Window::Window()
 	{
-		Init();
+		if (!Init())
+		{
+			LOG_FATAL("Unable to init Window System.");
+		}
 	}
 
 	Window::~Window()
@@ -16,11 +19,11 @@ namespace Djipi
 	{
 		bool success = true;
 
-		m_Window = SDL_CreateWindow("Djipi App", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		m_SDLWindow = SDL_CreateWindow("Djipi App", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-		if (m_Window == NULL)
+		if (m_SDLWindow == nullptr)
 		{
-			LOG_FATAL("Window could not be created ! SDL_Error: " << SDL_GetError());
+			LOG_FATAL("SDL Window could not be created ! SDL_Error: " << SDL_GetError());
 			success = false;
 		}
 
@@ -29,7 +32,7 @@ namespace Djipi
 
 	void Window::Shutdown()
 	{
-		SDL_DestroyWindow(m_Window);
-		m_Window = nullptr;
+		SDL_DestroyWindow(m_SDLWindow);
+		m_SDLWindow = nullptr;
 	}
 }

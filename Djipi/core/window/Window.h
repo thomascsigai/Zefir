@@ -14,13 +14,12 @@ namespace Djipi
 	public:
 		Window();
 		~Window() override;
-		SDL_Window* GetWindow() const { return m_Window; }
-
+		SDL_Window* GetSDLWindow() const { return m_SDLWindow; }
 
 	private:
 		bool Init() override;
 		void Shutdown() override;
 
-		SDL_Window* m_Window;
+		SDL_Window* m_SDLWindow;
 	};
 }
