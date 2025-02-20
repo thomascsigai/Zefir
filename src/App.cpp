@@ -10,24 +10,23 @@
 
 #include <Player.h>
 
-// The window we'll be rendering to
-SDL_Window* gWindow = NULL;
-// The renderer 
-SDL_Renderer* gRenderer = NULL;
-
 int main(int argc, char* argv[])
 {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+	{
+		LOG_FATAL("SDL could not initialize ! SDL_Error: " << SDL_GetError());
+		return 0;
+	}
+
 	bool quit = false;
 
 	SDL_Event e;
 
+	Djipi::Window appWindow = Djipi::Window();
+
 	Djipi::ResourceManager resourceManager = Djipi::ResourceManager();
 
-	Djipi::Window appWindow = Djipi::Window();
-	appWindow.Init();
-
-	gWindow = appWindow.GetWindow();
-	gRenderer = appWindow.GetRenderer();
+	//SDL_Renderer* gRenderer = appWindow.GetRenderer();
 
 	Uint64 previousTime = SDL_GetTicks();
 	Uint64 currentTime;
@@ -61,20 +60,19 @@ int main(int argc, char* argv[])
 		// Updates methods here
 
 		player.Update(deltaTime);
-		
+
 		// RENDERING 
-		SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
+		/*SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
 		SDL_RenderClear(gRenderer);
-		SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
+		SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);*/
 
 		// Render all objects in the scene here
 
-		player.Render(gRenderer);
+		//player.Render(gRenderer);
 
-		SDL_RenderPresent(gRenderer);
+		//SDL_RenderPresent(gRenderer);
 	}
 
-	appWindow.Close();
-
+	SDL_Quit();
 	return 0;
 }

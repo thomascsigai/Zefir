@@ -19,4 +19,14 @@
 #define APP_LOG_WARN(str) std::cout << "[APP][WARN] : " << str << std::endl;
 #define APP_LOG_FATAL(str) std::cout << "[APP][FATAL] : " << str << std::endl;
 
+#else
+// If not debug, the macro does nothing
+#define LOG_INFO(str) {}
+#define LOG_WARN(str) {}
+#define LOG_FATAL(str) {}
+
+#define LOG_INFO(str) {}
+#define LOG_WARN(str) {}
+#define LOG_FATAL(str) {}
+
 #endif
