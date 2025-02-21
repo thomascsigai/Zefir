@@ -274,8 +274,17 @@ namespace Djipi
 		return true;
 	}
 
-	/*const Resource& ResourceManager::GetResource(const std::string& path) const
+	std::shared_ptr<Texture> ResourceManager::GetTexture(const std::string& path)
 	{
-		return ;
-	}*/
+		if (m_Textures.count(path) != 0)
+		{
+			return m_Textures[path];
+		}
+		else
+		{
+			LOG_WARN(path + " not found. Texture is not loaded or does not exist.")
+		}
+
+		return nullptr;
+	}
 }

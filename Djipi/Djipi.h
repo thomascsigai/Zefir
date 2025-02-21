@@ -11,6 +11,9 @@
 #include <Log.h>
 #include <ResourceManager.h>
 #include <Resource.h>
+#include <Texture.h>
+#include <Sound.h>
+#include <Font.h>
 
 // Math
 #include <Vector2.h>

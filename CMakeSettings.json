@@ -7,7 +7,7 @@
             "inheritEnvironments": [ "msvc_x64_x64" ],
             "buildRoot": "${projectDir}\\out\\build\\${name}",
             "installRoot": "${projectDir}\\out\\install\\${name}",
-            "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=D:\\Dev\\Packages\\SDL2-2.30.11;D:\\Dev\\Packages\\SDL2_ttf-2.24.0;D:\\Dev\\Packages\\SDL2_mixer-2.8.0;D:\\Dev\\Packages\\SDL2_image-2.8.5",
+            "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=D:\\Dev\\Packages\\SDL2-2.30.12;D:\\Dev\\Packages\\SDL2_ttf-2.24.0;D:\\Dev\\Packages\\SDL2_mixer-2.8.0;D:\\Dev\\Packages\\SDL2_image-2.8.5",
             "ctestCommandArgs": ""
         },
         {
@@ -16,7 +16,7 @@
             "configurationType": "Release",
             "buildRoot": "${projectDir}\\out\\build\\${name}",
             "installRoot": "${projectDir}\\out\\install\\${name}",
-            "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Dev\\Packages\\SDL2-2.30.11;C:\\Dev\\Packages\\SDL2_ttf-2.24.0;C:\\Dev\\Packages\\SDL2_mixer-2.8.0;-DCMAKE_PREFIX_PATH=D:\\Dev\\Packages\\SDL2-2.30.11;D:\\Dev\\Packages\\SDL2_ttf-2.24.0;D:\\Dev\\Packages\\SDL2_mixer-2.8.0;D:\\Dev\\Packages\\SDL2_image-2.8.5",
+            "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:\\Dev\\Packages\\SDL2-2.30.12;C:\\Dev\\Packages\\SDL2_ttf-2.24.0;C:\\Dev\\Packages\\SDL2_mixer-2.8.0;-DCMAKE_PREFIX_PATH=D:\\Dev\\Packages\\SDL2-2.30.11;D:\\Dev\\Packages\\SDL2_ttf-2.24.0;D:\\Dev\\Packages\\SDL2_mixer-2.8.0;D:\\Dev\\Packages\\SDL2_image-2.8.5",
             "ctestCommandArgs": "",
             "inheritEnvironments": [ "msvc_x64_x64" ]
         }

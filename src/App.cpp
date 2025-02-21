@@ -34,6 +34,7 @@ int main(int argc, char* argv[])
 	// Create your gameobjects here
 	
 	DjipiApp::Player player = DjipiApp::Player();
+	player.SetTexture(resourceManager.GetTexture("resources\\textures\\player.png"));
 
 	// GAME LOOP
 	while (!quit)
@@ -48,7 +49,7 @@ int main(int argc, char* argv[])
 			if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 			{
 				if (e.key.keysym.sym == SDLK_SPACE)
-					resourceManager.UnloadAllResources();
+					resourceManager.ReloadResource("resources\\textures\\player.png");
 			}
 
 			// Handle your events here

@@ -2,14 +2,37 @@
 
 namespace Djipi
 {
+	GameObject::GameObject(std::shared_ptr<Texture> texture)
+		: m_Name("GameObject"), m_Velocity(0, 0), m_Texture(texture) { }
+
+	GameObject::GameObject(std::string name, std::shared_ptr<Texture> texture)
+		: m_Name(name), m_Velocity(0, 0), m_Texture(texture) { }
+
+	GameObject::GameObject(std::string name, int x, int y, std::shared_ptr<Texture> texture)
+		: m_Name(name), m_Velocity(0, 0), m_Texture(texture)
+	{
+		m_Transform.SetPosition(x, y);
+	}
+
 	void GameObject::Render(SDL_Renderer* renderer)
 	{
-		SDL_FRect rect = {
-			m_Transform.position.x, m_Transform.position.y,
-			m_Transform.size.x, m_Transform.size.y
-		};
-		SDL_RenderFillRectF(renderer, &rect);
-
+		if (m_Texture == nullptr)
+		{
+			SDL_FRect rect = {
+		m_Transform.position.x, m_Transform.position.y,
+		m_Transform.size.x, m_Transform.size.y
+			};
+			SDL_RenderFillRectF(renderer, &rect);
+		}
+		else
+		{
+			SDL_Rect rect = {
+		m_Transform.position.x, m_Transform.position.y,
+		m_Transform.size.x, m_Transform.size.y
+			};
+			SDL_RenderCopy(renderer, m_Texture->GetSDLTexture(), NULL, &rect);
+		}
+		
 #ifndef NDEBUG
 		//Debug draw colliders
 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);

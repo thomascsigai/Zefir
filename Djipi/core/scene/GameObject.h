@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <Transform2D.h>
+#include <Texture.h>
 
 #include <iostream>
 
@@ -14,13 +15,12 @@ namespace Djipi
 		Transform2D m_Transform;
 		Vector2 m_Velocity;
 
+		std::shared_ptr<Texture> m_Texture;
+
 	public:
-		GameObject() : m_Name("GameObject"), m_Velocity(0, 0) {}
-		GameObject(std::string name) : m_Name(name), m_Velocity(0, 0) {}
-		GameObject(std::string name, int x, int y) : m_Name(name), m_Velocity(0, 0)
-		{ 
-			m_Transform.SetPosition(x, y); 
-		}
+		GameObject(std::shared_ptr<Texture> texture = nullptr);
+		GameObject(std::string name, std::shared_ptr<Texture> texture = nullptr);
+		GameObject(std::string name, int x, int y, std::shared_ptr<Texture> texture = nullptr);
 
 		virtual void Render(SDL_Renderer* renderer);
 		virtual void Update(double deltaTime);
@@ -35,5 +35,6 @@ namespace Djipi
 
 		//Setters
 		void SetName(std::string name) { m_Name = name; }
+		void SetTexture(std::shared_ptr<Texture> texture) { m_Texture = texture; }
 	};
 }

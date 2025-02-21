@@ -25,7 +25,7 @@ namespace Djipi
 		bool UnloadResource(const std::string& path, bool erase = true);
 		bool ReloadResource(const std::string& path);
 
-		//const Resource& GetResource(const std::string& path) const;
+		std::shared_ptr<Texture> GetTexture(const std::string& path);
 
 	private:
 		bool m_PreloadAll;
