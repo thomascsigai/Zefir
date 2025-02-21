@@ -1,19 +1,18 @@
 #pragma once
 
+#include <string>
+#include <filesystem>
+
 namespace Djipi
 {
 	class Resource
 	{
 	public:
-		Resource();
-		virtual ~Resource();
+		Resource() = default;
 
-		virtual bool Load();
-		virtual void Unload();
-		virtual bool Reload();
-
-	private:
-		bool Init();
+		virtual bool Load() = 0;
+		virtual bool Unload() = 0;
+		virtual bool Reload() = 0;
 
 	};
 }

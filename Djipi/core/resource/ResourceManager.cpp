@@ -10,6 +10,24 @@ namespace Djipi
 {
 	ResourceManager::ResourceManager(bool preloadAll) : m_PreloadAll(preloadAll)
 	{
+		m_Renderer = nullptr;
+		Init();
+	}
+
+	ResourceManager::ResourceManager(Renderer* renderer, bool preloadAll)
+	{
+		m_Renderer = renderer;
+		Init();
+	}
+
+	ResourceManager::~ResourceManager()
+	{
+		m_Renderer = nullptr;
+		Shutdown();
+	}
+	
+	void ResourceManager::Init()
+	{
 		if (m_PreloadAll)
 		{
 			if (!LoadAllResources())
@@ -18,12 +36,12 @@ namespace Djipi
 			}
 			else
 			{
-				LOG_INFO("All resources preloaded.")
+				LOG_INFO("All resources preloaded.");
 			}
 		}
 	}
 
-	ResourceManager::~ResourceManager()
+	void ResourceManager::Shutdown()
 	{
 		UnloadAllResources();
 	}
@@ -46,7 +64,6 @@ namespace Djipi
 			if (fs::is_regular_file(entry.path()))
 			{
 				std::string filePath = entry.path().string();
-				std::string parentFolder = entry.path().parent_path().filename().string();
 
 				if (!LoadResource(filePath))
 				{
@@ -68,22 +85,192 @@ namespace Djipi
 
 	bool ResourceManager::UnloadAllResources()
 	{
+		int resourcesFound = 0;
+		int resourcesUnloaded = 0;
+		int resourcesNotUnloaded = 0;
+
+		for (auto& texture : m_Textures)
+		{
+			resourcesFound++;
+
+			if (UnloadResource(texture.first, false))
+			{
+				resourcesUnloaded++;
+			}
+			else
+			{
+				resourcesNotUnloaded++;
+			}
+		}
+
+		for (auto& sound : m_Sounds)
+		{
+			resourcesFound++;
+
+			if (UnloadResource(sound.first, false))
+			{
+				resourcesUnloaded++;
+			}
+			else
+			{
+				resourcesNotUnloaded++;
+			}
+		}
+
+		for (auto& font : m_Fonts)
+		{
+			resourcesFound++;
+
+			if (UnloadResource(font.first, false))
+			{
+				resourcesUnloaded++;
+			}
+			else
+			{
+				resourcesNotUnloaded++;
+			}
+		}
+
+		m_Textures.clear();
+		m_Sounds.clear();
+		m_Fonts.clear();
+
+		LOG_INFO("Unloading complete. Resources found: " << resourcesFound << " (" << resourcesUnloaded << " unloaded, " << resourcesNotUnloaded << " not unloaded).");
 		return true;
 	}
 
 	bool ResourceManager::LoadResource(const std::string& path)
 	{
-		LOG_INFO("Loaded : " + path);
+		std::string parentFolder = fs::path(path).parent_path().filename().string();
+
+		// Detect resource type by location in resource dir
+		if (parentFolder == RESOURCES_TEXTURES_DIR)
+		{
+			std::shared_ptr<Texture> texture = std::make_shared<Texture>(path, m_Renderer);
+			if (!texture->Load())
+			{
+				LOG_WARN("Texture " + path + " could not be loaded.");
+				return false;
+			}
+			else
+			{
+				m_Textures.insert({ path, texture });
+				LOG_INFO("Texture " + path + " successfully loaded.");
+			}
+			
+		}
+		else if (parentFolder == RESOURCES_SOUNDS_DIR)
+		{
+			std::shared_ptr<Sound> sound = std::make_shared<Sound>(path);
+			if (!sound->Load())
+			{
+				LOG_WARN("Sound " + path + " could not be loaded.");
+				return false;
+			}
+			else
+			{
+				m_Sounds.insert({ path, sound });
+				LOG_INFO("Sound " + path + " successfully loaded.");
+			}
+		}
+		else if (parentFolder == RESOURCES_FONTS_DIR)
+		{
+			std::shared_ptr<Font> font = std::make_shared<Font>(path);
+			if (!font->Load())
+			{
+				LOG_WARN("Font " + path + " could not be loaded.");
+				return false;
+			}
+			else
+			{
+				m_Fonts.insert({ path, font });
+				LOG_INFO("Font " + path + " successfully loaded.");
+			}
+		}
+		else
+		{
+			LOG_WARN(path + " could not be loaded. Resource does not exist or is not in valid directory.");
+			return false;
+		}
+		
 		return true;
 	}
 
-	bool ResourceManager::UnloadResource(const std::string& path)
+	bool ResourceManager::UnloadResource(const std::string& path, bool erase)
 	{
+		std::string parentFolder = fs::path(path).parent_path().filename().string();
+
+		// Detect resource type by location in resource dir
+		if (parentFolder == RESOURCES_TEXTURES_DIR)
+		{
+			if (m_Textures.count(path) != 0)
+			{
+				m_Textures[path]->Unload();
+				
+				if (erase)
+				{
+					m_Textures.erase(path);
+				}
+			}
+		}
+		else if (parentFolder == RESOURCES_SOUNDS_DIR)
+		{
+			if (m_Sounds.count(path) != 0)
+			{
+				m_Sounds[path]->Unload();
+				
+				if (erase)
+				{
+					m_Sounds.erase(path);
+				}
+			}
+		}
+		else if (parentFolder == RESOURCES_FONTS_DIR)
+		{
+			if (m_Fonts.count(path) != 0)
+			{
+				m_Fonts[path]->Unload();
+				
+				if (erase)
+				{
+					m_Sounds.erase(path);
+				}
+			}
+		}
+		else
+		{
+			LOG_WARN(path + " could not be unloaded. Resource does not exist or is not in valid directory.");
+			return false;
+		}
+
+		LOG_INFO(path + " successfully unloaded.");
 		return true;
 	}
 
 	bool ResourceManager::ReloadResource(const std::string& path)
 	{
+		std::string parentFolder = fs::path(path).parent_path().filename().string();
+
+		// Detect resource type by location in resource dir
+		if (parentFolder == RESOURCES_TEXTURES_DIR)
+		{
+			m_Textures[path]->Reload();
+		}
+		else if (parentFolder == RESOURCES_SOUNDS_DIR)
+		{
+			m_Sounds[path]->Reload();
+		}
+		else if (parentFolder == RESOURCES_FONTS_DIR)
+		{
+			m_Fonts[path]->Reload();
+		}
+		else
+		{
+			LOG_WARN(path + " could not be reloaded. Resource does not exist or is not in valid directory.");
+			return false;
+		}
+
+		LOG_INFO(path + " successfully reloaded.");
 		return true;
 	}
 
