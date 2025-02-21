@@ -15,6 +15,7 @@ endif()
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
+find_package(SDL2_image REQUIRED)
 
 add_executable(Djipi-App
     "${CMAKE_CURRENT_SOURCE_DIR}/src/App.cpp"
@@ -22,6 +23,7 @@ add_executable(Djipi-App
 
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/renderer/Renderer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/ResourceManager.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/Texture.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/scene/GameObject.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/window/Window.cpp"
 
@@ -52,6 +54,7 @@ target_link_libraries(Djipi-App PRIVATE
     SDL2::SDL2main
     SDL2_ttf::SDL2_ttf
     SDL2_mixer::SDL2_mixer
+    SDL2_image::SDL2_image
 )
 # Copy SDL2.dll that exists in base project folder
 # If it does not exist, find it in your SDL2 folder and copy it.
@@ -75,6 +78,14 @@ if (EXISTS ${CMAKE_SOURCE_DIR}/SDL2_mixer.dll)
 	file(COPY ${CMAKE_SOURCE_DIR}/SDL2_mixer.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 else()
 	message(FATAL_ERROR "SDL2_mixer.dll not found in project base directory.")
+endif()
+
+# Copy SDL2_image.dll that exists in base project folder
+# If it does not exist, find it in your SDL2_mixer folder and copy it.
+if (EXISTS ${CMAKE_SOURCE_DIR}/SDL2_image.dll)
+	file(COPY ${CMAKE_SOURCE_DIR}/SDL2_image.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+else()
+	message(FATAL_ERROR "SDL2_image.dll not found in project base directory.")
 endif()
 
 # Copy Ressources directory to binary dir

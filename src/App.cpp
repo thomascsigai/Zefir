@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 
 	Djipi::Window window = Djipi::Window();
 	Djipi::Renderer renderer = Djipi::Renderer(&window);
-	Djipi::ResourceManager resourceManager = Djipi::ResourceManager();
+	Djipi::ResourceManager resourceManager = Djipi::ResourceManager(&renderer);
 
 	Uint64 previousTime = SDL_GetTicks();
 	Uint64 currentTime;
@@ -44,6 +44,11 @@ int main(int argc, char* argv[])
 			if (e.type == SDL_QUIT)
 			{
 				quit = true;
+			}
+			if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+			{
+				if (e.key.keysym.sym == SDLK_SPACE)
+					resourceManager.UnloadAllResources();
 			}
 
 			// Handle your events here

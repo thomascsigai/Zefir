@@ -5,20 +5,19 @@
 
 #include <GameConfig.h>
 #include <Log.h>
-#include <DjipiSystem.h>
 
 namespace Djipi
 {
-	class Window : public DjipiSystem
+	class Window
 	{
 	public:
 		Window();
-		~Window() override;
+		~Window();
 		SDL_Window* GetSDLWindow() const { return m_SDLWindow; }
 
 	private:
-		bool Init() override;
-		void Shutdown() override;
+		bool Init();
+		void Shutdown();
 
 		SDL_Window* m_SDLWindow;
 	};

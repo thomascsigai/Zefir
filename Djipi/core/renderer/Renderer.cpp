@@ -2,9 +2,9 @@
 
 namespace Djipi
 {
-	Renderer::Renderer(Window* window) : m_Window(window)
+	Renderer::Renderer(Window* window)
 	{
-		if (!Init())
+		if (!Init(window))
 		{
 			LOG_FATAL("Unable to init Renderer System.");
 		}
@@ -15,17 +15,17 @@ namespace Djipi
 		Shutdown();
 	}
 
-	bool Renderer::Init()
+	bool Renderer::Init(Window* window)
 	{
 		bool success = true;
 
-		if (m_Window->GetSDLWindow() == nullptr)
+		if (window->GetSDLWindow() == nullptr)
 		{
 			LOG_FATAL("Window cannot be null while creating renderer !");
 			success = false;
 		}
 
-		m_SDLRenderer = SDL_CreateRenderer(m_Window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED);
+		m_SDLRenderer = SDL_CreateRenderer(window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED);
 
 		if (m_SDLRenderer == nullptr)
 		{
@@ -33,7 +33,6 @@ namespace Djipi
 			success = false;
 		}
 
-		m_Window = nullptr;
 		return success;
 	}
 

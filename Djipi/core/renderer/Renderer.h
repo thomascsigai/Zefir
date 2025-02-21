@@ -1,24 +1,21 @@
 #pragma once
 
 #include <SDL.h>
-#include <DjipiSystem.h>
 #include <Window.h>
 
 namespace Djipi
 {
-	class Renderer : public DjipiSystem
+	class Renderer
 	{
 	public:
 		Renderer(Window* window);
-		~Renderer() override;
+		~Renderer();
 
 		SDL_Renderer* GetSDLRenderer() const { return m_SDLRenderer; }
 
 	private:
-		bool Init() override;
-		void Shutdown() override;
-
-		Window* m_Window;
+		bool Init(Window* window);
+		void Shutdown();
 
 		SDL_Renderer* m_SDLRenderer;
 	};
