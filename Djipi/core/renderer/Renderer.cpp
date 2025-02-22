@@ -40,6 +40,12 @@ namespace Djipi
 			success = false;
 		}
 
+		if (TTF_Init() < 0)
+		{
+			LOG_WARN("SDL_ttf could not initialize : " << TTF_GetError());
+			success = false;
+		}
+
 		return success;
 	}
 
@@ -51,11 +57,11 @@ namespace Djipi
 }
 
 
-//if (TTF_Init() < 0)
-//{
-//	std::cerr << "SDL_ttf could not initialize : " << TTF_GetError() << std::endl;
-//	success = false;
-//}
+//
+//
+//
+//
+//
 //
 ////Initialize SDL_mixer
 //if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
