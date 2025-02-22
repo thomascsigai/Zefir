@@ -20,6 +20,7 @@ namespace Djipi
 
 		bool LoadAllResources();
 		bool UnloadAllResources();
+		bool ReloadAllResources();
 
 		bool LoadResource(const std::string& path);
 		bool UnloadResource(const std::string& path, bool erase = true);

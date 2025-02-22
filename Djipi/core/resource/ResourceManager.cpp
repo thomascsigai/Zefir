@@ -139,6 +139,58 @@ namespace Djipi
 		return true;
 	}
 
+	bool ResourceManager::ReloadAllResources()
+	{
+		int resourcesFound = 0;
+		int resourcesReloaded = 0;
+		int resourcesNotReloaded = 0;
+
+		for (auto& texture : m_Textures)
+		{
+			resourcesFound++;
+
+			if (ReloadResource(texture.first))
+			{
+				resourcesReloaded++;
+			}
+			else
+			{
+				resourcesNotReloaded++;
+			}
+		}
+
+		for (auto& sound : m_Sounds)
+		{
+			resourcesFound++;
+
+			if (ReloadResource(sound.first))
+			{
+				resourcesReloaded++;
+			}
+			else
+			{
+				resourcesNotReloaded++;
+			}
+		}
+
+		for (auto& font : m_Fonts)
+		{
+			resourcesFound++;
+
+			if (ReloadResource(font.first))
+			{
+				resourcesReloaded++;
+			}
+			else
+			{
+				resourcesNotReloaded++;
+			}
+		}
+
+		LOG_INFO("Reloading complete. Resources found: " << resourcesFound << " (" << resourcesReloaded << " reloaded, " << resourcesNotReloaded << " not reloaded).");
+		return true;
+	}
+
 	bool ResourceManager::LoadResource(const std::string& path)
 	{
 		std::string parentFolder = fs::path(path).parent_path().filename().string();
