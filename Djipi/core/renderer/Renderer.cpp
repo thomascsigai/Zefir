@@ -33,6 +33,13 @@ namespace Djipi
 			success = false;
 		}
 
+		int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+		if (!(IMG_Init(imgFlags) & imgFlags))
+		{
+			LOG_WARN("SDL_image could not initialize! SDL_image Error: " << IMG_GetError());
+			success = false;
+		}
+
 		return success;
 	}
 
