@@ -11,16 +11,13 @@ namespace Djipi
 		Shutdown();
 	}
 
-	bool SoundManager::PlaySound(std::shared_ptr<Sound> sound, bool infiniteLoop)
+	bool SoundManager::PlaySound(std::shared_ptr<Sound> sound, int loops)
 	{
 		if (sound == nullptr)
 		{
 			LOG_WARN("Sound does not exist and could not be played.");
 			return false;
 		}
-
-		int loop;
-		infiniteLoop ? loop = -1 : loop = 0;
 
 		Mix_Chunk* chunk = sound->GetMixChunk();
 		if (chunk == nullptr)
@@ -29,7 +26,7 @@ namespace Djipi
 			return false;
 		}
 
-		Mix_PlayChannel(-1, sound->GetMixChunk(), loop);
+		Mix_PlayChannel(-1, sound->GetMixChunk(), loops);
 		return true;
 	}
 

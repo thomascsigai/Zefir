@@ -11,7 +11,7 @@ namespace Djipi
 		SoundManager();
 		~SoundManager();
 
-		bool PlaySound(std::shared_ptr<Sound> sound, bool infiniteLoop = false);
+		bool PlaySound(std::shared_ptr<Sound> sound, int loops = 0);
 
 	private:
 		bool Init();
