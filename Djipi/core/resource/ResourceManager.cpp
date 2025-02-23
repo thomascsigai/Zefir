@@ -258,6 +258,7 @@ namespace Djipi
 			if (m_Textures.count(path) != 0)
 			{
 				m_Textures[path]->Unload();
+				m_Textures[path] = nullptr;
 				
 				if (erase)
 				{
@@ -270,6 +271,7 @@ namespace Djipi
 			if (m_Sounds.count(path) != 0)
 			{
 				m_Sounds[path]->Unload();
+				m_Sounds[path] = nullptr;
 				
 				if (erase)
 				{
@@ -282,6 +284,7 @@ namespace Djipi
 			if (m_Fonts.count(path) != 0)
 			{
 				m_Fonts[path]->Unload();
+				m_Fonts[path] = nullptr;
 				
 				if (erase)
 				{
@@ -306,15 +309,24 @@ namespace Djipi
 		// Detect resource type by location in resource dir
 		if (parentFolder == RESOURCES_TEXTURES_DIR)
 		{
-			m_Textures[path]->Reload();
+			if (!m_Textures[path]->Reload())
+			{
+				return false;
+			}
 		}
 		else if (parentFolder == RESOURCES_SOUNDS_DIR)
 		{
-			m_Sounds[path]->Reload();
+			if (!m_Sounds[path]->Reload())
+			{
+				return false;
+			}
 		}
 		else if (parentFolder == RESOURCES_FONTS_DIR)
 		{
-			m_Fonts[path]->Reload();
+			if (!m_Fonts[path]->Reload())
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -335,6 +347,20 @@ namespace Djipi
 		else
 		{
 			LOG_WARN(path + " not found. Texture is not loaded or does not exist.")
+		}
+
+		return nullptr;
+	}
+	
+	std::shared_ptr<Sound> ResourceManager::GetSound(const std::string& path)
+	{
+		if (m_Sounds.count(path) != 0)
+		{
+			return m_Sounds[path];
+		}
+		else
+		{
+			LOG_WARN(path + " not found. Sound is not loaded or does not exist.")
 		}
 
 		return nullptr;

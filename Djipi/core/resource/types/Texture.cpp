@@ -33,7 +33,7 @@ namespace Djipi
 
 		if (m_SDLTexture == nullptr)
 		{
-			LOG_WARN("Texture " << m_Path << " could not be loaded." << SDL_GetError());
+			LOG_WARN(SDL_GetError());
 			return false;
 		}
 

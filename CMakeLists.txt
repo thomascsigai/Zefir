@@ -23,9 +23,11 @@ add_executable(Djipi-App
 
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/renderer/Renderer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/ResourceManager.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/Texture.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Texture.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Sound.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/scene/GameObject.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/window/Window.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/sound/SoundManager.cpp"
 
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/collision/Collision.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/math/Vector2.cpp"
@@ -44,9 +46,11 @@ target_include_directories(Djipi-App PRIVATE
 
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/scene"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/window"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/renderer"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/sound"
 )
 
 target_link_libraries(Djipi-App PRIVATE

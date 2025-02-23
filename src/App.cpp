@@ -24,6 +24,8 @@ int main(int argc, char* argv[])
 
 	Djipi::Window window = Djipi::Window();
 	Djipi::Renderer renderer = Djipi::Renderer(&window);
+	Djipi::SoundManager soundManager = Djipi::SoundManager();
+
 	Djipi::ResourceManager resourceManager = Djipi::ResourceManager(&renderer);
 
 	Uint64 previousTime = SDL_GetTicks();
@@ -50,6 +52,10 @@ int main(int argc, char* argv[])
 			{
 				if (e.key.keysym.sym == SDLK_SPACE)
 					resourceManager.ReloadAllResources();
+				if (e.key.keysym.sym == SDLK_e)
+					soundManager.PlaySound(resourceManager.GetSound("resources\\sounds\\win1.wav"));
+				if (e.key.keysym.sym == SDLK_r)
+					resourceManager.UnloadAllResources();
 			}
 
 			// Handle your events here

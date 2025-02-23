@@ -10,6 +10,7 @@
 #include <Collision.h>
 #include <Log.h>
 #include <ResourceManager.h>
+#include <SoundManager.h>
 #include <Resource.h>
 #include <Texture.h>
 #include <Sound.h>
