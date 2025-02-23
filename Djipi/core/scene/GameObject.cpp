@@ -16,21 +16,21 @@ namespace Djipi
 
 	void GameObject::Render(SDL_Renderer* renderer)
 	{
-		if (m_Texture == nullptr)
+		if (auto texture = m_Texture.lock())
+		{
+			SDL_Rect rect = {
+		m_Transform.position.x, m_Transform.position.y,
+		m_Transform.size.x, m_Transform.size.y
+			};
+			SDL_RenderCopy(renderer, texture->GetSDLTexture(), NULL, &rect);
+		}
+		else
 		{
 			SDL_FRect rect = {
 		m_Transform.position.x, m_Transform.position.y,
 		m_Transform.size.x, m_Transform.size.y
 			};
 			SDL_RenderFillRectF(renderer, &rect);
-		}
-		else
-		{
-			SDL_Rect rect = {
-		m_Transform.position.x, m_Transform.position.y,
-		m_Transform.size.x, m_Transform.size.y
-			};
-			SDL_RenderCopy(renderer, m_Texture->GetSDLTexture(), NULL, &rect);
 		}
 		
 #ifndef NDEBUG

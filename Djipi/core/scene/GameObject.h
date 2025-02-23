@@ -15,7 +15,7 @@ namespace Djipi
 		Transform2D m_Transform;
 		Vector2 m_Velocity;
 
-		std::shared_ptr<Texture> m_Texture;
+		std::weak_ptr<Texture> m_Texture;
 
 	public:
 		GameObject(std::shared_ptr<Texture> texture = nullptr);

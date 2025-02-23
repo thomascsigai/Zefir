@@ -51,21 +51,10 @@ namespace Djipi
 
 	void Renderer::Shutdown()
 	{
+		TTF_Quit();
+		IMG_Quit();
+
 		SDL_DestroyRenderer(m_SDLRenderer);
 		m_SDLRenderer = nullptr;
 	}
 }
-
-
-//
-//
-//
-//
-//
-//
-////Initialize SDL_mixer
-//if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-//{
-//	std::cerr << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << std::endl;
-//	success = false;
-//}
