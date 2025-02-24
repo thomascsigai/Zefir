@@ -15,32 +15,45 @@ endif()
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
+find_package(SDL2_image REQUIRED)
 
 add_executable(Djipi-App
     "${CMAKE_CURRENT_SOURCE_DIR}/src/App.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Timer.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/Texture.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/UserEvents.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/Djipi.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Window.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Window.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/GameObject.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/Player.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/Player.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/Transform2D.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math/Vector2.h"
-    
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math/Vector2.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/GameObject.cpp"
+
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/renderer/Renderer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/ResourceManager.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Texture.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Sound.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Font.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/scene/GameObject.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/window/Window.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/sound/SoundManager.cpp"
+
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/collision/Collision.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/math/Vector2.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/time/Timer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/text/TextRendering.cpp"
 )
 
 target_include_directories(Djipi-App PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi"
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
+
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/collision"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/debug"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/math"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/time"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/text"
+
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/math"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/scene"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/window"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/renderer"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/sound"
 )
 
 target_link_libraries(Djipi-App PRIVATE
@@ -48,6 +61,7 @@ target_link_libraries(Djipi-App PRIVATE
     SDL2::SDL2main
     SDL2_ttf::SDL2_ttf
     SDL2_mixer::SDL2_mixer
+    SDL2_image::SDL2_image
 )
 # Copy SDL2.dll that exists in base project folder
 # If it does not exist, find it in your SDL2 folder and copy it.
@@ -71,6 +85,14 @@ if (EXISTS ${CMAKE_SOURCE_DIR}/SDL2_mixer.dll)
 	file(COPY ${CMAKE_SOURCE_DIR}/SDL2_mixer.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 else()
 	message(FATAL_ERROR "SDL2_mixer.dll not found in project base directory.")
+endif()
+
+# Copy SDL2_image.dll that exists in base project folder
+# If it does not exist, find it in your SDL2_mixer folder and copy it.
+if (EXISTS ${CMAKE_SOURCE_DIR}/SDL2_image.dll)
+	file(COPY ${CMAKE_SOURCE_DIR}/SDL2_image.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+else()
+	message(FATAL_ERROR "SDL2_image.dll not found in project base directory.")
 endif()
 
 # Copy Ressources directory to binary dir

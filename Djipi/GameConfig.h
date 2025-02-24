@@ -1,9 +1,6 @@
 #pragma once
 
-#include <iostream>
 #include <SDL.h>
-
-using namespace std;
 
 // WINDOW SETTINGS --------------------------------------------------
 
@@ -13,7 +10,10 @@ constexpr Uint16 SCREEN_HEIGHT = 600;
 
 // RESOURCES SETTINGS ---------------------------------------------------
 
-#define RESOURCES_DIR_PATH "resources/"
+#define RESOURCES_BASE_DIR "resources"
+#define RESOURCES_TEXTURES_DIR "textures"
+#define RESOURCES_SOUNDS_DIR "sounds"
+#define RESOURCES_FONTS_DIR "fonts"
 
 
 // GAME SPECIFIC SETTINGS -------------------------------------------
