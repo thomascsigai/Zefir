@@ -25,6 +25,7 @@ add_executable(Djipi-App
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/ResourceManager.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Texture.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Sound.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource/types/Font.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/scene/GameObject.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/window/Window.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/sound/SoundManager.cpp"

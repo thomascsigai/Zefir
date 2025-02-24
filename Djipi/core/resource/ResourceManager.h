@@ -28,6 +28,7 @@ namespace Djipi
 
 		std::shared_ptr<Texture> GetTexture(const std::string& path);
 		std::shared_ptr<Sound> GetSound(const std::string& path);
+		std::shared_ptr<Font> GetFont(const std::string& path);
 
 	private:
 		bool m_PreloadAll;

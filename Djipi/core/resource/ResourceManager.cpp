@@ -365,4 +365,18 @@ namespace Djipi
 
 		return nullptr;
 	}
+
+	std::shared_ptr<Font> ResourceManager::GetFont(const std::string& path)
+	{
+		if (m_Fonts.count(path) != 0)
+		{
+			return m_Fonts[path];
+		}
+		else
+		{
+			LOG_WARN(path + " not found. Font is not loaded or does not exist.")
+		}
+
+		return nullptr;
+	}
 }
