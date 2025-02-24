@@ -8,11 +8,11 @@
 #include <Texture.h>
 #include <Timer.h>
 #include <Collision.h>
+#include <TextRendering.h>
 #include <Log.h>
 #include <ResourceManager.h>
 #include <SoundManager.h>
 #include <Resource.h>
-#include <Texture.h>
 #include <Sound.h>
 #include <Font.h>
 

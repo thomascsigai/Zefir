@@ -2,4 +2,7 @@
 
 #include <SDL.h>
 
-bool CheckCollisionAABB(SDL_FRect a, SDL_FRect b);
+namespace Djipi
+{
+	bool CheckCollisionAABB(SDL_FRect a, SDL_FRect b);
+}

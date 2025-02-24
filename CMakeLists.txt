@@ -33,6 +33,7 @@ add_executable(Djipi-App
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/collision/Collision.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/math/Vector2.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/time/Timer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/text/TextRendering.cpp"
 )
 
 target_include_directories(Djipi-App PRIVATE
@@ -44,6 +45,7 @@ target_include_directories(Djipi-App PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/debug"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/math"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/time"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/utils/text"
 
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core"
     "${CMAKE_CURRENT_SOURCE_DIR}/Djipi/core/resource"
