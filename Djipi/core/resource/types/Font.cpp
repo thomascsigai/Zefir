@@ -7,6 +7,11 @@ namespace Djipi
 
 	bool Font::Load()
 	{
+		if (m_FontTTF != nullptr)
+		{
+			Unload();
+		}
+
 		m_FontTTF = TTF_OpenFont(m_Path.c_str(), 1);
 
 		if (m_FontTTF == nullptr)

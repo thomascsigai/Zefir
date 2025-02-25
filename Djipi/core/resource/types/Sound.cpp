@@ -7,6 +7,11 @@ namespace Djipi
 
 	bool Sound::Load()
 	{
+		if (m_MixChunk != nullptr)
+		{
+			Unload();
+		}
+
 		m_MixChunk = Mix_LoadWAV(m_Path.c_str());
 		if (m_MixChunk == nullptr)
 		{
