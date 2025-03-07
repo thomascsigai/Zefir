@@ -14,7 +14,7 @@ namespace Djipi
 		Init();
 	}
 
-	ResourceManager::ResourceManager(Renderer* renderer, bool preloadAll)
+	ResourceManager::ResourceManager(Renderer* renderer, bool preloadAll) : m_PreloadAll(preloadAll)
 	{
 		m_Renderer = renderer;
 		Init();
