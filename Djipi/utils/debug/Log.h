@@ -25,8 +25,8 @@
 #define LOG_WARN(str) {}
 #define LOG_FATAL(str) {}
 
-#define LOG_INFO(str) {}
-#define LOG_WARN(str) {}
-#define LOG_FATAL(str) {}
+#define APP_LOG_INFO(str) {}
+#define APP_LOG_WARN(str) {}
+#define APP_LOG_FATAL(str) {}
 
 #endif
