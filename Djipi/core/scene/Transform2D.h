@@ -17,6 +17,12 @@ namespace Djipi
 			position = Vector2(_x, _y);
 			UpdateCollider();
 		}
+		
+		void SetPosition(Vector2 _position)
+		{
+			position = _position;
+			UpdateCollider();
+		}
 
 		void SetSize(float _w, float _h)
 		{
