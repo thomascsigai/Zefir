@@ -3,7 +3,7 @@
 **Zefir** is a lightweight and simple 2D game engine built with **C++** and **SDL2**.
 Designed to go *against the wind*, Zefir gives you just enough to build focused, expressive 2D games — and nothing more.
 
-## Games made with Djipi :
+## Games made with Zefir :
 
 1. **[Fireball Fiasco](https://github.com/thomascsigai/Fireball-Fiasco)**  
    A game where you play a clumsy wizard that has to dodge his own magic.

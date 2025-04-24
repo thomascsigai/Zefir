@@ -1,7 +1,7 @@
 #include <Player.h>
 #include <GameConfig.h>
 
-namespace DjipiApp
+namespace ZefirApp
 {
 	Player::Player()
 	{

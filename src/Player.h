@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Djipi.h>
+#include <Zefir.h>
 
-namespace DjipiApp
+namespace ZefirApp
 {
-	class Player : public Djipi::GameObject
+	class Player : public Zefir::GameObject
 	{
 	public:
 		Player();

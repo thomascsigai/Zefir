@@ -2,7 +2,7 @@
 //
 
 #include <GameConfig.h>
-#include <Djipi.h>
+#include <Zefir.h>
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -22,11 +22,11 @@ int main(int argc, char* argv[])
 
 	SDL_Event e;
 
-	Djipi::Window window = Djipi::Window();
-	Djipi::Renderer renderer = Djipi::Renderer(&window);
-	Djipi::SoundManager soundManager = Djipi::SoundManager();
+	Zefir::Window window = Zefir::Window();
+	Zefir::Renderer renderer = Zefir::Renderer(&window);
+	Zefir::SoundManager soundManager = Zefir::SoundManager();
 
-	Djipi::ResourceManager resourceManager = Djipi::ResourceManager(&renderer);
+	Zefir::ResourceManager resourceManager = Zefir::ResourceManager(&renderer);
 
 	Uint64 previousTime = SDL_GetTicks();
 	Uint64 currentTime;
@@ -35,13 +35,13 @@ int main(int argc, char* argv[])
 	// GAMEOBJECTS
 	// Create your gameobjects here
 	
-	DjipiApp::Player player = DjipiApp::Player();
+	ZefirApp::Player player = ZefirApp::Player();
 	player.SetTexture(resourceManager.GetTexture("resources\\textures\\player.png"));
 
 	SDL_Texture* text = nullptr;
 	SDL_Texture* text2 = nullptr;
-	Djipi::LoadText(text, "Text rendering", 75, resourceManager, renderer, { 255, 255, 255, 255 });
-	Djipi::LoadText(text2, "Text rendering2", 15, resourceManager, renderer, { 255, 255, 255, 255 });
+	Zefir::LoadText(text, "Text rendering", 75, resourceManager, renderer, { 255, 255, 255, 255 });
+	Zefir::LoadText(text2, "Text rendering2", 15, resourceManager, renderer, { 255, 255, 255, 255 });
 
 	// GAME LOOP
 	while (!quit)
@@ -84,8 +84,8 @@ int main(int argc, char* argv[])
 		// Render all objects in the scene here
 
 		player.Render(renderer.GetSDLRenderer());
-		Djipi::RenderText(text, renderer, 100, 200);
-		Djipi::RenderText(text2, renderer, 500, 500);
+		Zefir::RenderText(text, renderer, 100, 200);
+		Zefir::RenderText(text2, renderer, 500, 500);
 
 		SDL_RenderPresent(renderer.GetSDLRenderer());
 	}
