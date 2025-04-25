@@ -21,6 +21,8 @@ namespace Zefir
 
 		SDL_Texture* GetSDLTexture() const;
 
+		virtual bool IsAnimated(); // Return false by default
+
 	private:
 		Renderer* m_Renderer;
 		std::string m_Path;

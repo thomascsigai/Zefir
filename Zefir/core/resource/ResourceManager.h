@@ -6,6 +6,7 @@
 
 #include <Renderer.h>
 #include <Texture.h>
+#include <AnimatedTexture.h>
 #include <Sound.h>
 #include <Font.h>
 
@@ -27,6 +28,7 @@ namespace Zefir
 		bool ReloadResource(const std::string& path);
 
 		std::shared_ptr<Texture> GetTexture(const std::string& path);
+		std::shared_ptr<AnimatedTexture> GetAnimatedTexture(const std::string& path);
 		std::shared_ptr<Sound> GetSound(const std::string& path);
 		std::shared_ptr<Font> GetFont(const std::string& path);
 
@@ -34,6 +36,7 @@ namespace Zefir
 		bool m_PreloadAll;
 	
 		std::unordered_map<std::string, std::shared_ptr<Texture>> m_Textures;
+		std::unordered_map<std::string, std::shared_ptr<AnimatedTexture>> m_AnimatedTextures;
 		std::unordered_map<std::string, std::shared_ptr<Sound>> m_Sounds;
 		std::unordered_map<std::string, std::shared_ptr<Font>> m_Fonts;
 

@@ -211,6 +211,20 @@ namespace Zefir
 			}
 			
 		}
+		else if (parentFolder == RESOURCES_ANIM_DIR)
+		{
+			std::shared_ptr<AnimatedTexture> anim = std::make_shared<AnimatedTexture>(path, m_Renderer);
+			if (!anim->Load())
+			{
+				LOG_WARN("Animated texture " + path + " could not be loaded.");
+				return false;
+			}
+			else
+			{
+				m_AnimatedTextures.insert({ path, anim });
+				LOG_INFO("Animated texture " + path + " successfully loaded.");
+			}
+		}
 		else if (parentFolder == RESOURCES_SOUNDS_DIR)
 		{
 			std::shared_ptr<Sound> sound = std::make_shared<Sound>(path);
@@ -347,6 +361,20 @@ namespace Zefir
 		else
 		{
 			LOG_WARN(path + " not found. Texture is not loaded or does not exist.")
+		}
+
+		return nullptr;
+	}
+
+	std::shared_ptr<AnimatedTexture> ResourceManager::GetAnimatedTexture(const std::string& path)
+	{
+		if (m_AnimatedTextures.count(path) != 0)
+		{
+			return m_AnimatedTextures[path];
+		}
+		else
+		{
+			LOG_WARN(path + " not found. Animated texture is not loaded or does not exist.")
 		}
 
 		return nullptr;

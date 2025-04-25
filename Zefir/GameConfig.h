@@ -12,6 +12,7 @@ constexpr Uint16 SCREEN_HEIGHT = 600;
 
 #define RESOURCES_BASE_DIR "resources"
 #define RESOURCES_TEXTURES_DIR "textures"
+#define RESOURCES_ANIM_DIR "anim"
 #define RESOURCES_SOUNDS_DIR "sounds"
 #define RESOURCES_FONTS_DIR "fonts"
 
