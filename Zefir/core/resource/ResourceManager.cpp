@@ -103,6 +103,20 @@ namespace Zefir
 			}
 		}
 
+		for (auto& anim : m_AnimatedTextures)
+		{
+			resourcesFound++;
+
+			if (UnloadResource(anim.first, false))
+			{
+				resourcesUnloaded++;
+			}
+			else
+			{
+				resourcesNotUnloaded++;
+			}
+		}
+
 		for (auto& sound : m_Sounds)
 		{
 			resourcesFound++;
@@ -132,6 +146,7 @@ namespace Zefir
 		}
 
 		m_Textures.clear();
+		m_AnimatedTextures.clear();
 		m_Sounds.clear();
 		m_Fonts.clear();
 
@@ -150,6 +165,20 @@ namespace Zefir
 			resourcesFound++;
 
 			if (ReloadResource(texture.first))
+			{
+				resourcesReloaded++;
+			}
+			else
+			{
+				resourcesNotReloaded++;
+			}
+		}
+
+		for (auto& anim : m_AnimatedTextures)
+		{
+			resourcesFound++;
+
+			if (ReloadResource(anim.first))
 			{
 				resourcesReloaded++;
 			}
@@ -280,6 +309,19 @@ namespace Zefir
 				}
 			}
 		}
+		else if (parentFolder == RESOURCES_ANIM_DIR)
+		{
+			if (m_AnimatedTextures.count(path) != 0)
+			{
+				m_AnimatedTextures[path]->Unload();
+				m_AnimatedTextures[path] = nullptr;
+
+				if (erase)
+				{
+					m_AnimatedTextures.erase(path);
+				}
+			}
+		}
 		else if (parentFolder == RESOURCES_SOUNDS_DIR)
 		{
 			if (m_Sounds.count(path) != 0)
@@ -324,6 +366,13 @@ namespace Zefir
 		if (parentFolder == RESOURCES_TEXTURES_DIR)
 		{
 			if (!m_Textures[path]->Reload())
+			{
+				return false;
+			}
+		}
+		else if (parentFolder == RESOURCES_ANIM_DIR)
+		{
+			if (!m_AnimatedTextures[path]->Reload())
 			{
 				return false;
 			}
