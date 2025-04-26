@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <Transform2D.h>
 #include <Texture.h>
+#include <AnimatedTexture.h>
 
 #include <iostream>
 

@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 	// Create your gameobjects here
 	
 	ZefirApp::Player player = ZefirApp::Player();
-	player.SetTexture(resourceManager.GetTexture("resources\\textures\\player.png"));
+	player.SetTexture(resourceManager.GetAnimatedTexture("resources\\anim\\cat.png"));
 
 	SDL_Texture* text = nullptr;
 	SDL_Texture* text2 = nullptr;
