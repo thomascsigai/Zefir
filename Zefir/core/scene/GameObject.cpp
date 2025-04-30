@@ -27,7 +27,7 @@ namespace Zefir
 					m_Transform.size.x, m_Transform.size.y
 				};
 				SDL_Rect frame = {
-					numberFrame * dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), 0, dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW()
+					numberFrame * dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), 0, dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameH()
 				};
 				SDL_RenderCopy(renderer, texture->GetSDLTexture(), &frame, &rect);
 				
