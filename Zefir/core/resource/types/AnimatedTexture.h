@@ -17,7 +17,7 @@ namespace Zefir
 			: Texture(path, renderer)
 		{
 			m_NumberOfFrames = 3;
-			m_FrameTime = 1.0f;
+			m_FrameTime = 100.0f;
 			m_FrameW = 50;
 			m_FrameH = 53;
 		}
@@ -28,9 +28,11 @@ namespace Zefir
 		Uint16 GetFrameH() { return m_FrameH; }
 		Uint16 GetNumberOfFrames() { return m_NumberOfFrames; }
 
+		float GetFrameTime() { return m_FrameTime; }
+
 	private:
 		Uint16 m_NumberOfFrames;
-		float m_FrameTime;
+		float m_FrameTime; // Frame duration (in ms)
 		Uint16 m_FrameW, m_FrameH;
 	};
 }

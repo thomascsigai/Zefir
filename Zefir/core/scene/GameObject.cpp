@@ -3,13 +3,13 @@
 namespace Zefir
 {
 	GameObject::GameObject(std::shared_ptr<Texture> texture)
-		: m_Name("GameObject"), m_Velocity(0, 0), m_Texture(texture) { }
+		: m_Name("GameObject"), m_Velocity(0, 0), m_Texture(texture), m_AnimFrameTimer() { }
 
 	GameObject::GameObject(std::string name, std::shared_ptr<Texture> texture)
-		: m_Name(name), m_Velocity(0, 0), m_Texture(texture) { }
+		: m_Name(name), m_Velocity(0, 0), m_Texture(texture), m_AnimFrameTimer() { }
 
 	GameObject::GameObject(std::string name, int x, int y, std::shared_ptr<Texture> texture)
-		: m_Name(name), m_Velocity(0, 0), m_Texture(texture)
+		: m_Name(name), m_Velocity(0, 0), m_Texture(texture), m_AnimFrameTimer()
 	{
 		m_Transform.SetPosition(x, y);
 	}
@@ -30,10 +30,17 @@ namespace Zefir
 					numberFrame * dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), 0, dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW()
 				};
 				SDL_RenderCopy(renderer, texture->GetSDLTexture(), &frame, &rect);
-				numberFrame++;
-				if (numberFrame >= dynamic_cast<AnimatedTexture*>(texture.get())->GetNumberOfFrames())
+				
+				if (m_AnimFrameTimer.GetTicks() >= dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameTime())
 				{
-					numberFrame = 0;
+					numberFrame++;
+					m_AnimFrameTimer.Stop();
+					m_AnimFrameTimer.Start();
+
+					if (numberFrame >= dynamic_cast<AnimatedTexture*>(texture.get())->GetNumberOfFrames())
+					{
+						numberFrame = 0;
+					}
 				}
 			}
 			else

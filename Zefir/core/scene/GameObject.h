@@ -4,6 +4,7 @@
 #include <Transform2D.h>
 #include <Texture.h>
 #include <AnimatedTexture.h>
+#include <Timer.h>
 
 #include <iostream>
 
@@ -17,6 +18,8 @@ namespace Zefir
 		Vector2 m_Velocity;
 
 		std::weak_ptr<Texture> m_Texture;
+
+		Timer m_AnimFrameTimer;
 
 	public:
 		GameObject(std::shared_ptr<Texture> texture = nullptr);
@@ -36,6 +39,16 @@ namespace Zefir
 
 		//Setters
 		void SetName(std::string name) { m_Name = name; }
-		void SetTexture(std::shared_ptr<Texture> texture) { m_Texture = texture; }
+		void SetTexture(std::shared_ptr<Texture> texture) 
+		{ 
+			m_Texture = texture; 
+
+			if (auto ptr_texture = m_Texture.lock()) {
+				if (ptr_texture.get()->IsAnimated())
+				{
+					m_AnimFrameTimer.Start();
+				}
+			}
+		}
 	};
 }
