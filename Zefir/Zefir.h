@@ -12,7 +12,7 @@
 #include <Log.h>
 #include <ResourceManager.h>
 #include <SoundManager.h>
-#include <Resource.h>
+#include <IResource.h>
 #include <Sound.h>
 #include <Font.h>
 

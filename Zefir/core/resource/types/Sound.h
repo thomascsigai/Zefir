@@ -3,12 +3,12 @@
 #include <iostream>
 #include <SDL_mixer.h>
 
-#include <Resource.h>
+#include <IResource.h>
 #include <Log.h>
 
 namespace Zefir
 {
-	class Sound : public Resource
+	class Sound : public IResource
 	{
 	public:
 		Sound(std::string path);

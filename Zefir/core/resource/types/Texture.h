@@ -5,12 +5,12 @@
 #include <SDL_image.h>
 
 #include <Renderer.h>
-#include <Resource.h>
+#include <IResource.h>
 #include <Log.h>
 
 namespace Zefir
 {
-	class Texture : public Resource
+	class Texture : public IResource
 	{
 	public:
 		Texture(const std::string& path, Renderer* renderer);

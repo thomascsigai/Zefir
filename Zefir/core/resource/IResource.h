@@ -5,10 +5,10 @@
 
 namespace Zefir
 {
-	class Resource
+	class IResource
 	{
 	public:
-		Resource() = default;
+		IResource() = default;
 
 		virtual bool Load() = 0;
 		virtual bool Unload() = 0;
