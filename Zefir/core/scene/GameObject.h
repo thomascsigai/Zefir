@@ -22,9 +22,9 @@ namespace Zefir
 		Timer m_AnimFrameTimer;
 
 	public:
-		GameObject(std::shared_ptr<Texture> texture = nullptr);
-		GameObject(std::string name, std::shared_ptr<Texture> texture = nullptr);
-		GameObject(std::string name, int x, int y, std::shared_ptr<Texture> texture = nullptr);
+		GameObject();
+		GameObject(std::string name);
+		GameObject(std::string name, int x, int y);
 
 		virtual void Render(Renderer* renderer);
 		virtual void Update(double deltaTime);

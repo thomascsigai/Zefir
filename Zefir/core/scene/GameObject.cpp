@@ -2,14 +2,15 @@
 
 namespace Zefir
 {
-	GameObject::GameObject(std::shared_ptr<Texture> texture)
-		: m_Name("GameObject"), m_Velocity(0, 0), m_Texture(texture), m_AnimFrameTimer() { }
+	GameObject::GameObject()
+		: m_Name("Gameobject"), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer() {
+	}
 
-	GameObject::GameObject(std::string name, std::shared_ptr<Texture> texture)
-		: m_Name(name), m_Velocity(0, 0), m_Texture(texture), m_AnimFrameTimer() { }
+	GameObject::GameObject(std::string name)
+		: m_Name(name), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer() { }
 
-	GameObject::GameObject(std::string name, int x, int y, std::shared_ptr<Texture> texture)
-		: m_Name(name), m_Velocity(0, 0), m_Texture(texture), m_AnimFrameTimer()
+	GameObject::GameObject(std::string name, int x, int y)
+		: m_Name(name), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer()
 	{
 		m_Transform.SetPosition(x, y);
 	}

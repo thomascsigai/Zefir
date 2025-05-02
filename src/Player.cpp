@@ -3,7 +3,7 @@
 
 namespace ZefirApp
 {
-	Player::Player()
+	Player::Player() : GameObject("Player")
 	{
 		m_Transform.SetPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		m_Transform.SetSize(100, 100);
