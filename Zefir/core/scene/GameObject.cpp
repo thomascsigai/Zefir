@@ -18,26 +18,26 @@ namespace Zefir
 	{
 		static int numberFrame = 0;
 
-		if (auto texture = m_Texture.lock())
+		if (m_Texture != nullptr)
 		{
-			if (texture.get()->IsAnimated())
+			if (m_Texture.get()->IsAnimated())
 			{
 				SDL_Rect rect = {
 					m_Transform.position.x, m_Transform.position.y,
 					m_Transform.size.x, m_Transform.size.y
 				};
 				SDL_Rect frame = {
-					numberFrame * dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), 0, dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameW(), dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameH()
+					numberFrame * dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameW(), 0, dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameW(), dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameH()
 				};
-				SDL_RenderCopy(renderer, texture->GetSDLTexture(), &frame, &rect);
+				SDL_RenderCopy(renderer, m_Texture->GetSDLTexture(), &frame, &rect);
 				
-				if (m_AnimFrameTimer.GetTicks() >= dynamic_cast<AnimatedTexture*>(texture.get())->GetFrameTime())
+				if (m_AnimFrameTimer.GetTicks() >= dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameTime())
 				{
 					numberFrame++;
 					m_AnimFrameTimer.Stop();
 					m_AnimFrameTimer.Start();
 
-					if (numberFrame >= dynamic_cast<AnimatedTexture*>(texture.get())->GetNumberOfFrames())
+					if (numberFrame >= dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetNumberOfFrames())
 					{
 						numberFrame = 0;
 					}
@@ -49,7 +49,7 @@ namespace Zefir
 					m_Transform.position.x, m_Transform.position.y,
 					m_Transform.size.x, m_Transform.size.y
 				};
-				SDL_RenderCopy(renderer, texture->GetSDLTexture(), NULL, &rect);
+				SDL_RenderCopy(renderer, m_Texture->GetSDLTexture(), NULL, &rect);
 			}
 		}
 		else

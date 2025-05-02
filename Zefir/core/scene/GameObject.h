@@ -17,7 +17,7 @@ namespace Zefir
 		Transform2D m_Transform;
 		Vector2 m_Velocity;
 
-		std::weak_ptr<Texture> m_Texture;
+		std::shared_ptr<Texture> m_Texture;
 
 		Timer m_AnimFrameTimer;
 
@@ -43,8 +43,8 @@ namespace Zefir
 		{ 
 			m_Texture = texture; 
 
-			if (auto ptr_texture = m_Texture.lock()) {
-				if (ptr_texture.get()->IsAnimated())
+			if (m_Texture != nullptr) {
+				if (m_Texture.get()->IsAnimated())
 				{
 					m_AnimFrameTimer.Start();
 				}
