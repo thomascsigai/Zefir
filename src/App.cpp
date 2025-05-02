@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
 
 		// Render all objects in the scene here
 
-		player.Render(renderer.GetSDLRenderer());
+		player.Render(&renderer);
 		Zefir::RenderText(text, renderer, 100, 200);
 		Zefir::RenderText(text2, renderer, 500, 500);
 

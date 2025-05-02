@@ -14,30 +14,26 @@ namespace Zefir
 		m_Transform.SetPosition(x, y);
 	}
 
-	void GameObject::Render(SDL_Renderer* renderer)
+	void GameObject::Render(Renderer* renderer)
 	{
 		static int numberFrame = 0;
 
 		if (m_Texture != nullptr)
 		{
-			if (m_Texture.get()->IsAnimated())
+			if (m_Texture->IsAnimated())
 			{
-				SDL_Rect rect = {
-					m_Transform.position.x, m_Transform.position.y,
-					m_Transform.size.x, m_Transform.size.y
-				};
-				SDL_Rect frame = {
-					numberFrame * dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameW(), 0, dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameW(), dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameH()
-				};
-				SDL_RenderCopy(renderer, m_Texture->GetSDLTexture(), &frame, &rect);
+				AnimatedTexture* ptr_anim = dynamic_cast<AnimatedTexture*>(m_Texture.get());
 				
-				if (m_AnimFrameTimer.GetTicks() >= dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetFrameTime())
+				renderer->RenderAnimFrame(m_Texture->GetSDLTexture(), m_Transform.position, m_Transform.size,
+					ptr_anim->GetFrameW(), ptr_anim->GetFrameH(), numberFrame);
+				
+				if (m_AnimFrameTimer.GetTicks() >= ptr_anim->GetFrameTime())
 				{
 					numberFrame++;
 					m_AnimFrameTimer.Stop();
 					m_AnimFrameTimer.Start();
 
-					if (numberFrame >= dynamic_cast<AnimatedTexture*>(m_Texture.get())->GetNumberOfFrames())
+					if (numberFrame >= ptr_anim->GetNumberOfFrames())
 					{
 						numberFrame = 0;
 					}
@@ -45,28 +41,21 @@ namespace Zefir
 			}
 			else
 			{
-				SDL_Rect rect = {
-					m_Transform.position.x, m_Transform.position.y,
-					m_Transform.size.x, m_Transform.size.y
-				};
-				SDL_RenderCopy(renderer, m_Texture->GetSDLTexture(), NULL, &rect);
+				renderer->RenderStaticTexture(m_Texture->GetSDLTexture(), m_Transform.position, m_Transform.size);
 			}
 		}
 		else
 		{
-			SDL_FRect rect = {
-				m_Transform.position.x, m_Transform.position.y,
-				m_Transform.size.x, m_Transform.size.y
-			};
-			SDL_RenderFillRectF(renderer, &rect);
+			// GO has no texture, render a filled rect
+			renderer->RenderFilledRect(m_Transform.position, m_Transform.size);
 		}
 
 		
 #ifndef NDEBUG
 		//Debug draw colliders
-		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-		SDL_RenderDrawRectF(renderer, &m_Transform.collider);
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 0, 255, 0, 255);
+		SDL_RenderDrawRectF(renderer->GetSDLRenderer(), &m_Transform.collider);
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
 #endif
 				
 	}

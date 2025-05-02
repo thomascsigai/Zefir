@@ -26,7 +26,7 @@ namespace Zefir
 		GameObject(std::string name, std::shared_ptr<Texture> texture = nullptr);
 		GameObject(std::string name, int x, int y, std::shared_ptr<Texture> texture = nullptr);
 
-		virtual void Render(SDL_Renderer* renderer);
+		virtual void Render(Renderer* renderer);
 		virtual void Update(double deltaTime);
 		virtual void Move(double deltaTime);
 		virtual void OnCollide(GameObject& other);
