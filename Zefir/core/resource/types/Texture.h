@@ -23,7 +23,7 @@ namespace Zefir
 
 		virtual bool IsAnimated(); // Return false by default
 
-	private:
+	protected:
 		Renderer* m_Renderer;
 		std::string m_Path;
 		
