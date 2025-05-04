@@ -50,6 +50,7 @@ target_include_directories(Zefir-App PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/resource"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/resource/types"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/resource/types/meta"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/scene"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/window"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/renderer"
