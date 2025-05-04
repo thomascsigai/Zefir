@@ -40,6 +40,9 @@ target_include_directories(Zefir-App PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir"
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 
+    "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/thirdparty"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/thirdparty/json-3.12.0"
+
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/utils"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/utils/collision"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/utils/debug"
