@@ -1,6 +1,7 @@
 #include <ResourceManager.h>
 #include <Log.h>
 #include <GameConfig.h>
+#include <AnimationMeta.h>
 
 #include <filesystem>
 
@@ -64,6 +65,12 @@ namespace Zefir
 			if (fs::is_regular_file(entry.path()))
 			{
 				std::string filePath = entry.path().string();
+
+				// Ignore meta files
+				if (entry.path().extension().string() == ".meta")
+				{
+					continue;
+				}
 
 				if (!LoadResource(filePath))
 				{
