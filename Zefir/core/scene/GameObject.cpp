@@ -34,7 +34,7 @@ namespace Zefir
 					m_AnimFrameTimer.Stop();
 					m_AnimFrameTimer.Start();
 
-					if (numberFrame >= ptr_anim->GetNumberOfFrames())
+					if (numberFrame >= ptr_anim->GetFrameCount())
 					{
 						numberFrame = 0;
 					}
