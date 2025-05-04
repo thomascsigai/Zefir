@@ -26,6 +26,7 @@ add_executable(Zefir-App
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/resource/types/Texture.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/resource/types/Sound.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/resource/types/Font.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/resource/types/AnimatedTexture.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/scene/GameObject.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/window/Window.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/sound/SoundManager.cpp"

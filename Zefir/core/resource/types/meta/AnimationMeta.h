@@ -1,6 +1,7 @@
 #pragma once
 
 #include <IParser.h>
+#include <Log.h>
 
 namespace Zefir
 {
@@ -33,7 +34,7 @@ namespace Zefir
 			}
 			catch (nlohmann::json::parse_error& e)
 			{
-				APP_LOG_WARN("Invalid meta file for animation " << path << ". Make sure it follow Json syntax.");
+				LOG_WARN("Invalid meta file for animation " << path << ". Make sure it follow Json syntax.");
 				return false;
 			}
 			
