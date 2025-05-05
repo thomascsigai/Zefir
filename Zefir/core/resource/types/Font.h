@@ -3,12 +3,12 @@
 #include <string>
 #include <SDL_ttf.h>
 
-#include <Resource.h>
+#include <IResource.h>
 #include <Log.h>
 
 namespace Zefir
 {
-	class Font : public Resource
+	class Font : public IResource
 	{
 	public:
 		Font(std::string path);

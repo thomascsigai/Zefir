@@ -55,4 +55,9 @@ namespace Zefir
 	{
 		return m_SDLTexture;
 	}
+
+	bool Texture::IsAnimated()
+	{
+		return false;
+	}
 }

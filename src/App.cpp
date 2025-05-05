@@ -35,13 +35,13 @@ int main(int argc, char* argv[])
 	// GAMEOBJECTS
 	// Create your gameobjects here
 	
-	ZefirApp::Player player = ZefirApp::Player();
-	player.SetTexture(resourceManager.GetTexture("resources\\textures\\player.png"));
+	ZefirApp::Player player = ZefirApp::Player(
+		resourceManager.GetTexture("resources\\textures\\player.png"),
+		resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
+	);
 
 	SDL_Texture* text = nullptr;
-	SDL_Texture* text2 = nullptr;
-	Zefir::LoadText(text, "Text rendering", 75, resourceManager, renderer, { 255, 255, 255, 255 });
-	Zefir::LoadText(text2, "Text rendering2", 15, resourceManager, renderer, { 255, 255, 255, 255 });
+	Zefir::LoadText(text, "Zefir Engine", 75, resourceManager, renderer, { 255, 255, 255, 255 });
 
 	// GAME LOOP
 	while (!quit)
@@ -83,9 +83,8 @@ int main(int argc, char* argv[])
 
 		// Render all objects in the scene here
 
-		player.Render(renderer.GetSDLRenderer());
+		player.Render(&renderer);
 		Zefir::RenderText(text, renderer, 100, 200);
-		Zefir::RenderText(text2, renderer, 500, 500);
 
 		SDL_RenderPresent(renderer.GetSDLRenderer());
 	}

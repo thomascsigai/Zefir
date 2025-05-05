@@ -1,6 +1,7 @@
 #include <ResourceManager.h>
 #include <Log.h>
 #include <GameConfig.h>
+#include <AnimationMeta.h>
 
 #include <filesystem>
 
@@ -65,6 +66,12 @@ namespace Zefir
 			{
 				std::string filePath = entry.path().string();
 
+				// Ignore meta files
+				if (entry.path().extension().string() == ".meta")
+				{
+					continue;
+				}
+
 				if (!LoadResource(filePath))
 				{
 					filesNotLoaded++;
@@ -103,6 +110,20 @@ namespace Zefir
 			}
 		}
 
+		for (auto& anim : m_AnimatedTextures)
+		{
+			resourcesFound++;
+
+			if (UnloadResource(anim.first, false))
+			{
+				resourcesUnloaded++;
+			}
+			else
+			{
+				resourcesNotUnloaded++;
+			}
+		}
+
 		for (auto& sound : m_Sounds)
 		{
 			resourcesFound++;
@@ -132,6 +153,7 @@ namespace Zefir
 		}
 
 		m_Textures.clear();
+		m_AnimatedTextures.clear();
 		m_Sounds.clear();
 		m_Fonts.clear();
 
@@ -150,6 +172,20 @@ namespace Zefir
 			resourcesFound++;
 
 			if (ReloadResource(texture.first))
+			{
+				resourcesReloaded++;
+			}
+			else
+			{
+				resourcesNotReloaded++;
+			}
+		}
+
+		for (auto& anim : m_AnimatedTextures)
+		{
+			resourcesFound++;
+
+			if (ReloadResource(anim.first))
 			{
 				resourcesReloaded++;
 			}
@@ -211,6 +247,20 @@ namespace Zefir
 			}
 			
 		}
+		else if (parentFolder == RESOURCES_ANIM_DIR)
+		{
+			std::shared_ptr<AnimatedTexture> anim = std::make_shared<AnimatedTexture>(path, m_Renderer);
+			if (!anim->Load())
+			{
+				LOG_WARN("Animated texture " + path + " could not be loaded.");
+				return false;
+			}
+			else
+			{
+				m_AnimatedTextures.insert({ path, anim });
+				LOG_INFO("Animated texture " + path + " successfully loaded.");
+			}
+		}
 		else if (parentFolder == RESOURCES_SOUNDS_DIR)
 		{
 			std::shared_ptr<Sound> sound = std::make_shared<Sound>(path);
@@ -266,6 +316,19 @@ namespace Zefir
 				}
 			}
 		}
+		else if (parentFolder == RESOURCES_ANIM_DIR)
+		{
+			if (m_AnimatedTextures.count(path) != 0)
+			{
+				m_AnimatedTextures[path]->Unload();
+				m_AnimatedTextures[path] = nullptr;
+
+				if (erase)
+				{
+					m_AnimatedTextures.erase(path);
+				}
+			}
+		}
 		else if (parentFolder == RESOURCES_SOUNDS_DIR)
 		{
 			if (m_Sounds.count(path) != 0)
@@ -314,6 +377,13 @@ namespace Zefir
 				return false;
 			}
 		}
+		else if (parentFolder == RESOURCES_ANIM_DIR)
+		{
+			if (!m_AnimatedTextures[path]->Reload())
+			{
+				return false;
+			}
+		}
 		else if (parentFolder == RESOURCES_SOUNDS_DIR)
 		{
 			if (!m_Sounds[path]->Reload())
@@ -347,6 +417,20 @@ namespace Zefir
 		else
 		{
 			LOG_WARN(path + " not found. Texture is not loaded or does not exist.")
+		}
+
+		return nullptr;
+	}
+
+	std::shared_ptr<AnimatedTexture> ResourceManager::GetAnimatedTexture(const std::string& path)
+	{
+		if (m_AnimatedTextures.count(path) != 0)
+		{
+			return m_AnimatedTextures[path];
+		}
+		else
+		{
+			LOG_WARN(path + " not found. Animated texture is not loaded or does not exist.")
 		}
 
 		return nullptr;

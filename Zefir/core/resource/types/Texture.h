@@ -5,12 +5,12 @@
 #include <SDL_image.h>
 
 #include <Renderer.h>
-#include <Resource.h>
+#include <IResource.h>
 #include <Log.h>
 
 namespace Zefir
 {
-	class Texture : public Resource
+	class Texture : public IResource
 	{
 	public:
 		Texture(const std::string& path, Renderer* renderer);
@@ -21,7 +21,9 @@ namespace Zefir
 
 		SDL_Texture* GetSDLTexture() const;
 
-	private:
+		virtual bool IsAnimated(); // Return false by default
+
+	protected:
 		Renderer* m_Renderer;
 		std::string m_Path;
 		

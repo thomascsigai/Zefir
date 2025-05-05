@@ -3,15 +3,28 @@
 
 namespace ZefirApp
 {
-	Player::Player()
+	Player::Player(std::shared_ptr<Zefir::Texture> idle, std::shared_ptr<Zefir::Texture> walk)
+		: GameObject("Player"), m_IdleTexture(idle), m_WalkTexture(walk)
 	{
 		m_Transform.SetPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		m_Transform.SetSize(75, 50);
+		m_Transform.SetSize(100, 106);
+
+		SetTexture(m_IdleTexture);
 	}
 
 	void Player::Update(double deltaTime)
 	{
 		GameObject::Move(deltaTime);
+
+		if (m_Velocity.x != 0 || m_Velocity.y != 0)
+		{
+			if (m_WalkTexture != m_Texture)
+				SetTexture(m_WalkTexture);
+		}
+		else
+		{
+			SetTexture(m_IdleTexture);
+		}
 	}
 
 	void Player::HandleEvent(SDL_Event& e)

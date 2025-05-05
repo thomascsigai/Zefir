@@ -2,42 +2,61 @@
 
 namespace Zefir
 {
-	GameObject::GameObject(std::shared_ptr<Texture> texture)
-		: m_Name("GameObject"), m_Velocity(0, 0), m_Texture(texture) { }
+	GameObject::GameObject()
+		: m_Name("Gameobject"), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer() {
+	}
 
-	GameObject::GameObject(std::string name, std::shared_ptr<Texture> texture)
-		: m_Name(name), m_Velocity(0, 0), m_Texture(texture) { }
+	GameObject::GameObject(std::string name)
+		: m_Name(name), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer() { }
 
-	GameObject::GameObject(std::string name, int x, int y, std::shared_ptr<Texture> texture)
-		: m_Name(name), m_Velocity(0, 0), m_Texture(texture)
+	GameObject::GameObject(std::string name, int x, int y)
+		: m_Name(name), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer()
 	{
 		m_Transform.SetPosition(x, y);
 	}
 
-	void GameObject::Render(SDL_Renderer* renderer)
+	void GameObject::Render(Renderer* renderer)
 	{
-		if (auto texture = m_Texture.lock())
+		static int numberFrame = 0;
+
+		if (m_Texture != nullptr)
 		{
-			SDL_Rect rect = {
-		m_Transform.position.x, m_Transform.position.y,
-		m_Transform.size.x, m_Transform.size.y
-			};
-			SDL_RenderCopy(renderer, texture->GetSDLTexture(), NULL, &rect);
+			if (m_Texture->IsAnimated())
+			{
+				AnimatedTexture* ptr_anim = dynamic_cast<AnimatedTexture*>(m_Texture.get());
+				
+				renderer->RenderAnimFrame(m_Texture->GetSDLTexture(), m_Transform.position, m_Transform.size,
+					ptr_anim->GetFrameW(), ptr_anim->GetFrameH(), numberFrame);
+				
+				if (m_AnimFrameTimer.GetTicks() >= ptr_anim->GetFrameTime())
+				{
+					numberFrame++;
+					m_AnimFrameTimer.Stop();
+					m_AnimFrameTimer.Start();
+
+					if (numberFrame >= ptr_anim->GetFrameCount())
+					{
+						numberFrame = 0;
+					}
+				}
+			}
+			else
+			{
+				renderer->RenderStaticTexture(m_Texture->GetSDLTexture(), m_Transform.position, m_Transform.size);
+			}
 		}
 		else
 		{
-			SDL_FRect rect = {
-		m_Transform.position.x, m_Transform.position.y,
-		m_Transform.size.x, m_Transform.size.y
-			};
-			SDL_RenderFillRectF(renderer, &rect);
+			// GO has no texture, render a filled rect
+			renderer->RenderFilledRect(m_Transform.position, m_Transform.size);
 		}
+
 		
 #ifndef NDEBUG
 		//Debug draw colliders
-		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-		SDL_RenderDrawRectF(renderer, &m_Transform.collider);
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 0, 255, 0, 255);
+		SDL_RenderDrawRectF(renderer->GetSDLRenderer(), &m_Transform.collider);
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
 #endif
 				
 	}
