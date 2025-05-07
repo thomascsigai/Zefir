@@ -25,6 +25,7 @@ int main(int argc, char* argv[])
 	Zefir::Window window = Zefir::Window();
 	Zefir::Renderer renderer = Zefir::Renderer(&window);
 	Zefir::SoundManager soundManager = Zefir::SoundManager();
+	Zefir::PhysicsEngine physicsEngine = Zefir::PhysicsEngine();
 
 	Zefir::ResourceManager resourceManager = Zefir::ResourceManager(&renderer);
 
