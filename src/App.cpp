@@ -7,8 +7,10 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+#include <vector>
 
 #include <Player.h>
+#include <Ground.h>
 
 int main(int argc, char* argv[])
 {
@@ -35,11 +37,30 @@ int main(int argc, char* argv[])
 
 	// GAMEOBJECTS
 	// Create your gameobjects here
+
+	std::vector<ZefirApp::Player> players;
 	
-	ZefirApp::Player player = ZefirApp::Player(
-		resourceManager.GetTexture("resources\\textures\\player.png"),
-		resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
-	);
+	for (int i = 0; i < 5; i++)
+	{
+		players.emplace_back(
+			150 * i, 20 * i,
+			resourceManager.GetTexture("resources\\textures\\player.png"),
+			resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
+		);
+
+		if (i == 3)
+		{
+			players[i].m_Rigidbody2D.useGravity = false;
+		}
+	}
+
+	for (auto& obj : players)
+	{
+		physicsEngine.AddObject(&obj);
+	}
+
+	ZefirApp::Ground ground = ZefirApp::Ground(50, 500);
+	physicsEngine.AddObject(&ground);
 
 	SDL_Texture* text = nullptr;
 	Zefir::LoadText(text, "Zefir Engine", 75, resourceManager, renderer, { 255, 255, 255, 255 });
@@ -65,7 +86,7 @@ int main(int argc, char* argv[])
 			}
 
 			// Handle your events here
-			player.HandleEvent(e);
+			//player.HandleEvent(e);
 		}
 
 		currentTime = SDL_GetTicks();
@@ -75,7 +96,12 @@ int main(int argc, char* argv[])
 		// UPDATING
 		// Updates methods here
 
-		player.Update(deltaTime);
+		physicsEngine.Step(deltaTime);
+		//player.Update(deltaTime);
+		for (auto& player : players)
+		{
+			player.Update(deltaTime);
+		}
 
 		// RENDERING 
 		SDL_SetRenderDrawColor(renderer.GetSDLRenderer(), 0, 0, 0, 255);
@@ -84,7 +110,12 @@ int main(int argc, char* argv[])
 
 		// Render all objects in the scene here
 
-		player.Render(&renderer);
+		//player.Render(&renderer);
+		for (auto& player : players)
+		{
+			player.Render(&renderer);
+		}
+		ground.Render(&renderer);
 		Zefir::RenderText(text, renderer, 100, 200);
 
 		SDL_RenderPresent(renderer.GetSDLRenderer());

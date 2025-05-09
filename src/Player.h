@@ -7,7 +7,7 @@ namespace ZefirApp
 	class Player : public Zefir::GameObject
 	{
 	public:
-		Player(std::shared_ptr<Zefir::Texture> idle, std::shared_ptr<Zefir::Texture> walk);
+		Player(int x, int y, std::shared_ptr<Zefir::Texture> idle, std::shared_ptr<Zefir::Texture> walk);
 
 		void Update(double deltaTime) override;
 
