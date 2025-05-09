@@ -3,16 +3,18 @@
 namespace Zefir
 {
 	GameObject::GameObject()
-		: m_Name("Gameobject"), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer() {
-	}
+		: m_Name("Gameobject"), m_Transform2D(), m_Texture(nullptr),
+		m_AnimFrameTimer(), m_Rigidbody2D() {}
 
 	GameObject::GameObject(std::string name)
-		: m_Name(name), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer() { }
+		: m_Name(name), m_Transform2D(), m_Texture(nullptr), 
+		m_AnimFrameTimer(), m_Rigidbody2D() { }
 
-	GameObject::GameObject(std::string name, int x, int y)
-		: m_Name(name), m_Transform(), m_Velocity(0, 0), m_Texture(nullptr), m_AnimFrameTimer()
+	GameObject::GameObject(std::string name, float x, float y)
+		: m_Name(name), m_Transform2D(), m_Texture(nullptr),
+		m_AnimFrameTimer(), m_Rigidbody2D()
 	{
-		m_Transform.SetPosition(x, y);
+		m_Transform2D.position = { x, y };
 	}
 
 	void GameObject::Render(Renderer* renderer)
@@ -25,7 +27,7 @@ namespace Zefir
 			{
 				AnimatedTexture* ptr_anim = dynamic_cast<AnimatedTexture*>(m_Texture.get());
 				
-				renderer->RenderAnimFrame(m_Texture->GetSDLTexture(), m_Transform.position, m_Transform.size,
+				renderer->RenderAnimFrame(m_Texture->GetSDLTexture(), m_Transform2D.position, m_Transform2D.size,
 					ptr_anim->GetFrameW(), ptr_anim->GetFrameH(), numberFrame);
 				
 				if (m_AnimFrameTimer.GetTicks() >= ptr_anim->GetFrameTime())
@@ -42,43 +44,37 @@ namespace Zefir
 			}
 			else
 			{
-				renderer->RenderStaticTexture(m_Texture->GetSDLTexture(), m_Transform.position, m_Transform.size);
+				renderer->RenderStaticTexture(m_Texture->GetSDLTexture(), m_Transform2D.position, m_Transform2D.size);
 			}
 		}
 		else
 		{
 			// GO has no texture, render a filled rect
-			renderer->RenderFilledRect(m_Transform.position, m_Transform.size);
+			renderer->RenderFilledRect(m_Transform2D.position, m_Transform2D.size);
 		}
 
 		
-#ifndef NDEBUG
-		//Debug draw colliders
-		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 0, 255, 0, 255);
-		SDL_RenderDrawRectF(renderer->GetSDLRenderer(), &m_Transform.collider);
-		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
-#endif
+//#ifndef NDEBUG
+//		//Debug draw colliders
+//		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 0, 255, 0, 255);
+//		SDL_RenderDrawRectF(renderer->GetSDLRenderer(), &m_Transform.collider);
+//		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
+//#endif
 				
 	}
 
 	void GameObject::Update(double deltaTime)
 	{
-		Move(deltaTime);
-	}
-
-	void GameObject::Move(double deltaTime)
-	{
-		m_Transform.position += m_Velocity * deltaTime;
-		m_Transform.UpdateCollider();
+		LOG_INFO(m_Name << " has an empty update function called.");
 	}
 
 	void GameObject::OnCollide(GameObject& other)
 	{
-		std::cout << m_Name << "Collided with " << other.m_Name << "." << std::endl;
+		LOG_INFO(m_Name << "Collided with " << other.m_Name << ".");
 	}
 
 	void GameObject::HandleEvent(SDL_Event& e)
 	{
-		std::cerr << "HandleEvent method used but not implemented for GameObject " << m_Name << "." << std::endl;
+		LOG_WARN("HandleEvent method used but not implemented for GameObject " << m_Name << ".");
 	}
 }

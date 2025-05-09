@@ -5,6 +5,8 @@
 #include <Texture.h>
 #include <AnimatedTexture.h>
 #include <Timer.h>
+#include <Rigidbody2D.h>
+#include <BoxCollider.h>
 
 #include <iostream>
 
@@ -12,33 +14,30 @@ namespace Zefir
 {
 	class GameObject
 	{
-	protected:
+
+	public:
 		std::string m_Name;
-		Transform2D m_Transform;
-		Vector2 m_Velocity;
+		Transform2D m_Transform2D;
+		Rigidbody2D m_Rigidbody2D;
+		BoxCollider m_BoxCollider;
 
+	protected:
 		std::shared_ptr<Texture> m_Texture;
-
 		Timer m_AnimFrameTimer;
 
 	public:
 		GameObject();
 		GameObject(std::string name);
-		GameObject(std::string name, int x, int y);
+		GameObject(std::string name, float x, float y);
 
 		virtual void Render(Renderer* renderer);
 		virtual void Update(double deltaTime);
-		virtual void Move(double deltaTime);
 		virtual void OnCollide(GameObject& other);
 		virtual void HandleEvent(SDL_Event& e);
 
 		// Getters
-		Transform2D GetTransform2D() const { return m_Transform; }
-		std::string GetName() const { return m_Name; }
-		SDL_FRect GetCollider() const { return m_Transform.collider; }
 
 		//Setters
-		void SetName(std::string name) { m_Name = name; }
 		void SetTexture(std::shared_ptr<Texture> texture) 
 		{ 
 			m_Texture = texture; 
