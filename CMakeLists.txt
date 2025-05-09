@@ -59,6 +59,7 @@ target_include_directories(Zefir-App PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/window"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/renderer"
     "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/sound"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Zefir/core/physics"
 )
 
 target_link_libraries(Zefir-App PRIVATE
