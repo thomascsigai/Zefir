@@ -88,4 +88,34 @@ namespace Zefir
 		};
 		SDL_RenderCopy(m_SDLRenderer, texture, &frame, &rect);
 	}
+
+	void Renderer::RenderCircle(Vector2 position, float radius)
+	{
+		const int centerX = static_cast<int>(position.x);
+		const int centerY = static_cast<int>(position.y);
+		const int r = static_cast<int>(radius);
+
+		for (int w = 0; w < 360; w++)
+		{
+			float angle = w * M_PI / 180.0f;
+			int x = static_cast<int>(centerX + r * cosf(angle));
+			int y = static_cast<int>(centerY + r * sinf(angle));
+			SDL_RenderDrawPoint(m_SDLRenderer, x, y);
+		}
+	}
+
+	void Renderer::RenderFilledCircle(Vector2 position, float radius)
+	{
+		const int centerX = static_cast<int>(position.x);
+		const int centerY = static_cast<int>(position.y);
+		const int r = static_cast<int>(radius);
+
+		for (int y = -r; y <= r; y++)
+		{
+			int dx = static_cast<int>(sqrtf(r * r - y * y));
+			int x1 = centerX - dx;
+			int x2 = centerX + dx;
+			SDL_RenderDrawLine(m_SDLRenderer, x1, centerY + y, x2, centerY + y);
+		}
+	}
 }
