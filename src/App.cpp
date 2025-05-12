@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	Zefir::Window window = Zefir::Window();
 	Zefir::Renderer renderer = Zefir::Renderer(&window);
 	Zefir::SoundManager soundManager = Zefir::SoundManager();
-	Zefir::PhysicsEngine physicsEngine = Zefir::PhysicsEngine();
+	Zefir::PhysicsWorld physicsWorld = Zefir::PhysicsWorld();
 
 	Zefir::ResourceManager resourceManager = Zefir::ResourceManager(&renderer);
 
@@ -39,28 +39,29 @@ int main(int argc, char* argv[])
 	// Create your gameobjects here
 
 	std::vector<ZefirApp::Player> players;
+	players.reserve(100);
 	
 	for (int i = 0; i < 5; i++)
 	{
 		players.emplace_back(
-			150 * i, 20 * i,
+			150 * i + 20, 20 * i,
 			resourceManager.GetTexture("resources\\textures\\player.png"),
 			resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
 		);
-
-		if (i == 3)
-		{
-			players[i].m_Rigidbody2D.useGravity = false;
-		}
 	}
 
 	for (auto& obj : players)
 	{
-		physicsEngine.AddObject(&obj);
+		physicsWorld.AddObject(&obj);
 	}
 
-	ZefirApp::Ground ground = ZefirApp::Ground(50, 500);
-	physicsEngine.AddObject(&ground);
+	ZefirApp::Ground ground = ZefirApp::Ground(100, 500);
+	physicsWorld.AddObject(&ground);
+
+	ZefirApp::Ground wall = ZefirApp::Ground(550, 10);
+	wall.m_Transform2D.SetSize(30, 500);
+	wall.m_BoxCollider.size = { 30, 500 };
+	//physicsWorld.AddObject(&wall);
 
 	SDL_Texture* text = nullptr;
 	Zefir::LoadText(text, "Zefir Engine", 75, resourceManager, renderer, { 255, 255, 255, 255 });
@@ -84,9 +85,23 @@ int main(int argc, char* argv[])
 				if (e.key.keysym.sym == SDLK_r)
 					resourceManager.UnloadAllResources();
 			}
+			if (e.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (e.button.button == SDL_BUTTON_LEFT)
+				{
+					int mouseX = e.button.x;
+					int mouseY = e.button.y;
 
+					players.emplace_back(
+						mouseX, mouseY,
+						resourceManager.GetTexture("resources\\textures\\player.png"),
+						resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
+					);
+					physicsWorld.AddObject(&players.back());
+				}
+			}
 			// Handle your events here
-			//player.HandleEvent(e);
+			players[3].HandleEvent(e);
 		}
 
 		currentTime = SDL_GetTicks();
@@ -96,7 +111,7 @@ int main(int argc, char* argv[])
 		// UPDATING
 		// Updates methods here
 
-		physicsEngine.Step(deltaTime);
+		physicsWorld.Step(deltaTime);
 		//player.Update(deltaTime);
 		for (auto& player : players)
 		{
@@ -116,6 +131,7 @@ int main(int argc, char* argv[])
 			player.Render(&renderer);
 		}
 		ground.Render(&renderer);
+		wall.Render(&renderer);
 		Zefir::RenderText(text, renderer, 100, 200);
 
 		SDL_RenderPresent(renderer.GetSDLRenderer());

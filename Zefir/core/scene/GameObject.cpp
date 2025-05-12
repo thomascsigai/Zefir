@@ -54,12 +54,17 @@ namespace Zefir
 		}
 
 		
-//#ifndef NDEBUG
-//		//Debug draw colliders
-//		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 0, 255, 0, 255);
-//		SDL_RenderDrawRectF(renderer->GetSDLRenderer(), &m_Transform.collider);
-//		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
-//#endif
+#ifndef NDEBUG
+		//Debug draw colliders
+		SDL_FRect rect = { 
+			m_BoxCollider.position.x, m_BoxCollider.position.y,
+			m_BoxCollider.size.x, m_BoxCollider.size.y
+		};
+
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 0, 255, 0, 255);
+		SDL_RenderDrawRectF(renderer->GetSDLRenderer(), &rect);
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
+#endif
 				
 	}
 

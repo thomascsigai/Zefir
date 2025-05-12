@@ -15,7 +15,7 @@
 #include <IResource.h>
 #include <Sound.h>
 #include <Font.h>
-#include <PhysicsEngine.h>
+#include <PhysicsWorld.h>
 
 // Math
 #include <Vector2.h>

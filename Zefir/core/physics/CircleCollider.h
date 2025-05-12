@@ -2,9 +2,9 @@
 
 namespace Zefir
 {
-	struct BoxCollider
+	struct CircleCollider
 	{
+		float radius = 1;
 		Vector2 position = { 0, 0 };
-		Vector2 size = { 0, 0 };
 	};
 }

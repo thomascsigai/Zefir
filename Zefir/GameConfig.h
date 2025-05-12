@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <Vector2.h>
 
 // WINDOW SETTINGS --------------------------------------------------
 
@@ -20,6 +21,10 @@ constexpr Uint16 SCREEN_HEIGHT = 600;
 // GAME SPECIFIC SETTINGS -------------------------------------------
 
 constexpr Uint16 PLAYER_SPEED = 100;
+
+// PHYSICS SETTINGS -------------------------------------------------
+
+const Zefir::Vector2 GRAVITY_FORCE(0, 200.0f);
 
 // KEYBINDS ---------------------------------------------------------
 
