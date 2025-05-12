@@ -19,9 +19,10 @@ namespace Zefir
 		void RenderFilledRect(Vector2 position, Vector2 size);
 		void RenderCircle(Vector2 position, float radius);
 		void RenderFilledCircle(Vector2 position, float radius);
-		void RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size);
+		void RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size,
+			double rotationAngle);
 		void RenderAnimFrame(SDL_Texture* texture, Vector2 position, Vector2 size,
-			Uint16 frameW, Uint16 frameH, int frameNumber);
+			Uint16 frameW, Uint16 frameH, int frameNumber, double rotationAngle);
 
 	private:
 		bool Init(Window* window);

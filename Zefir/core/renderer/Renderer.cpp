@@ -67,17 +67,18 @@ namespace Zefir
 		SDL_RenderFillRectF(m_SDLRenderer, &rect);
 	}
 
-	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size)
+	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size, 
+		double rotationAngle)
 	{
 		SDL_Rect rect = {
 				position.x, position.y,
 				size.x, size.y
 		};
-		SDL_RenderCopy(m_SDLRenderer, texture, NULL, &rect);
+		SDL_RenderCopyEx(m_SDLRenderer, texture, NULL, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
 	}
 
 	void Renderer::RenderAnimFrame(SDL_Texture* texture, Vector2 position, Vector2 size,
-		Uint16 frameW, Uint16 frameH, int frameNumber)
+		Uint16 frameW, Uint16 frameH, int frameNumber, double rotationAngle)
 	{
 		SDL_Rect rect = {
 				position.x, position.y,
@@ -86,7 +87,7 @@ namespace Zefir
 		SDL_Rect frame = {
 			frameNumber * frameW, 0, frameW, frameH
 		};
-		SDL_RenderCopy(m_SDLRenderer, texture, &frame, &rect);
+		SDL_RenderCopyEx(m_SDLRenderer, texture, &frame, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
 	}
 
 	void Renderer::RenderCircle(Vector2 position, float radius)
