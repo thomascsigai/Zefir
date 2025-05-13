@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL.h>
-#include <Vector2.h>
+#include <core/math/Vector2.h>
 
 // WINDOW SETTINGS --------------------------------------------------
 

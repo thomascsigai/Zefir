@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include <GameConfig.h>
-#include <Log.h>
+#include <core/debug/Log.h>
 
 namespace Zefir
 {
