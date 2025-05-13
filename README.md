@@ -1,4 +1,3 @@
-# 🌬️ Zefir
 ![raw](https://github.com/user-attachments/assets/d4a0d227-5bf9-46ea-870e-ee7c5fa0908c)
 
 **Zefir** is a lightweight and simple 2D game engine built with **C++** and **SDL2**.
