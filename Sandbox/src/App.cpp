@@ -4,10 +4,11 @@
 #include <GameConfig.h>
 #include <Zefir.h>
 
-#include <vector>
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 #include <Player.h>
-#include <Ground.h>
 
 int main(int argc, char* argv[])
 {
@@ -24,7 +25,6 @@ int main(int argc, char* argv[])
 	Zefir::Window window = Zefir::Window();
 	Zefir::Renderer renderer = Zefir::Renderer(&window);
 	Zefir::SoundManager soundManager = Zefir::SoundManager();
-	Zefir::PhysicsWorld physicsWorld = Zefir::PhysicsWorld();
 
 	Zefir::ResourceManager resourceManager = Zefir::ResourceManager(&renderer);
 
@@ -35,30 +35,10 @@ int main(int argc, char* argv[])
 	// GAMEOBJECTS
 	// Create your gameobjects here
 
-	std::vector<ZefirApp::Player> players;
-	players.reserve(100);
-	
-	for (int i = 0; i < 5; i++)
-	{
-		players.emplace_back(
-			150 * i + 20, 20 * i,
-			resourceManager.GetTexture("resources\\textures\\player.png"),
-			resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
-		);
-	}
-
-	for (auto& obj : players)
-	{
-		physicsWorld.AddObject(&obj);
-	}
-
-	ZefirApp::Ground ground = ZefirApp::Ground(100, 500);
-	physicsWorld.AddObject(&ground);
-
-	ZefirApp::Ground wall = ZefirApp::Ground(550, 10);
-	wall.m_Transform2D.SetSize(30, 500);
-	wall.m_BoxCollider.size = { 30, 500 };
-	//physicsWorld.AddObject(&wall);
+	ZefirApp::Player player = ZefirApp::Player(
+		resourceManager.GetTexture("resources\\textures\\player.png"),
+		resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
+	);
 
 	SDL_Texture* text = nullptr;
 	Zefir::LoadText(text, "Zefir Engine", 75, resourceManager, renderer, { 255, 255, 255, 255 });
@@ -82,23 +62,9 @@ int main(int argc, char* argv[])
 				if (e.key.keysym.sym == SDLK_r)
 					resourceManager.UnloadAllResources();
 			}
-			if (e.type == SDL_MOUSEBUTTONDOWN)
-			{
-				if (e.button.button == SDL_BUTTON_LEFT)
-				{
-					int mouseX = e.button.x;
-					int mouseY = e.button.y;
 
-					players.emplace_back(
-						mouseX, mouseY,
-						resourceManager.GetTexture("resources\\textures\\player.png"),
-						resourceManager.GetAnimatedTexture("resources\\anims\\cat.png")
-					);
-					physicsWorld.AddObject(&players.back());
-				}
-			}
 			// Handle your events here
-			players[3].HandleEvent(e);
+			player.HandleEvent(e);
 		}
 
 		currentTime = SDL_GetTicks();
@@ -108,12 +74,7 @@ int main(int argc, char* argv[])
 		// UPDATING
 		// Updates methods here
 
-		physicsWorld.Step(deltaTime);
-		//player.Update(deltaTime);
-		for (auto& player : players)
-		{
-			player.Update(deltaTime);
-		}
+		player.Update(deltaTime);
 
 		// RENDERING 
 		SDL_SetRenderDrawColor(renderer.GetSDLRenderer(), 0, 0, 0, 255);
@@ -122,13 +83,7 @@ int main(int argc, char* argv[])
 
 		// Render all objects in the scene here
 
-		//player.Render(&renderer);
-		for (auto& player : players)
-		{
-			player.Render(&renderer);
-		}
-		ground.Render(&renderer);
-		wall.Render(&renderer);
+		player.Render(&renderer);
 		Zefir::RenderText(text, renderer, 100, 200);
 
 		SDL_RenderPresent(renderer.GetSDLRenderer());
