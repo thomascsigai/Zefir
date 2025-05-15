@@ -22,6 +22,11 @@ namespace Zefir
 			return m_IsRunning;
 		}
 
+		void SetIsRunning(const bool& b)
+		{
+			m_IsRunning = b;
+		}
+
 	private:
 		bool m_IsRunning;
 	};
