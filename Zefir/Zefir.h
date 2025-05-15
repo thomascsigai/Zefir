@@ -7,6 +7,8 @@
 #include <core/debug/Log.h>
 #include <core/math/Vector2.h>
 #include <core/time/Timer.h>
+#include <core/app/Application.h>
+#include <core/Engine.h>
 
 // Resource manager components
 #include <resource/ResourceManager.h>
