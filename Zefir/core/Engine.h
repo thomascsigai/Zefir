@@ -11,15 +11,8 @@ namespace Zefir
 		
 		void Run(Application& app)
 		{
-			Zefir::Window window = Zefir::Window();
-			Zefir::Renderer renderer = Zefir::Renderer(&window);
-			Zefir::SoundManager soundManager = Zefir::SoundManager();
-
-			Zefir::ResourceManager resourceManager = Zefir::ResourceManager(&renderer);
-
 			Uint64 previousTime = SDL_GetTicks();
 			Uint64 currentTime;
-			double deltaTime;
 
 			SDL_Event e;
 
@@ -35,25 +28,30 @@ namespace Zefir
 					{
 						app.SetIsRunning(false);
 					}
+
+					app.OnEvent(e);
 				}
 
 				currentTime = SDL_GetTicks();
-				deltaTime = (double)(currentTime - previousTime) / 1000;
+				app.m_DeltaTime = (double)(currentTime - previousTime) / 1000;
 				previousTime = currentTime;
 
 				app.Update();
 
 				// RENDERING 
-				SDL_SetRenderDrawColor(renderer.GetSDLRenderer(), 0, 0, 0, 255);
-				SDL_RenderClear(renderer.GetSDLRenderer());
-				SDL_SetRenderDrawColor(renderer.GetSDLRenderer(), 255, 255, 255, 255);
+				SDL_SetRenderDrawColor(app.GetSDLRenderer(), 0, 0, 0, 255);
+				SDL_RenderClear(app.GetSDLRenderer());
+				SDL_SetRenderDrawColor(app.GetSDLRenderer(), 255, 255, 255, 255);
 
-				SDL_RenderPresent(renderer.GetSDLRenderer());
+				app.Render();
+
+				SDL_RenderPresent(app.GetSDLRenderer());
 			}
 
 			app.Exit();
-
 			SDL_Quit();
 		}
+
+
 	};
 }
