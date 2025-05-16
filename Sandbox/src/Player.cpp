@@ -9,7 +9,7 @@ namespace ZefirApp
 		m_Transform2D.SetPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		m_Transform2D.SetSize(100, 106);
 
-		SetTexture(m_IdleTexture);
+		SetTexture(m_WalkTexture);
 	}
 
 	void Player::Update(double deltaTime)
@@ -29,19 +29,12 @@ namespace ZefirApp
 
 	void Player::HandleEvent(SDL_Event& e)
 	{
-		/*if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+		if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 		{
-			if (e.key.keysym.sym == MOVE_KEYBIND.UP) m_Velocity.y -= PLAYER_SPEED;
-			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN) m_Velocity.y += PLAYER_SPEED;
-			if (e.key.keysym.sym == MOVE_KEYBIND.LEFT) m_Velocity.x -= PLAYER_SPEED;
-			if (e.key.keysym.sym == MOVE_KEYBIND.RIGHT) m_Velocity.x += PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.UP) m_Transform2D.position.y -= PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN) m_Transform2D.position.y += PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.LEFT) m_Transform2D.position.x -= PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.RIGHT) m_Transform2D.position.x += PLAYER_SPEED;
 		}
-		else if (e.type == SDL_KEYUP && e.key.repeat == 0)
-		{
-			if (e.key.keysym.sym == MOVE_KEYBIND.UP) m_Velocity.y += PLAYER_SPEED;
-			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN) m_Velocity.y -= PLAYER_SPEED;
-			if (e.key.keysym.sym == MOVE_KEYBIND.LEFT) m_Velocity.x += PLAYER_SPEED;
-			if (e.key.keysym.sym == MOVE_KEYBIND.RIGHT) m_Velocity.x -= PLAYER_SPEED;
-		}*/
 	}
 }
