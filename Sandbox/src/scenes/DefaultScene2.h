@@ -2,7 +2,7 @@
 
 #include <scene/Scene.h>
 #include <core/debug/Log.h>
-#include <Player.h>
+#include <gameobjects/Player.h>
 
 namespace ZefirApp
 {

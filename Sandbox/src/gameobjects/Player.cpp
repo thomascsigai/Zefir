@@ -1,4 +1,4 @@
-#include <Player.h>
+#include <gameobjects/Player.h>
 #include <GameConfig.h>
 
 namespace ZefirApp

@@ -49,7 +49,7 @@ namespace Zefir
 			}
 
 			m_SceneManager->OnEvent(e);
-			CustomEvents(e);
+			HandleEvents(e);
 		}
 	}
 
