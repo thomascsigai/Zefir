@@ -30,10 +30,10 @@ namespace Zefir
 		GameObject(std::string name);
 		GameObject(std::string name, float x, float y);
 
-		virtual void Render(Renderer* renderer);
+		virtual void Render(const std::unique_ptr<Renderer>& renderer);
 		virtual void Update(double deltaTime);
 		virtual void OnCollide(GameObject& other);
-		virtual void HandleEvent(SDL_Event& e);
+		virtual void HandleEvent(const SDL_Event& e);
 
 		// Getters
 

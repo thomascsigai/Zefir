@@ -17,7 +17,7 @@ namespace Zefir
 		m_Transform2D.position = { x, y };
 	}
 
-	void GameObject::Render(Renderer* renderer)
+	void GameObject::Render(const std::unique_ptr<Renderer>& renderer)
 	{
 		static int numberFrame = 0;
 
@@ -78,7 +78,7 @@ namespace Zefir
 		LOG_INFO(m_Name << "Collided with " << other.m_Name << ".");
 	}
 
-	void GameObject::HandleEvent(SDL_Event& e)
+	void GameObject::HandleEvent(const SDL_Event& e)
 	{
 		LOG_WARN("HandleEvent method used but not implemented for GameObject " << m_Name << ".");
 	}
