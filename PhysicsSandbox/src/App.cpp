@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 	//physicsWorld.AddObject(&wall);
 
 	SDL_Texture* text = nullptr;
-	Zefir::LoadText(text, "Zefir Engine", 75, resourceManager, renderer, { 255, 255, 255, 255 });
+	//Zefir::LoadText(text, "Zefir Engine", 75, resourceManager, renderer, { 255, 255, 255, 255 });
 
 	// GAME LOOP
 	while (!quit)
@@ -122,14 +122,14 @@ int main(int argc, char* argv[])
 
 		// Render all objects in the scene here
 
-		//player.Render(&renderer);
-		for (auto& player : players)
-		{
-			player.Render(&renderer);
-		}
-		ground.Render(&renderer);
-		wall.Render(&renderer);
-		Zefir::RenderText(text, renderer, 100, 200);
+		////player.Render(&renderer);
+		//for (auto& player : players)
+		//{
+		//	player.Render(&renderer);
+		//}
+		//ground.Render(&renderer);
+		//wall.Render(&renderer);
+		//Zefir::RenderText(text, renderer, 100, 200);
 
 		SDL_RenderPresent(renderer.GetSDLRenderer());
 	}
