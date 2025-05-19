@@ -10,44 +10,12 @@ namespace Zefir
 	class SceneManager
 	{
 	public:
-		SceneManager() : m_CurrentScene(nullptr)
-		{
+		SceneManager();
 
-		}
-
-		void LoadScene(std::unique_ptr<Scene> newScene)
-		{
-			if (m_CurrentScene)
-			{
-				m_CurrentScene->OnUnload();
-			}
-			m_CurrentScene = std::move(newScene);
-			m_CurrentScene->OnLoad();
-		}
-
-		void Update(double deltaTime)
-		{
-			if (m_CurrentScene)
-			{
-				m_CurrentScene->Update(deltaTime);
-			}
-		}
-
-		void Render()
-		{
-			if (m_CurrentScene)
-			{
-				m_CurrentScene->Render();
-			}
-		}
-
-		void OnEvent(const SDL_Event& e)
-		{
-			if (m_CurrentScene)
-			{
-				m_CurrentScene->OnEvent(e);
-			}
-		}
+		void LoadScene(std::unique_ptr<Scene> newScene, EngineContext* context);
+		void Update(double deltaTime);
+		void Render(const std::unique_ptr<Renderer>& renderer);
+		void OnEvent(const SDL_Event& e);
 
 	private:
 		std::unique_ptr<Scene> m_CurrentScene;
