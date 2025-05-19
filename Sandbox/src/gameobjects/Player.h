@@ -11,7 +11,7 @@ namespace ZefirApp
 
 		void Update(double deltaTime) override;
 
-		void HandleEvent(SDL_Event& e) override;
+		void HandleEvent(const SDL_Event& e) override;
 
 	private:
 		std::shared_ptr<Zefir::Texture> m_IdleTexture;

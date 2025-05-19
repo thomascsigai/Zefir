@@ -9,7 +9,7 @@ namespace ZefirApp
 		m_Transform2D.SetPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		m_Transform2D.SetSize(100, 106);
 
-		SetTexture(m_WalkTexture);
+		SetTexture(m_IdleTexture);
 	}
 
 	void Player::Update(double deltaTime)
@@ -27,7 +27,7 @@ namespace ZefirApp
 		}*/
 	}
 
-	void Player::HandleEvent(SDL_Event& e)
+	void Player::HandleEvent(const SDL_Event& e)
 	{
 		if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 		{

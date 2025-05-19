@@ -1,14 +1,12 @@
 // Defines application behavior
 //
 
-#include <GameConfig.h>
 #include <Zefir.h>
 
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
+#include <gameobjects/Player.h>
 
-#include <Player.h>
+#include <scenes/DefaultScene.h>
+#include <scenes/DefaultScene2.h>
 
 namespace ZefirApp
 {
@@ -16,7 +14,26 @@ namespace ZefirApp
 	{
 	public:
 		SandboxApp()
+		{}
+
+		void OnInit() override
 		{
+			m_SceneManager->LoadScene(std::make_unique<DefaultScene>(), &m_EngineContext);
+		}
+
+		void HandleEvents(SDL_Event& e) override
+		{
+			if (e.type == SDL_KEYDOWN)
+			{
+				if (e.key.keysym.sym == SDLK_1)
+				{
+					m_SceneManager->LoadScene(std::make_unique<DefaultScene>(), &m_EngineContext);
+				}
+				if (e.key.keysym.sym == SDLK_2)
+				{
+					m_SceneManager->LoadScene(std::make_unique<DefaultScene2>(), &m_EngineContext);
+				}
+			}
 		}
 	};
 }
