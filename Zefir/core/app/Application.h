@@ -32,7 +32,7 @@ namespace Zefir
 		void Update();
 		
 		void OnEvent(SDL_Event& e);
-		virtual void CustomEvents(SDL_Event& e) = 0;
+		virtual void HandleEvents(SDL_Event& e) = 0;
 		
 		void Render();
 		void Exit();
