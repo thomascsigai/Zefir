@@ -8,7 +8,7 @@
 
 namespace Zefir
 {
-	void LoadText(SDL_Texture*& textPtr, std::string textToLoad, int fontSize, ResourceManager& resources, Renderer& renderer, SDL_Color color);
-	void RenderText(SDL_Texture* textTexture, Renderer& renderer, int x, int y);
+	void LoadText(SDL_Texture*& textPtr, std::string textToLoad, int fontSize, ResourceManager* resourceManager, Renderer* renderer, SDL_Color color);
+	void RenderText(SDL_Texture* textTexture, Renderer* renderer, int x, int y);
 }
 

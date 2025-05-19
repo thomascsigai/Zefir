@@ -2,7 +2,7 @@
 
 namespace Zefir
 {
-	void LoadText(SDL_Texture*& textPtr, std::string textToLoad, int fontSize, ResourceManager& resources, Renderer& renderer, SDL_Color color)
+	void LoadText(SDL_Texture*& textPtr, std::string textToLoad, int fontSize, ResourceManager* resourceManager, Renderer* renderer, SDL_Color color)
 	{
 		if (textPtr != nullptr)
 		{
@@ -10,7 +10,7 @@ namespace Zefir
 			textPtr = nullptr;
 		}
 
-		std::shared_ptr<Zefir::Font> font = resources.GetFont("resources\\fonts\\bit5x3.ttf");
+		std::shared_ptr<Zefir::Font> font = resourceManager->GetFont("resources\\fonts\\bit5x3.ttf");
 		if (font == nullptr)
 		{
 			LOG_WARN("Font not found.");
@@ -27,7 +27,7 @@ namespace Zefir
 		}
 		else
 		{
-			textPtr = SDL_CreateTextureFromSurface(renderer.GetSDLRenderer(), textSurface);
+			textPtr = SDL_CreateTextureFromSurface(renderer->GetSDLRenderer(), textSurface);
 			if (textPtr == nullptr)
 			{
 				LOG_WARN("Unable to create texture from rendered text! SDL Error: " << SDL_GetError());
@@ -37,12 +37,12 @@ namespace Zefir
 		}
 	}
 
-	void RenderText(SDL_Texture* textTexture, Zefir::Renderer& renderer, int x, int y)
+	void RenderText(SDL_Texture* textTexture, Zefir::Renderer* renderer, int x, int y)
 	{
 		int texWidth, texHeight;
 		SDL_QueryTexture(textTexture, NULL, NULL, &texWidth, &texHeight);
 
 		SDL_Rect rect = { x, y, texWidth, texHeight };
-		SDL_RenderCopy(renderer.GetSDLRenderer(), textTexture, NULL, &rect);
+		SDL_RenderCopy(renderer->GetSDLRenderer(), textTexture, NULL, &rect);
 	}
 }
