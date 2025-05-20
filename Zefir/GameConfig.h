@@ -5,8 +5,8 @@
 
 // WINDOW SETTINGS --------------------------------------------------
 
-constexpr Uint16 SCREEN_WIDTH = 800;
-constexpr Uint16 SCREEN_HEIGHT = 600;
+constexpr Uint16 SCREEN_WIDTH = 1024;
+constexpr Uint16 SCREEN_HEIGHT = 720;
 
 
 // RESOURCES SETTINGS ---------------------------------------------------

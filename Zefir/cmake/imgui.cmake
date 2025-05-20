@@ -1,17 +1,20 @@
-# ImGui sources
-set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/Zefir/thirdparty/imgui-1.91.9b)
+set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/Zefir/thirdparty/imgui-docking)
 
-file(GLOB IMGUI_SRC
-    ${IMGUI_DIR}/*.cpp
+set(IMGUI_SOURCES
+    ${IMGUI_DIR}/imgui.cpp
+    ${IMGUI_DIR}/imgui_draw.cpp
+    ${IMGUI_DIR}/imgui_tables.cpp
+    ${IMGUI_DIR}/imgui_demo.cpp
+    ${IMGUI_DIR}/imgui_widgets.cpp
     ${IMGUI_DIR}/backends/imgui_impl_sdl2.cpp
-    ${IMGUI_DIR}/backends/imgui_impl_sdlrenderer.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_sdlrenderer2.cpp
 )
 
-add_library(ImGui STATIC ${IMGUI_SRC})
+add_library(ImGui STATIC ${IMGUI_SOURCES})
 
 target_include_directories(ImGui PUBLIC
     ${IMGUI_DIR}
     ${IMGUI_DIR}/backends
 )
 
-target_link_libraries(ImGui PUBLIC SDL2::SDL2)
+target_link_libraries(ImGui PUBLIC SDL2::SDL2 SDL2::SDL2main)

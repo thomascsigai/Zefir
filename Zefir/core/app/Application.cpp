@@ -28,6 +28,16 @@ namespace Zefir
 		m_EngineContext.resourceManager = m_ResourceManager.get();
 		m_EngineContext.soundManager = m_SoundManager.get();
 
+		// Setup Dear ImGui
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+		ImGui::StyleColorsDark();
+		ImGui_ImplSDL2_InitForSDLRenderer(m_Window->GetSDLWindow(), m_Renderer->GetSDLRenderer());
+		ImGui_ImplSDLRenderer2_Init(m_Renderer->GetSDLRenderer());
+
 		OnInit();
 
 		m_IsRunning = true;
@@ -37,6 +47,11 @@ namespace Zefir
 	void Application::Update()
 	{
 		m_SceneManager->Update(m_DeltaTime);
+
+		ImGui_ImplSDLRenderer2_NewFrame();
+		ImGui_ImplSDL2_NewFrame();
+		ImGui::NewFrame();
+		ImGui::ShowDemoWindow();
 	}
 
 	void Application::OnEvent(SDL_Event& e)
@@ -50,7 +65,9 @@ namespace Zefir
 
 			m_SceneManager->OnEvent(e);
 			HandleEvents(e);
+			ImGui_ImplSDL2_ProcessEvent(&e);
 		}
+
 	}
 
 	void Application::Render()
@@ -61,11 +78,17 @@ namespace Zefir
 
 		m_SceneManager->Render(m_Renderer);
 
+		ImGui::Render();
+		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), m_Renderer->GetSDLRenderer());
+
 		SDL_RenderPresent(m_Renderer->GetSDLRenderer());
 	}
 
 	void Application::Exit()
 	{
+		ImGui_ImplSDLRenderer2_Shutdown();
+		ImGui_ImplSDL2_Shutdown();
+		ImGui::DestroyContext();
 		SDL_Quit();
 	}
 
