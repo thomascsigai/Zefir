@@ -21,3 +21,14 @@ target_include_directories(${ZEFIR_APP} PRIVATE
 target_link_libraries(${ZEFIR_APP} PRIVATE Zefir)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/SDL_copy.cmake)
+
+# copy resources folder
+set(RESOURCE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/resources)
+set(RESOURCE_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/resources)
+
+add_custom_command(
+    TARGET ${ZEFIR_APP} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${RESOURCE_SOURCE_DIR} ${RESOURCE_BINARY_DIR}
+    COMMENT "Copying resource folder to build directory"
+)
