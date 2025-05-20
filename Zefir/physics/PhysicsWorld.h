@@ -12,7 +12,7 @@ namespace Zefir
 		{
 			if (!Init())
 			{
-				LOG_WARN("Physics engine not initialized.");
+				LOG_WARN("Physics world not initialized.");
 			}
 		}
 		~PhysicsWorld()
