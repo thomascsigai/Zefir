@@ -25,6 +25,16 @@ namespace ZefirApp
 		void OnEvent(const SDL_Event& e) 
 		{
 			player->HandleEvent(e);
+
+			if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+			{
+				if (e.key.keysym.sym == SDLK_e)
+				{
+					m_EngineContext->soundManager->PlaySound(
+						m_EngineContext->resourceManager->GetSound("resources\\sounds\\win1.wav")
+					);
+				}
+			}
 		}
 		
 		void Update(double deltaTime) override
