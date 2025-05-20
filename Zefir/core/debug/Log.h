@@ -11,13 +11,13 @@
 
 // Engine logging
 #define LOG_INFO(str) std::cout << "[ZEFIR][INFO] : " << str << std::endl;
-#define LOG_WARN(str) std::cout << "[ZEFIR][WARN] : " << str << std::endl;
-#define LOG_FATAL(str) std::cout << "[ZEFIR][FATAL] : " << str << std::endl;
+#define LOG_WARN(str) std::cout << "\x1B[33m" << "[ZEFIR][WARN] : " << str << "\033[0m\t\t"  << std::endl;
+#define LOG_FATAL(str) std::cout << "\x1B[31m" << "[ZEFIR][FATAL] : " << str << "\033[0m\t\t" << std::endl;
 
 // App logging
 #define APP_LOG_INFO(str) std::cout << "[APP][INFO] : " << str << std::endl;
-#define APP_LOG_WARN(str) std::cout << "[APP][WARN] : " << str << std::endl;
-#define APP_LOG_FATAL(str) std::cout << "[APP][FATAL] : " << str << std::endl;
+#define APP_LOG_WARN(str)  std::cout << "\x1B[33m" << "[APP][WARN] : " << str << "\033[0m\t\t" << std::endl;
+#define APP_LOG_FATAL(str) std::cout << "\x1B[31m" << "[APP][FATAL] : " << str << "\033[0m\t\t" << std::endl;
 
 #else
 // If not debug, the macro does nothing
