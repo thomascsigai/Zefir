@@ -18,8 +18,8 @@ namespace Zefir
 		// Systems instanciation & initialization
 		m_Window = std::make_unique<Window>();
 		m_Renderer = std::make_unique<Renderer>(m_Window.get());
-		m_ResourceManager = std::make_unique<ResourceManager>(m_Renderer.get());
 		m_SoundManager = std::make_unique<SoundManager>();
+		m_ResourceManager = std::make_unique<ResourceManager>(m_Renderer.get());
 		m_SceneManager = std::make_unique<SceneManager>();
 
 		// Setup EngineContext
