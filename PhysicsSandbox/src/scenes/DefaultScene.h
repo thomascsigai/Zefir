@@ -9,11 +9,14 @@
 namespace ZefirApp
 {
 	SDL_Texture* text;
+	SDL_Texture* text2;
 
 	class DefaultScene : public Zefir::Scene
 	{
 		void OnLoad() override
 		{
+			Zefir::LoadText(text, "Click to spawn object", 30, m_EngineContext->resourceManager, m_EngineContext->renderer, { 255, 255, 255, 255 });
+			Zefir::LoadText(text2, "Press 1 to reload the scene", 30, m_EngineContext->resourceManager, m_EngineContext->renderer, { 255, 255, 255, 255 });
 			physicsWorld = std::make_unique<Zefir::PhysicsWorld>();
 			
 			ground = std::make_unique<Ground>(100, 500);
@@ -59,6 +62,8 @@ namespace ZefirApp
 
 		void Render(const std::unique_ptr<Zefir::Renderer>& renderer) override
 		{
+			Zefir::RenderText(text, renderer.get(), 100, 100);
+			Zefir::RenderText(text2, renderer.get(), 100, 150);
 			ground->Render(renderer);
 
 			for (auto& object : objects)
