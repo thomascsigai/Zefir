@@ -1,4 +1,5 @@
 #include <core/app/Application.h>
+#include <core/debug/zefir-debug-ui/PerformanceFrame.h>
 
 namespace Zefir
 {
@@ -30,6 +31,11 @@ namespace Zefir
 		m_EngineContext.soundManager = m_SoundManager.get();
 		m_EngineContext.imGuiManager = m_ImGuiManager.get();
 
+#ifndef NDEBUG
+		m_DebugUI = std::make_unique<DebugUI>();
+		m_HideDebugUI = false;
+#endif
+
 		OnInit();
 
 		m_IsRunning = true;
@@ -39,7 +45,17 @@ namespace Zefir
 	void Application::Update()
 	{
 		m_SceneManager->Update(m_DeltaTime);
-		m_ImGuiManager->NewWindow();
+
+#ifndef NDEBUG
+		if (!m_HideDebugUI && m_DebugUI != nullptr)
+		{
+			m_DebugUI->ShowUI(m_ImGuiManager.get());
+		}
+		else
+		{
+			m_DebugUI->Clear();
+		}
+#endif
 	}
 
 	void Application::OnEvent(SDL_Event& e)
@@ -49,6 +65,16 @@ namespace Zefir
 			if (e.type == SDL_QUIT)
 			{
 				m_IsRunning = false;
+			}
+
+			if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+			{
+#ifndef NDEBUG
+				if (e.key.keysym.sym == SDLK_F1)
+				{
+					m_HideDebugUI = !m_HideDebugUI;
+				}
+#endif
 			}
 
 			m_SceneManager->OnEvent(e);
@@ -69,7 +95,6 @@ namespace Zefir
 		m_ImGuiManager->Render(m_Renderer.get());
 
 		SDL_RenderPresent(m_Renderer->GetSDLRenderer());
-
 	}
 
 	void Application::Exit()

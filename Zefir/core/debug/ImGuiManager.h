@@ -9,12 +9,10 @@
 
 namespace Zefir
 {
-	struct ImGuiWindow
+	struct ImGuiFrame
 	{
-		std::string m_Name;
-
-		ImGuiWindow(std::string name) : m_Name(name) {}
-		virtual void GetContent() = 0;
+		virtual std::string GetName() const = 0;
+		virtual void ShowContent() const = 0;
 	};
 
 	class ImGuiManager
@@ -27,7 +25,7 @@ namespace Zefir
 		void HandleEvent(const SDL_Event& e);
 		void Render(Renderer* renderer);
 
-		void NewWindow();
+		void NewFrame(ImGuiFrame* frame);
 
 	private:
 		bool Init(Window* window, Renderer* renderer);

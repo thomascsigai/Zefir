@@ -20,17 +20,16 @@ namespace Zefir
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
-	void ImGuiManager::NewWindow()
+	void ImGuiManager::NewFrame(ImGuiFrame* frame)
 	{
 		ImGui_ImplSDLRenderer2_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
 		ImGui::NewFrame();
 		ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 
-		if (ImGui::Begin("Performance"))
+		if (ImGui::Begin(frame->GetName().c_str()))
 		{
-			ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-			ImGui::Text("Delta Time: %.3f ms", 1000.0f / ImGui::GetIO().Framerate);
+			frame->ShowContent();
 		}
 		ImGui::End();
 	}
@@ -38,7 +37,11 @@ namespace Zefir
 	void ImGuiManager::Render(Renderer* renderer)
 	{
 		ImGui::Render();
-		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer->GetSDLRenderer());
+		ImDrawData* drawData = ImGui::GetDrawData();
+		if (drawData && drawData->Valid)
+		{
+			ImGui_ImplSDLRenderer2_RenderDrawData(drawData, renderer->GetSDLRenderer());
+		}
 	}
 
 	bool ImGuiManager::Init(Window* window, Renderer* renderer)

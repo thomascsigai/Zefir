@@ -8,7 +8,9 @@
 #include <sound/SoundManager.h>
 #include <resource/ResourceManager.h>
 #include <scene/SceneManager.h>
+
 #include <core/debug/ImGuiManager.h>
+#include <core/debug/zefir-debug-ui/DebugUI.h>
 
 namespace Zefir
 {
@@ -24,6 +26,11 @@ namespace Zefir
 		std::unique_ptr<ImGuiManager> m_ImGuiManager;
 
 		EngineContext m_EngineContext;
+
+#ifndef NDEBUG
+		std::unique_ptr<DebugUI> m_DebugUI;
+		bool m_HideDebugUI;
+#endif
 
 	public:
 		Application();
