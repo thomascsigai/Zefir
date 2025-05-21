@@ -21,22 +21,14 @@ namespace Zefir
 		m_SoundManager = std::make_unique<SoundManager>();
 		m_ResourceManager = std::make_unique<ResourceManager>(m_Renderer.get());
 		m_SceneManager = std::make_unique<SceneManager>();
+		m_ImGuiManager = std::make_unique<ImGuiManager>(m_Window.get(), m_Renderer.get());
 
 		// Setup EngineContext
 		m_EngineContext.window = m_Window.get();
 		m_EngineContext.renderer = m_Renderer.get();
 		m_EngineContext.resourceManager = m_ResourceManager.get();
 		m_EngineContext.soundManager = m_SoundManager.get();
-
-		// Setup Dear ImGui
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO();
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-
-		ImGui::StyleColorsDark();
-		ImGui_ImplSDL2_InitForSDLRenderer(m_Window->GetSDLWindow(), m_Renderer->GetSDLRenderer());
-		ImGui_ImplSDLRenderer2_Init(m_Renderer->GetSDLRenderer());
+		m_EngineContext.imGuiManager = m_ImGuiManager.get();
 
 		OnInit();
 
@@ -47,11 +39,7 @@ namespace Zefir
 	void Application::Update()
 	{
 		m_SceneManager->Update(m_DeltaTime);
-
-		ImGui_ImplSDLRenderer2_NewFrame();
-		ImGui_ImplSDL2_NewFrame();
-		ImGui::NewFrame();
-		ImGui::ShowDemoWindow();
+		m_ImGuiManager->NewWindow();
 	}
 
 	void Application::OnEvent(SDL_Event& e)
@@ -65,7 +53,8 @@ namespace Zefir
 
 			m_SceneManager->OnEvent(e);
 			HandleEvents(e);
-			ImGui_ImplSDL2_ProcessEvent(&e);
+
+			m_ImGuiManager->HandleEvent(e);
 		}
 
 	}
@@ -77,18 +66,14 @@ namespace Zefir
 		SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 255, 255, 255, 255);
 
 		m_SceneManager->Render(m_Renderer);
-
-		ImGui::Render();
-		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), m_Renderer->GetSDLRenderer());
+		m_ImGuiManager->Render(m_Renderer.get());
 
 		SDL_RenderPresent(m_Renderer->GetSDLRenderer());
+
 	}
 
 	void Application::Exit()
 	{
-		ImGui_ImplSDLRenderer2_Shutdown();
-		ImGui_ImplSDL2_Shutdown();
-		ImGui::DestroyContext();
 		SDL_Quit();
 	}
 

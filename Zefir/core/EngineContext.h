@@ -4,6 +4,7 @@
 #include <resource/ResourceManager.h>
 #include <renderer/Renderer.h>
 #include <sound/SoundManager.h>
+#include <core/debug/ImGuiManager.h>
 
 namespace Zefir
 {
@@ -13,5 +14,6 @@ namespace Zefir
 		ResourceManager* resourceManager = nullptr;
 		Renderer* renderer = nullptr;
 		SoundManager* soundManager = nullptr;
+		ImGuiManager* imGuiManager = nullptr;
 	};
 }

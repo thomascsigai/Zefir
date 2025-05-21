@@ -2,16 +2,13 @@
 
 #include <SDL.h>
 
-#include <imgui.h>
-#include <backends/imgui_impl_sdl2.h>
-#include <backends/imgui_impl_sdlrenderer2.h>
-
 #include <core/window/Window.h>
 #include <core/EngineContext.h>
 #include <renderer/Renderer.h>
 #include <sound/SoundManager.h>
 #include <resource/ResourceManager.h>
 #include <scene/SceneManager.h>
+#include <core/debug/ImGuiManager.h>
 
 namespace Zefir
 {
@@ -24,6 +21,7 @@ namespace Zefir
 		std::unique_ptr<ResourceManager> m_ResourceManager;
 		std::unique_ptr<SoundManager> m_SoundManager;
 		std::unique_ptr<SceneManager> m_SceneManager;
+		std::unique_ptr<ImGuiManager> m_ImGuiManager;
 
 		EngineContext m_EngineContext;
 
