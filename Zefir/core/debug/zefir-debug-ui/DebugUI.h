@@ -1,7 +1,9 @@
 #pragma once
 
-#include <core/debug/zefir-debug-ui/PerformanceFrame.h>
 #include <core/debug/ImGuiManager.h>
+
+#include <core/debug/zefir-debug-ui/PerformanceFrame.h>
+#include <core/debug/zefir-debug-ui/LogFrame.h>
 
 namespace Zefir
 {
@@ -11,6 +13,7 @@ namespace Zefir
 		DebugUI()
 		{
 			performanceFrame = std::make_unique<PerformanceFrame>();
+			logFrame = std::make_unique<LogFrame>();
 		}
 
 		void ShowUI(ImGuiManager* imGuiManager)
@@ -21,7 +24,14 @@ namespace Zefir
 				return;
 			}
 
+			ImGui::ShowDemoWindow();
 			if (performanceFrame) imGuiManager->NewFrame(performanceFrame.get());
+			if (logFrame) imGuiManager->NewFrame(logFrame.get());
+		}
+
+		void AddLogToLogPanel()
+		{
+			if (logFrame) logFrame->AddLog("Test");
 		}
 
 		void Clear()
@@ -32,6 +42,8 @@ namespace Zefir
 
 	private:
 		ImGuiManager* m_ImguiManager = nullptr;
+
 		std::unique_ptr<PerformanceFrame> performanceFrame;
+		std::unique_ptr<LogFrame> logFrame;
 	};
 }
