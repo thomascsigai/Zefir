@@ -33,7 +33,7 @@ namespace Zefir
 
 #ifndef NDEBUG
 		m_DebugUI = std::make_unique<DebugUI>();
-		m_HideDebugUI = false;
+		m_HideDebugUI = true;
 #endif
 
 		OnInit();
@@ -45,6 +45,9 @@ namespace Zefir
 	void Application::Update()
 	{
 		m_SceneManager->Update(m_DeltaTime);
+
+		// UI
+		m_ImGuiManager->Update();
 
 #ifndef NDEBUG
 		if (!m_HideDebugUI && m_DebugUI != nullptr)
@@ -67,20 +70,23 @@ namespace Zefir
 				m_IsRunning = false;
 			}
 
-			if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
-			{
-#ifndef NDEBUG
-				if (e.key.keysym.sym == SDLK_F1)
-				{
-					m_HideDebugUI = !m_HideDebugUI;
-				}
-#endif
-			}
-
 			m_SceneManager->OnEvent(e);
 			HandleEvents(e);
 
 			m_ImGuiManager->HandleEvent(e);
+
+#ifndef NDEBUG
+			if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+			{
+
+				if (e.key.keysym.sym == SDLK_F1)
+				{
+					m_HideDebugUI = !m_HideDebugUI;
+				}
+			}
+
+			m_DebugUI->HandleEvent(e);
+#endif
 		}
 
 	}

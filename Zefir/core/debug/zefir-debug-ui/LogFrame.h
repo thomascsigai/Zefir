@@ -50,7 +50,7 @@ namespace Zefir
                 if (copy)
                     ImGui::LogToClipboard();
 
-                ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
+                ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 1));
                 const char* buf = Buf.begin();
                 const char* buf_end = Buf.end();
                 if (Filter.IsActive())

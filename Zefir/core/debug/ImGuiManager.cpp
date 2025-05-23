@@ -22,15 +22,8 @@ namespace Zefir
 
 	void ImGuiManager::NewFrame(ImGuiFrame* frame)
 	{
-		ImGui_ImplSDLRenderer2_NewFrame();
-		ImGui_ImplSDL2_NewFrame();
-		ImGui::NewFrame();
-		ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
-
-		if (ImGui::Begin(frame->GetName().c_str()))
-		{
-			frame->ShowContent();
-		}
+		ImGui::Begin(frame->GetName().c_str());
+		frame->ShowContent();
 		ImGui::End();
 	}
 
@@ -42,6 +35,14 @@ namespace Zefir
 		{
 			ImGui_ImplSDLRenderer2_RenderDrawData(drawData, renderer->GetSDLRenderer());
 		}
+	}
+
+	void ImGuiManager::Update()
+	{
+		ImGui_ImplSDLRenderer2_NewFrame();
+		ImGui_ImplSDL2_NewFrame();
+		ImGui::NewFrame();
+		ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 	}
 
 	bool ImGuiManager::Init(Window* window, Renderer* renderer)

@@ -12,8 +12,16 @@ namespace Zefir
 	public:
 		DebugUI()
 		{
-			performanceFrame = std::make_unique<PerformanceFrame>();
-			logFrame = std::make_unique<LogFrame>();
+			m_PerformanceFrame = std::make_unique<PerformanceFrame>();
+			m_LogFrame = std::make_unique<LogFrame>();
+		}
+
+		void HandleEvent(SDL_Event& e)
+		{
+			if (e.type == APP_LOG)
+			{
+				HandleAppLogEvent(e);
+			}
 		}
 
 		void ShowUI(ImGuiManager* imGuiManager)
@@ -25,14 +33,10 @@ namespace Zefir
 			}
 
 			ImGui::ShowDemoWindow();
-			if (performanceFrame) imGuiManager->NewFrame(performanceFrame.get());
-			if (logFrame) imGuiManager->NewFrame(logFrame.get());
+			if (m_PerformanceFrame) imGuiManager->NewFrame(m_PerformanceFrame.get());
+			if (m_LogFrame) imGuiManager->NewFrame(m_LogFrame.get());
 		}
 
-		void AddLogToLogPanel()
-		{
-			if (logFrame) logFrame->AddLog("Test");
-		}
 
 		void Clear()
 		{
@@ -43,7 +47,31 @@ namespace Zefir
 	private:
 		ImGuiManager* m_ImguiManager = nullptr;
 
-		std::unique_ptr<PerformanceFrame> performanceFrame;
-		std::unique_ptr<LogFrame> logFrame;
+		std::unique_ptr<PerformanceFrame> m_PerformanceFrame;
+		std::unique_ptr<LogFrame> m_LogFrame;
+		
+		void AddLogToLogPanel(const std::string& msg)
+		{
+			if (m_LogFrame)
+			{
+				m_LogFrame->AddLog(msg.c_str());
+			}
+		}
+
+		void HandleAppLogEvent(SDL_Event& e)
+		{
+			std::string* msg = static_cast<std::string*>(e.user.data1);
+			int* severity = static_cast<int*>(e.user.data2);
+
+			if (msg && severity)
+			{
+				if (*severity == 0) AddLogToLogPanel("[INFO] " + *msg + "\n");
+				if (*severity == 1) AddLogToLogPanel("[WARN] " + *msg + "\n");
+				if (*severity == 2) AddLogToLogPanel("[FATAL] " + *msg + "\n");
+			}
+
+			delete msg;
+			delete severity;
+		}
 	};
 }
