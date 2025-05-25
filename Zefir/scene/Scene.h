@@ -30,7 +30,16 @@ namespace Zefir
 		virtual ~Scene() = default;
 		virtual void OnLoad() {}
 		virtual void OnUnload() {}
-		virtual void OnEvent(const SDL_Event& e) {}
+		virtual void OnSceneEvent(const SDL_Event& e) = 0;
+
+		void OnEvent(const SDL_Event& e)
+		{
+			for (std::unique_ptr<GameObject>& go : m_SceneObjects)
+			{
+				go->HandleEvent(e);
+			}
+			OnSceneEvent(e);
+		}
 
 		void Update(double deltaTime)
 		{
