@@ -12,7 +12,7 @@ namespace Zefir
 	{
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 		{
-			LOG_FATAL("SDL could not initialize ! SDL_Error: " << SDL_GetError());
+			LOG_FATAL("SDL could not initialize ! SDL_Error: ", SDL_GetError());
 			return false;
 		}
 

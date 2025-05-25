@@ -24,7 +24,7 @@ namespace Zefir
 		SDL_Surface* surface = IMG_Load(m_Path.c_str());
 		if (surface == nullptr)
 		{
-			LOG_WARN("Surface for texture " << m_Path << " not created." << SDL_GetError());
+			LOG_WARN("Surface for texture ", m_Path, " not created.", SDL_GetError());
 			return false;
 		}
 

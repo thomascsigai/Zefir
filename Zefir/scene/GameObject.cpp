@@ -70,16 +70,16 @@ namespace Zefir
 
 	void GameObject::Update(double deltaTime)
 	{
-		LOG_INFO(m_Name << " has an empty update function called.");
+		LOG_INFO(m_Name, " has an empty update function called.");
 	}
 
 	void GameObject::OnCollide(GameObject& other)
 	{
-		LOG_INFO(m_Name << "Collided with " << other.m_Name << ".");
+		LOG_INFO(m_Name, "Collided with ", other.m_Name, ".");
 	}
 
 	void GameObject::HandleEvent(const SDL_Event& e)
 	{
-		LOG_WARN("HandleEvent method used but not implemented for GameObject " << m_Name << ".");
+		LOG_WARN("HandleEvent method used but not implemented for GameObject ", m_Name, ".");
 	}
 }

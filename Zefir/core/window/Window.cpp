@@ -23,7 +23,7 @@ namespace Zefir
 
 		if (m_SDLWindow == nullptr)
 		{
-			LOG_FATAL("SDL Window could not be created ! SDL_Error: " << SDL_GetError());
+			LOG_FATAL("SDL Window could not be created ! SDL_Error: ", SDL_GetError());
 			success = false;
 		}
 

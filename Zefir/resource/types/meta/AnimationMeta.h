@@ -24,7 +24,7 @@ namespace Zefir
 
 			if (!file.is_open())
 			{
-				LOG_WARN("Meta file for animation " << path << " does not exist. Create one to use animation.");
+				LOG_WARN("Meta file for animation ", path, " does not exist. Create one to use animation.");
 				return false;
 			}
 
@@ -34,7 +34,7 @@ namespace Zefir
 			}
 			catch (nlohmann::json::parse_error& e)
 			{
-				LOG_WARN("Invalid meta file for animation " << path << ". Make sure it follow Json syntax.");
+				LOG_WARN("Invalid meta file for animation ", path, ". Make sure it follow Json syntax.");
 				return false;
 			}
 			

@@ -34,7 +34,7 @@ namespace Zefir
 	{
 		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 		{
-			LOG_WARN("SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError());
+			LOG_WARN("SDL_mixer could not initialize! SDL_mixer Error: ", Mix_GetError());
 			return false;
 		}
 

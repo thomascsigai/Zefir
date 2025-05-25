@@ -84,7 +84,7 @@ namespace Zefir
 		}
 		
 		filesFound = filesLoaded + filesNotLoaded;
-		LOG_INFO("Files found: " << filesFound << " (" << filesLoaded << " loaded, " << filesNotLoaded << " not loaded).");
+		LOG_INFO("Files found: ", filesFound, " (", filesLoaded, " loaded, ", filesNotLoaded, " not loaded).");
 		
 		// If a file has not been loaded, return false
 		return (filesNotLoaded == 0);
@@ -157,7 +157,7 @@ namespace Zefir
 		m_Sounds.clear();
 		m_Fonts.clear();
 
-		LOG_INFO("Unloading complete. Resources found: " << resourcesFound << " (" << resourcesUnloaded << " unloaded, " << resourcesNotUnloaded << " not unloaded).");
+		LOG_INFO("Unloading complete. Resources found: ", resourcesFound, " (", resourcesUnloaded, " unloaded, ", resourcesNotUnloaded, " not unloaded).");
 		return true;
 	}
 
@@ -223,7 +223,7 @@ namespace Zefir
 			}
 		}
 
-		LOG_INFO("Reloading complete. Resources found: " << resourcesFound << " (" << resourcesReloaded << " reloaded, " << resourcesNotReloaded << " not reloaded).");
+		LOG_INFO("Reloading complete. Resources found: ", resourcesFound, " (", resourcesReloaded, " reloaded, ", resourcesNotReloaded, " not reloaded).");
 		return true;
 	}
 

@@ -29,20 +29,20 @@ namespace Zefir
 
 		if (m_SDLRenderer == nullptr)
 		{
-			LOG_FATAL("Renderer could not be created ! SDL_Error: " << SDL_GetError());
+			LOG_FATAL("Renderer could not be created ! SDL_Error: ", SDL_GetError());
 			success = false;
 		}
 
 		int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
 		if (!(IMG_Init(imgFlags) & imgFlags))
 		{
-			LOG_WARN("SDL_image could not initialize! SDL_image Error: " << IMG_GetError());
+			LOG_WARN("SDL_image could not initialize! SDL_image Error: ", IMG_GetError());
 			success = false;
 		}
 
 		if (TTF_Init() < 0)
 		{
-			LOG_WARN("SDL_ttf could not initialize : " << TTF_GetError());
+			LOG_WARN("SDL_ttf could not initialize : ", TTF_GetError());
 			success = false;
 		}
 

@@ -23,14 +23,14 @@ namespace Zefir
 		SDL_Surface* textSurface = TTF_RenderText_Solid(fontTTF, textToLoad.c_str(), color);
 		if (textSurface == nullptr)
 		{
-			LOG_WARN("Unable to render text surface! SDL_ttf Error: " << TTF_GetError());
+			LOG_WARN("Unable to render text surface! SDL_ttf Error: ", TTF_GetError());
 		}
 		else
 		{
 			textPtr = SDL_CreateTextureFromSurface(renderer->GetSDLRenderer(), textSurface);
 			if (textPtr == nullptr)
 			{
-				LOG_WARN("Unable to create texture from rendered text! SDL Error: " << SDL_GetError());
+				LOG_WARN("Unable to create texture from rendered text! SDL Error: ", SDL_GetError());
 			}
 
 			SDL_FreeSurface(textSurface);
