@@ -52,6 +52,7 @@ namespace Zefir
 	private:
 		bool m_IsRunning;
 		bool m_IsPaused;
+		bool m_SpeedUp;
 
 		double m_DeltaTime;
 		int m_PreviousTime;

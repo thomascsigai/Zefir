@@ -3,7 +3,7 @@
 
 namespace Zefir
 {
-	Application::Application() : m_IsRunning(false), m_IsPaused(false)
+	Application::Application() : m_IsRunning(false), m_IsPaused(false), m_SpeedUp(false)
 	{
 		m_DeltaTime = 0;
 		m_CurrentTime = 0;
@@ -46,13 +46,14 @@ namespace Zefir
 
 	void Application::Update()
 	{
+		m_CurrentTime = SDL_GetTicks();
+		m_DeltaTime = (double)(m_CurrentTime - m_PreviousTime) / 1000;
+		m_PreviousTime = m_CurrentTime;
+		
 		if (!m_IsPaused)
 		{
-			m_CurrentTime = SDL_GetTicks();
-			m_DeltaTime = (double)(m_CurrentTime - m_PreviousTime) / 1000;
-			m_PreviousTime = m_CurrentTime;
-
 			m_SceneManager->Update(m_DeltaTime);
+			if (m_SpeedUp) m_SceneManager->Update(m_DeltaTime);
 		}
 
 		// UI
@@ -82,11 +83,19 @@ namespace Zefir
 			if (e.type == EngineEvents::PAUSE_SIMULATION)
 			{
 				m_IsPaused = true;
+				m_SpeedUp = false;
 			}
 
 			if (e.type == EngineEvents::RESUME_SIMULATION)
 			{
 				m_IsPaused = false;
+				m_SpeedUp = false;
+			}
+
+			if (e.type == EngineEvents::SPEED_UP_SIMULATION)
+			{
+				m_IsPaused = false;
+				m_SpeedUp = true;
 			}
 
 			m_SceneManager->OnEvent(e);
