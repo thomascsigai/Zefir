@@ -8,9 +8,6 @@
 
 namespace ZefirApp
 {
-	SDL_Texture* text;
-	SDL_Texture* text2;
-
 	class DefaultScene : public Zefir::Scene
 	{
 		void OnLoad() override
