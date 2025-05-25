@@ -14,5 +14,8 @@ namespace ZefirApp
 			m_BoxCollider.position = m_Transform2D.position;
 			m_BoxCollider.size = { 600, 30 };
 		}
+
+		void Update(double deltaTime) override {}
+		void HandleEvent(const SDL_Event& e) override {}
 	};
 }
