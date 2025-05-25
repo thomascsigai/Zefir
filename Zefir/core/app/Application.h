@@ -4,6 +4,7 @@
 
 #include <core/window/Window.h>
 #include <core/EngineContext.h>
+#include <core/EngineEvents.h>
 #include <renderer/Renderer.h>
 #include <sound/SoundManager.h>
 #include <resource/ResourceManager.h>
@@ -47,9 +48,13 @@ namespace Zefir
 		void Exit();
 
 		bool IsRunning();
-		double m_DeltaTime;
 
 	private:
 		bool m_IsRunning;
+		bool m_IsPaused;
+
+		double m_DeltaTime;
+		int m_PreviousTime;
+		int m_CurrentTime;
 	};
 }

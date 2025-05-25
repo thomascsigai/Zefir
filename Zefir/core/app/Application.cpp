@@ -3,9 +3,11 @@
 
 namespace Zefir
 {
-	Application::Application() : m_IsRunning(false)
+	Application::Application() : m_IsRunning(false), m_IsPaused(false)
 	{
 		m_DeltaTime = 0;
+		m_CurrentTime = 0;
+		m_PreviousTime = SDL_GetTicks();
 	}
 
 	bool Application::Init()
@@ -44,7 +46,14 @@ namespace Zefir
 
 	void Application::Update()
 	{
-		m_SceneManager->Update(m_DeltaTime);
+		if (!m_IsPaused)
+		{
+			m_CurrentTime = SDL_GetTicks();
+			m_DeltaTime = (double)(m_CurrentTime - m_PreviousTime) / 1000;
+			m_PreviousTime = m_CurrentTime;
+
+			m_SceneManager->Update(m_DeltaTime);
+		}
 
 		// UI
 		m_ImGuiManager->Update();
@@ -68,6 +77,16 @@ namespace Zefir
 			if (e.type == SDL_QUIT)
 			{
 				m_IsRunning = false;
+			}
+
+			if (e.type == EngineEvents::PAUSE_SIMULATION)
+			{
+				m_IsPaused = true;
+			}
+
+			if (e.type == EngineEvents::RESUME_SIMULATION)
+			{
+				m_IsPaused = false;
 			}
 
 			m_SceneManager->OnEvent(e);
