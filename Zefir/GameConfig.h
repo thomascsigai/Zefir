@@ -20,7 +20,7 @@ constexpr Uint16 SCREEN_HEIGHT = 720;
 
 // GAME SPECIFIC SETTINGS -------------------------------------------
 
-constexpr Uint16 PLAYER_SPEED = 100;
+constexpr Uint16 PLAYER_SPEED = 1000;
 
 // PHYSICS SETTINGS -------------------------------------------------
 
