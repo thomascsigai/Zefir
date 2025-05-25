@@ -15,19 +15,22 @@ namespace ZefirApp
 	{
 		void OnLoad() override
 		{
+			APP_LOG_INFO("Scene loaded");
+
 			AddObjectToScene(std::make_unique<Ground>(100, 500));
 			
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 100; i++)
 			{
-				AddObjectToScene(std::make_unique<PhysicObject>(150 * i + 20, 20 * i));
+				AddObjectToScene(std::make_unique<PhysicObject>(5 * i + 20, i));
 			}
 		}
 
 		void OnUnload() override
 		{
+			APP_LOG_INFO("Scene unloaded");
 		}
 
-		void OnEvent(const SDL_Event& e)
+		void OnSceneEvent(const SDL_Event& e)
 		{
 			if (e.type == SDL_MOUSEBUTTONDOWN)
 			{
