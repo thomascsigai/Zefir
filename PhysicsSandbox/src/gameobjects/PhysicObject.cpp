@@ -9,6 +9,8 @@ namespace ZefirApp
 		m_Transform2D.SetPosition(x, y);
 		m_Transform2D.SetSize(50, 53);
 
+		m_Rigidbody2D.type = Zefir::BodyType::Dynamic;
+
 		m_BoxCollider.position = m_Transform2D.position;
 		m_BoxCollider.size = { 50, 53 };
 	}
