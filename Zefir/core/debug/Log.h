@@ -13,8 +13,8 @@
 
 // Engine logging
 #define LOG_INFO(...)		std::cout << "[INFO] " << Zefir::ToString(__VA_ARGS__) << std::endl;
-#define LOG_WARN(...)		std::cout << "[WARN] " <<"\x1B[33m" << Zefir::ToString(__VA_ARGS__) << "\033[0m\t\t"  << std::endl;
-#define LOG_FATAL(...)		std::cout << "[FATAL] " <<"\x1B[31m" << Zefir::ToString(__VA_ARGS__) << "\033[0m\t\t" << std::endl;
+#define LOG_WARN(...)		std::cout << "\x1B[33m" << "[WARN] " << Zefir::ToString(__VA_ARGS__) << "\033[0m\t\t"  << std::endl;
+#define LOG_FATAL(...)		std::cout <<"\x1B[31m" << "[FATAL] " << Zefir::ToString(__VA_ARGS__) << "\033[0m\t\t" << std::endl;
 
 // App logging
 #define APP_LOG_INFO(...)	Zefir::SendAppLog(Zefir::ToString(__VA_ARGS__), 0);
