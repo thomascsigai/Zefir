@@ -30,12 +30,20 @@ namespace ZefirApp
 
 	void Player::HandleEvent(const SDL_Event& e)
 	{
-		if (e.type == SDL_KEYDOWN)
+		if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 		{
-			if (e.key.keysym.sym == MOVE_KEYBIND.UP)		m_Rigidbody2D.AddForce({ 0, -PLAYER_SPEED });
-			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN)		m_Rigidbody2D.AddForce({ 0, PLAYER_SPEED });
-			if (e.key.keysym.sym == MOVE_KEYBIND.LEFT)		m_Rigidbody2D.AddForce({ -PLAYER_SPEED, 0 });
-			if (e.key.keysym.sym == MOVE_KEYBIND.RIGHT)		m_Rigidbody2D.AddForce({ PLAYER_SPEED, 0 });
+			if (e.key.keysym.sym == MOVE_KEYBIND.UP)		m_Rigidbody2D.velocity.y -= PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN)		m_Rigidbody2D.velocity.y += PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.LEFT)		m_Rigidbody2D.velocity.x -= PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.RIGHT)		m_Rigidbody2D.velocity.x += PLAYER_SPEED;
+			
+		}
+		if (e.type == SDL_KEYUP && e.key.repeat == 0)
+		{
+			if (e.key.keysym.sym == MOVE_KEYBIND.UP)		m_Rigidbody2D.velocity.y += PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN)		m_Rigidbody2D.velocity.y -= PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.LEFT)		m_Rigidbody2D.velocity.x += PLAYER_SPEED;
+			if (e.key.keysym.sym == MOVE_KEYBIND.RIGHT)		m_Rigidbody2D.velocity.x -= PLAYER_SPEED;
 		}
 	}
 }
