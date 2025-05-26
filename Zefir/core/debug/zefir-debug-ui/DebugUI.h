@@ -5,6 +5,7 @@
 #include <core/debug/zefir-debug-ui/PerformanceFrame.h>
 #include <core/debug/zefir-debug-ui/LogFrame.h>
 #include <core/debug/zefir-debug-ui/SimulationControlFrame.h>
+#include <core/debug/zefir-debug-ui/ResourcesFrame.h>
 
 namespace Zefir
 {
@@ -16,6 +17,7 @@ namespace Zefir
 			m_PerformanceFrame = std::make_unique<PerformanceFrame>();
 			m_LogFrame = std::make_unique<LogFrame>();
 			m_SimulationControlFrame = std::make_unique<SimulationControlFrame>();
+			m_ResourcesFrame = std::make_unique<ResourcesFrame>();
 		}
 
 		void HandleEvent(SDL_Event& e)
@@ -38,6 +40,7 @@ namespace Zefir
 			if (m_PerformanceFrame) imGuiManager->NewFrame(m_PerformanceFrame.get());
 			if (m_LogFrame) imGuiManager->NewFrame(m_LogFrame.get());
 			if (m_SimulationControlFrame) imGuiManager->NewFrame(m_SimulationControlFrame.get());
+			if (m_ResourcesFrame) imGuiManager->NewFrame(m_ResourcesFrame.get());
 		}
 
 
@@ -53,6 +56,7 @@ namespace Zefir
 		std::unique_ptr<PerformanceFrame> m_PerformanceFrame;
 		std::unique_ptr<LogFrame> m_LogFrame;
 		std::unique_ptr<SimulationControlFrame> m_SimulationControlFrame;
+		std::unique_ptr<ResourcesFrame> m_ResourcesFrame;
 		
 		void AddLogToLogPanel(const std::string& msg)
 		{

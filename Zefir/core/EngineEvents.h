@@ -8,5 +8,10 @@ namespace Zefir
 		const inline Uint32 PAUSE_SIMULATION = SDL_RegisterEvents(1);
 		const inline Uint32 RESUME_SIMULATION = SDL_RegisterEvents(1);
 		const inline Uint32 SPEED_UP_SIMULATION = SDL_RegisterEvents(1);
+
+		// Resources Events
+		const inline Uint32 LOAD_ALL_RESOURCES = SDL_RegisterEvents(1);
+		const inline Uint32 RELOAD_ALL_RESOURCES = SDL_RegisterEvents(1);
+		const inline Uint32 UNLOAD_ALL_RESOURCES = SDL_RegisterEvents(1);
 	}
 }

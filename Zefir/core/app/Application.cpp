@@ -98,6 +98,21 @@ namespace Zefir
 				m_SpeedUp = true;
 			}
 
+			if (e.type == EngineEvents::LOAD_ALL_RESOURCES)
+			{
+				m_ResourceManager->LoadAllResources();
+			}
+
+			if (e.type == EngineEvents::RELOAD_ALL_RESOURCES)
+			{
+				m_ResourceManager->ReloadAllResources();
+			}
+
+			if (e.type == EngineEvents::UNLOAD_ALL_RESOURCES)
+			{
+				m_ResourceManager->UnloadAllResources();
+			}
+
 			m_SceneManager->OnEvent(e);
 			HandleEvents(e);
 
