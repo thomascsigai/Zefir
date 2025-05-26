@@ -15,8 +15,10 @@ namespace Zefir
 
 		void ShowContent() override
 		{
-			ImGui::Text("Resources Loaded : "); ImGui::SameLine();
-			ImGui::Text(ToString(resourcesLoaded).c_str());
+			/* TODO - Link this with resource manager
+				ImGui::Text("Resources Loaded : "); ImGui::SameLine();
+				ImGui::Text(ToString(resourcesLoaded).c_str());
+			*/
 
 			if (ImGui::Button("Load All Assets"))
 			{
