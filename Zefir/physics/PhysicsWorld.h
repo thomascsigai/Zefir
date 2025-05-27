@@ -67,6 +67,7 @@ namespace Zefir
 
 	private:
 		std::vector<GameObject*> m_Objects;
+		const Zefir::Vector2 GRAVITY_FORCE = Zefir::Vector2(0, 200.0f);
 
 		bool Init()
 		{
