@@ -1,6 +1,5 @@
 #include <resource/ResourceManager.h>
 #include <core/debug/Log.h>
-#include <GameConfig.h>
 #include <resource/types/meta/AnimationMeta.h>
 
 #include <filesystem>
