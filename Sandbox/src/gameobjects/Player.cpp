@@ -6,7 +6,7 @@ namespace ZefirApp
 	Player::Player(std::shared_ptr<Zefir::Texture> idle, std::shared_ptr<Zefir::Texture> walk)
 		: GameObject("Player"), m_IdleTexture(idle), m_WalkTexture(walk)
 	{
-		m_Transform2D.SetPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		m_Transform2D.SetPosition(100, 100);
 		m_Transform2D.SetSize(100, 106);
 
 		m_Rigidbody2D.useGravity = false;
