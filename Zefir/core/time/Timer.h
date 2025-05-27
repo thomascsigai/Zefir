@@ -1,6 +1,5 @@
 #pragma once
 
-#include <GameConfig.h>
 #include <SDL.h>
 
 namespace Zefir
