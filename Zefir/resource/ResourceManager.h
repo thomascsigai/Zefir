@@ -10,6 +10,12 @@
 #include <resource/types/Sound.h>
 #include <resource/types/Font.h>
 
+#define RESOURCES_BASE_DIR "resources"
+#define RESOURCES_TEXTURES_DIR "textures"
+#define RESOURCES_ANIM_DIR "anims"
+#define RESOURCES_SOUNDS_DIR "sounds"
+#define RESOURCES_FONTS_DIR "fonts"
+
 namespace Zefir
 {
 	class ResourceManager
