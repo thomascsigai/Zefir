@@ -16,6 +16,7 @@ namespace Zefir
 
 		SDL_Renderer* GetSDLRenderer() const { return m_SDLRenderer; }
 
+		void RenderRect(Vector2 position, Vector2 size);
 		void RenderFilledRect(Vector2 position, Vector2 size);
 		void RenderCircle(Vector2 position, float radius);
 		void RenderFilledCircle(Vector2 position, float radius);

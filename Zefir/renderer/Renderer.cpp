@@ -67,6 +67,15 @@ namespace Zefir
 		SDL_RenderFillRectF(m_SDLRenderer, &rect);
 	}
 
+	void Renderer::RenderRect(Vector2 position, Vector2 size)
+	{
+		SDL_FRect rect = {
+			position.x, position.y,
+			size.x, size.y
+		};
+		SDL_RenderDrawRectF(m_SDLRenderer, &rect);
+	}
+
 	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size, 
 		double rotationAngle)
 	{
