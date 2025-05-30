@@ -35,8 +35,7 @@
 #include <physics/PhysicsWorld.h>
 #include <physics/Rigidbody2D.h>
 // -- Colliders
-#include <physics/BoxCollider.h>
-#include <physics/CircleCollider.h>
+#include <physics/Colliders.h>
 
 // Thirdparty libraries
 // -- SDL2

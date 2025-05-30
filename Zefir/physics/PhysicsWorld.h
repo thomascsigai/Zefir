@@ -34,9 +34,7 @@ namespace Zefir
 				rb.velocity += rb.acceleration * deltaTime * 0.5f;
 				rb.acceleration = { 0, 0 };
 
-				obj->m_BoxCollider.position = obj->m_Transform2D.position;
-
-				for (auto* other : m_Objects)
+				/*for (auto* other : m_Objects)
 				{
 					if (other == obj || other->m_Rigidbody2D.type != BodyType::Static)
 						continue;
@@ -55,7 +53,7 @@ namespace Zefir
 							objCol.position.y = obj->m_Transform2D.position.y;
 						}
 					}
-				}
+				}*/
 			}
 			
 		}
@@ -63,6 +61,14 @@ namespace Zefir
 		void AddObject(GameObject* go)
 		{
 			m_Objects.push_back(go);
+		}
+
+		void RemoveObject(GameObject* go)
+		{
+			if (!go) return;
+			auto itr = std::find(m_Objects.begin(), m_Objects.end(), go);
+			if (itr == m_Objects.end()) return;
+			m_Objects.erase(itr);
 		}
 
 	private:

@@ -26,7 +26,7 @@ namespace Zefir
 		}
 	}
 
-	void SceneManager::Render(const std::unique_ptr<Renderer>& renderer)
+	void SceneManager::Render(Renderer* renderer)
 	{
 		if (m_CurrentScene)
 		{

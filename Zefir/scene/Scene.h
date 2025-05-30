@@ -27,7 +27,7 @@ namespace Zefir
 
 		void OnEvent(const SDL_Event& e);
 		void Update(double deltaTime);
-		void Render(const std::unique_ptr<Renderer>& renderer);
+		void Render(Renderer* renderer);
 		void OnAttach(EngineContext* context);
 	};
 }

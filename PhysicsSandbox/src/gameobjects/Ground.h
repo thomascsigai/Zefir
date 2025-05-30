@@ -11,8 +11,8 @@ namespace ZefirApp
 		{
 			m_Transform2D.size = { 600, 30 };
 			m_Rigidbody2D.type = Zefir::BodyType::Static;
-			m_BoxCollider.position = m_Transform2D.position;
-			m_BoxCollider.size = { 600, 30 };
+
+			SetupCollider(m_Transform2D.position, m_Transform2D.size);
 		}
 
 		void Update(double deltaTime) override {}

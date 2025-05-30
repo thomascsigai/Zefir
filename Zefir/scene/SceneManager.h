@@ -14,7 +14,7 @@ namespace Zefir
 
 		void LoadScene(std::unique_ptr<Scene> newScene, EngineContext* context);
 		void Update(double deltaTime);
-		void Render(const std::unique_ptr<Renderer>& renderer);
+		void Render(Renderer* renderer);
 		void OnEvent(const SDL_Event& e);
 
 	private:

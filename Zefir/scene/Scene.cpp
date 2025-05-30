@@ -27,7 +27,7 @@ namespace Zefir
 		m_PhysicsWorld->Step(deltaTime);
 	}
 
-	void Scene::Render(const std::unique_ptr<Renderer>& renderer)
+	void Scene::Render(Renderer* renderer)
 	{
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{

@@ -4,20 +4,30 @@ namespace Zefir
 {
 	GameObject::GameObject()
 		: m_Name("Gameobject"), m_Transform2D(), m_Texture(nullptr),
-		m_AnimFrameTimer(), m_Rigidbody2D() {}
+		m_AnimFrameTimer(), m_Rigidbody2D(), m_Collider(nullptr) {}
 
 	GameObject::GameObject(std::string name)
 		: m_Name(name), m_Transform2D(), m_Texture(nullptr), 
-		m_AnimFrameTimer(), m_Rigidbody2D() { }
+		m_AnimFrameTimer(), m_Rigidbody2D(), m_Collider(nullptr) { }
 
 	GameObject::GameObject(std::string name, float x, float y)
 		: m_Name(name), m_Transform2D(), m_Texture(nullptr),
-		m_AnimFrameTimer(), m_Rigidbody2D()
+		m_AnimFrameTimer(), m_Rigidbody2D(), m_Collider(nullptr)
 	{
 		m_Transform2D.position = { x, y };
 	}
 
-	void GameObject::Render(const std::unique_ptr<Renderer>& renderer)
+	void GameObject::SetupCollider(Vector2 position, Vector2 size)
+	{
+		m_Collider = std::make_unique<BoxCollider>(position, size);
+	}
+
+	void GameObject::SetupCollider(Vector2 position, float radius)
+	{
+		m_Collider = std::make_unique<CircleCollider>(position, radius);
+	}
+
+	void GameObject::Render(Renderer* renderer)
 	{
 		static int numberFrame = 0;
 
@@ -55,15 +65,7 @@ namespace Zefir
 
 		
 #ifndef NDEBUG
-		//Debug draw colliders
-		SDL_FRect rect = { 
-			m_BoxCollider.position.x, m_BoxCollider.position.y,
-			m_BoxCollider.size.x, m_BoxCollider.size.y
-		};
-
-		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 0, 255, 0, 255);
-		SDL_RenderDrawRectF(renderer->GetSDLRenderer(), &rect);
-		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
+		m_Collider->Render(renderer);
 #endif
 				
 	}

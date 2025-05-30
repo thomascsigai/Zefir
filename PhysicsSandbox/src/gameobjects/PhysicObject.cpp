@@ -10,9 +10,7 @@ namespace ZefirApp
 		m_Transform2D.SetSize(50, 53);
 
 		m_Rigidbody2D.type = Zefir::BodyType::Dynamic;
-
-		m_BoxCollider.position = m_Transform2D.position;
-		m_BoxCollider.size = { 50, 53 };
+		SetupCollider(m_Transform2D.position + (m_Transform2D.size / 2), 25);
 	}
 
 	void PhysicObject::Update(double deltaTime)
