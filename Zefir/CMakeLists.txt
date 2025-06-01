@@ -20,4 +20,5 @@ target_link_libraries(Zefir PUBLIC
     SDL2::SDL2_mixer
     json
     ImGui
+    Box2D
 )
