@@ -1,7 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // SPDX-FileCopyrightText: 2023 Erin Catto
 // SPDX-License-Identifier: MIT
 
@@ -763,6 +759,3 @@ inline bool operator!=( b2Vec2 a, b2Vec2 b )
 #endif
 
 /**@}*/
-#ifdef __cplusplus
-}
-#endif

@@ -1,7 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // SPDX-FileCopyrightText: 2023 Erin Catto
 // SPDX-License-Identifier: MIT
 
@@ -146,6 +142,3 @@ B2_INLINE b2JointId b2LoadJointId( uint64_t x )
 }
 
 /**@}*/
-#ifdef __cplusplus
-}
-#endif

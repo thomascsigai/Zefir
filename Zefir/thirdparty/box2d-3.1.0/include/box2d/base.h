@@ -1,6 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
 // SPDX-FileCopyrightText: 2023 Erin Catto
 // SPDX-License-Identifier: MIT
 
@@ -132,6 +129,3 @@ B2_API void b2Yield( void );
 B2_API uint32_t b2Hash( uint32_t hash, const uint8_t* data, int count );
 
 //! @endcond
-#ifdef __cplusplus
-}
-#endif

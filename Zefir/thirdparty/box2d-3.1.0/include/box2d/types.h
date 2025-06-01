@@ -1,7 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // SPDX-FileCopyrightText: 2023 Erin Catto
 // SPDX-License-Identifier: MIT
 
@@ -1459,6 +1455,3 @@ typedef struct b2DebugDraw
 /// Use this to initialize your drawing interface. This allows you to implement a sub-set
 /// of the drawing functions.
 B2_API b2DebugDraw b2DefaultDebugDraw( void );
-#ifdef __cplusplus
-}
-#endif

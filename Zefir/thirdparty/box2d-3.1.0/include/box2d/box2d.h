@@ -1,7 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // SPDX-FileCopyrightText: 2023 Erin Catto
 // SPDX-License-Identifier: MIT
 
@@ -1224,6 +1220,3 @@ B2_API float b2WheelJoint_GetMotorTorque( b2JointId jointId );
 /**@}*/
 
 /**@}*/
-#ifdef __cplusplus
-}
-#endif

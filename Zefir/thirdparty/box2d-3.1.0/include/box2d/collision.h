@@ -1,7 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // SPDX-FileCopyrightText: 2023 Erin Catto
 // SPDX-License-Identifier: MIT
 
@@ -832,6 +828,3 @@ B2_API b2PlaneSolverResult b2SolvePlanes( b2Vec2 position, b2CollisionPlane* pla
 B2_API b2Vec2 b2ClipVector( b2Vec2 vector, const b2CollisionPlane* planes, int count );
 
 /**@}*/
-#ifdef __cplusplus
-}
-#endif
