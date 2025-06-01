@@ -8,8 +8,8 @@ namespace Zefir
 	struct WindowSettings
 	{
 		std::string title;
-		Uint32 width;
-		Uint32 height;
+		std::size_t width;
+		std::size_t height;
 		bool vsync;
 
 		WindowSettings(const std::string& title = "Zefir App",
