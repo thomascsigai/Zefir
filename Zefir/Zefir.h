@@ -32,10 +32,6 @@
 #include <sound/SoundManager.h>
 
 // Physics components
-#include <physics/PhysicsWorld.h>
-#include <physics/Rigidbody2D.h>
-// -- Colliders
-#include <physics/Colliders.h>
 
 // Thirdparty libraries
 // -- SDL2
