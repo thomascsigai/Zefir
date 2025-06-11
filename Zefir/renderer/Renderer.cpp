@@ -76,15 +76,21 @@ namespace Zefir
 		SDL_RenderDrawRect(m_SDLRenderer, &rect);
 	}
 
+	// rotation angle : radians
 	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size, 
 		double rotationAngle)
 	{
 		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
 		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
-		SDL_RenderCopyEx(m_SDLRenderer, texture, NULL, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
+		//APP_LOG_INFO("radians : ", rotationAngle);
+		double angleDegrees = rotationAngle * 180 / M_PI;
+		APP_LOG_INFO("degress : ", angleDegrees);
+
+		SDL_RenderCopyEx(m_SDLRenderer, texture, NULL, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
 	}
 
+	// rotation angle : radians
 	void Renderer::RenderAnimFrame(SDL_Texture* texture, Vector2 position, Vector2 size,
 		Uint16 frameW, Uint16 frameH, int frameNumber, double rotationAngle)
 	{
@@ -92,7 +98,9 @@ namespace Zefir
 		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 		SDL_Rect frame = { frameNumber * frameW, 0, frameW, frameH };
 
-		SDL_RenderCopyEx(m_SDLRenderer, texture, &frame, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
+		double angleDegrees = rotationAngle * 180 / M_PI;
+
+		SDL_RenderCopyEx(m_SDLRenderer, texture, &frame, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
 	}
 
 	void Renderer::RenderCircle(Vector2 position, float radius)
