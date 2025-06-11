@@ -27,22 +27,15 @@ namespace Zefir
 		void RenderAnimFrame(SDL_Texture* texture, Vector2 position, Vector2 size,
 			Uint16 frameW, Uint16 frameH, int frameNumber, double rotationAngle);
 
-		/// <summary>
-		/// Render a line between two points.
-		/// </summary>
-		/// <param name="pos1">The world coordinates of the first point.</param>
-		/// <param name="pos2">The world coordinates of the second point.</param>
+		// Given the world coordinates of two points, render a line between them.
 		void RenderLine(Vector2 pos1, Vector2 pos2);
 
 #ifndef NDEBUG
 
-		/// <summary>
-		/// Render the world coordinates axis (origin in the center of the screen).
-		/// </summary>
+		// Render the world coordinates axis (origin in the center of the screen).
 		void RenderDebugAxis();
 
-#endif // !NDEBUG
-
+#endif
 
 	private:
 		bool Init(Window* window);
