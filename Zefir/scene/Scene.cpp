@@ -10,6 +10,8 @@ namespace Zefir
 		m_WorldDef = b2DefaultWorldDef();
 		m_WorldDef.gravity = { 0.0f, -10.0f };
 		m_WorldId = b2CreateWorld(&m_WorldDef);
+
+		m_Cam = Camera();
 	}
 
 	Scene::~Scene()
@@ -44,9 +46,14 @@ namespace Zefir
 
 	void Scene::Render(Renderer* renderer)
 	{
+
+#ifndef NDEBUG
+		renderer->RenderDebugAxis(m_Cam);
+#endif
+
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{
-			go->Render(renderer);
+			go->Render(renderer, m_Cam);
 		}
 	}
 

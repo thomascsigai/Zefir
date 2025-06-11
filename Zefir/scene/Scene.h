@@ -2,6 +2,7 @@
 
 #include <core/EngineContext.h>
 #include <scene/GameObject.h>
+#include <scene/Camera.h>
 
 #include <box2d/box2d.h>
 
@@ -14,6 +15,8 @@ namespace Zefir
 		std::vector<std::unique_ptr<GameObject>> m_SceneObjects;
 		b2WorldDef m_WorldDef;
 		b2WorldId m_WorldId;
+
+		Camera m_Cam;
 
 		void AddObjectToScene(std::unique_ptr<GameObject> go);
 
