@@ -8,6 +8,8 @@ namespace Zefir
 		{
 			LOG_FATAL("Unable to init Renderer System.");
 		}
+
+		m_Window = window;
 	}
 
 	Renderer::~Renderer()
@@ -60,29 +62,26 @@ namespace Zefir
 
 	void Renderer::RenderFilledRect(Vector2 position, Vector2 size)
 	{
-		SDL_FRect rect = {
-			position.x, position.y,
-			size.x, size.y
-		};
-		SDL_RenderFillRectF(m_SDLRenderer, &rect);
+		// TO DO
 	}
 
 	void Renderer::RenderRect(Vector2 position, Vector2 size)
 	{
-		SDL_FRect rect = {
-			position.x, position.y,
-			size.x, size.y
-		};
-		SDL_RenderDrawRectF(m_SDLRenderer, &rect);
+		// TO DO
 	}
 
 	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size, 
 		double rotationAngle)
 	{
+		int screenWidth, screenHeight;
+		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
+		Vector2 screenPos = WorldToScreenPosition(position, screenWidth, screenHeight);
+
 		SDL_Rect rect = {
-				position.x, position.y,
-				size.x, size.y
+			screenPos.x - (size.x / 2) * PIXELS_PER_METER, screenPos.y - (size.y / 2) * PIXELS_PER_METER,
+			size.x * PIXELS_PER_METER, size.y * PIXELS_PER_METER
 		};
+
 		SDL_RenderCopyEx(m_SDLRenderer, texture, NULL, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
 	}
 
@@ -128,4 +127,36 @@ namespace Zefir
 			SDL_RenderDrawLine(m_SDLRenderer, x1, centerY + y, x2, centerY + y);
 		}
 	}
+
+	void Renderer::RenderLine(Vector2 pos1, Vector2 pos2)
+	{
+		int screenWidth, screenHeight;
+		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
+		Vector2 screenPos1 = WorldToScreenPosition(pos1, screenWidth, screenHeight);
+		Vector2 screenPos2 = WorldToScreenPosition(pos2, screenWidth, screenHeight);
+				
+		SDL_RenderDrawLineF(m_SDLRenderer, screenPos1.x, screenPos1.y, screenPos2.x, screenPos2.y);
+	}
+
+#ifndef NDEBUG
+	void Renderer::RenderDebugAxis()
+	{
+		// Draw other lines
+		SDL_SetRenderDrawColor(m_SDLRenderer, 64, 64, 64, 100);
+		for (int i = 0; i < 2000; i++)
+		{
+			RenderLine({ -1000, 1000 - (float)i }, { 1000, 1000 - (float)i });
+			RenderLine({ -1000 + (float)i, -1000 }, { -1000 + (float)i, 1000 });
+		}
+		
+		// Draw x & y axis
+		SDL_SetRenderDrawColor(m_SDLRenderer, 155, 0, 0, 100);
+		RenderLine({ -1000, 0 }, { 1000, 0 });
+		SDL_SetRenderDrawColor(m_SDLRenderer, 0, 0, 155, 100);
+		RenderLine({ 0, 1000 }, { 0, -1000 });
+
+		// Reset drawing color to white
+		SDL_SetRenderDrawColor(m_SDLRenderer, 255, 255, 255, 100);
+	}
+#endif
 }
