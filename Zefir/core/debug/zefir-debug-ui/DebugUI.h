@@ -6,6 +6,7 @@
 #include <core/debug/zefir-debug-ui/LogFrame.h>
 #include <core/debug/zefir-debug-ui/SimulationControlFrame.h>
 #include <core/debug/zefir-debug-ui/ResourcesFrame.h>
+#include <core/debug/zefir-debug-ui/CameraFrame.h>
 
 namespace Zefir
 {
@@ -18,6 +19,7 @@ namespace Zefir
 			m_LogFrame = std::make_unique<LogFrame>();
 			m_SimulationControlFrame = std::make_unique<SimulationControlFrame>();
 			m_ResourcesFrame = std::make_unique<ResourcesFrame>();
+			m_CameraFrame = std::make_unique<CameraFrame>();
 		}
 
 		void HandleEvent(SDL_Event& e)
@@ -36,11 +38,12 @@ namespace Zefir
 				return;
 			}
 
-			ImGui::ShowDemoWindow();
+			//ImGui::ShowDemoWindow();
 			if (m_PerformanceFrame) imGuiManager->NewFrame(m_PerformanceFrame.get());
 			if (m_LogFrame) imGuiManager->NewFrame(m_LogFrame.get());
 			if (m_SimulationControlFrame) imGuiManager->NewFrame(m_SimulationControlFrame.get());
 			if (m_ResourcesFrame) imGuiManager->NewFrame(m_ResourcesFrame.get());
+			if (m_CameraFrame) imGuiManager->NewFrame(m_CameraFrame.get());
 		}
 
 
@@ -57,6 +60,7 @@ namespace Zefir
 		std::unique_ptr<LogFrame> m_LogFrame;
 		std::unique_ptr<SimulationControlFrame> m_SimulationControlFrame;
 		std::unique_ptr<ResourcesFrame> m_ResourcesFrame;
+		std::unique_ptr<CameraFrame> m_CameraFrame;
 		
 		void AddLogToLogPanel(const std::string& msg)
 		{

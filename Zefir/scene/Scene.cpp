@@ -21,6 +21,13 @@ namespace Zefir
 
 	void Scene::OnEvent(const SDL_Event& e)
 	{
+		if (e.type == EngineEvents::CAMERA_MOVE)
+		{
+			Vector2 *newPos = static_cast<Vector2*>(e.user.data1);
+			m_Cam.position = *newPos;
+			delete(newPos);
+		}
+
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{
 			go->HandleEvent(e);

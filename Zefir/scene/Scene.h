@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/EngineContext.h>
+#include <core/EngineEvents.h>
 #include <scene/GameObject.h>
 #include <scene/Camera.h>
 
