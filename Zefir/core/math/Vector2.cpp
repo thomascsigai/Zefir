@@ -40,4 +40,11 @@ namespace Zefir
 		std::cout << "(" << v[0] << ", " << v[1] << ")";
 		return os;
 	}
+	
+	std::string Vector2::ToString()
+	{
+		std::ostringstream oss;
+		oss << "(" << x << ", " << y << ")";
+		return oss.str();
+	}
 }

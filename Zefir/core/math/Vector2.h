@@ -1,6 +1,8 @@
 #pragma once 
 
 #include <iostream>
+#include <string>
+#include <sstream>
 
 namespace Zefir
 {
@@ -13,6 +15,8 @@ namespace Zefir
 		Vector2(float _x, float _y)
 			: x(_x), y(_y) {
 		}
+
+		std::string ToString();
 
 		// Operators overloads ------------------
 
