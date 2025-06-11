@@ -3,18 +3,23 @@
 
 namespace ZefirApp
 {
-	PhysicObject::PhysicObject(float x, float y)
+	PhysicObject::PhysicObject(float x, float y, std::shared_ptr<Zefir::Texture> texture)
 		: GameObject("Physic Object")
 	{
 		m_Transform2D.SetPosition(x, y);
-		m_Transform2D.SetSize(50, 53);
+		m_Transform2D.SetSize(1, 1);
 
-		m_Rigidbody2D.type = Zefir::BodyType::Dynamic;
-		SetupCollider(m_Transform2D.position + (m_Transform2D.size / 2), 25);
+		SetTexture(texture);
+
+		m_BodyDef.type = b2_dynamicBody;
+		m_BodyDef.position = { x, y };
+		m_ShapeDef.material.friction = 0.3f;
+		m_Box = b2MakeBox(0.5f, 0.5f);
 	}
 
 	void PhysicObject::Update(double deltaTime)
 	{
+		
 	}
 
 	void PhysicObject::HandleEvent(const SDL_Event& e)
