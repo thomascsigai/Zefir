@@ -9,15 +9,12 @@ namespace ZefirApp
 		m_Transform2D.SetPosition(100, 100);
 		m_Transform2D.SetSize(100, 106);
 
-		m_Rigidbody2D.useGravity = false;
-		m_BoxCollider.size = { 100, 106 };
-
 		SetTexture(m_IdleTexture);
 	}
 
 	void Player::Update(double deltaTime)
 	{
-		if (m_Rigidbody2D.velocity.x != 0 || m_Rigidbody2D.velocity.y != 0)
+		/*if (m_Rigidbody2D.velocity.x != 0 || m_Rigidbody2D.velocity.y != 0)
 		{
 			if (m_WalkTexture != m_Texture)
 				SetTexture(m_WalkTexture);
@@ -25,12 +22,12 @@ namespace ZefirApp
 		else
 		{
 			SetTexture(m_IdleTexture);
-		}
+		}*/
 	}
 
 	void Player::HandleEvent(const SDL_Event& e)
 	{
-		if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+		/*if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 		{
 			if (e.key.keysym.sym == MOVE_KEYBIND.UP)		m_Rigidbody2D.velocity.y -= PLAYER_SPEED;
 			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN)		m_Rigidbody2D.velocity.y += PLAYER_SPEED;
@@ -44,6 +41,6 @@ namespace ZefirApp
 			if (e.key.keysym.sym == MOVE_KEYBIND.DOWN)		m_Rigidbody2D.velocity.y -= PLAYER_SPEED;
 			if (e.key.keysym.sym == MOVE_KEYBIND.LEFT)		m_Rigidbody2D.velocity.x += PLAYER_SPEED;
 			if (e.key.keysym.sym == MOVE_KEYBIND.RIGHT)		m_Rigidbody2D.velocity.x -= PLAYER_SPEED;
-		}
+		}*/
 	}
 }
