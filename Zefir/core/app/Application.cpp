@@ -140,6 +140,10 @@ namespace Zefir
 		SDL_RenderClear(m_Renderer->GetSDLRenderer());
 		SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 255, 255, 255, 255);
 
+#ifndef NDEBUG
+		m_Renderer->RenderDebugAxis();
+#endif
+
 		m_SceneManager->Render(m_Renderer.get());
 		m_ImGuiManager->Render(m_Renderer.get());
 
