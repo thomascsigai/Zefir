@@ -83,9 +83,7 @@ namespace Zefir
 		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
 		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
-		//APP_LOG_INFO("radians : ", rotationAngle);
 		double angleDegrees = rotationAngle * 180 / M_PI;
-		APP_LOG_INFO("degress : ", angleDegrees);
 
 		SDL_RenderCopyEx(m_SDLRenderer, texture, NULL, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
 	}
