@@ -12,16 +12,34 @@ namespace Zefir
     // RIGHT HANDED - Y UP
     
     // Convert World Coordinates (meters) to screen coordinates (pixels).
-    inline Vector2 WorldToScreenPosition(const Vector2& worldPos, std::size_t screenWidth, std::size_t screenHeight)
+    inline Vector2 WorldToScreenPosition(const Vector2& worldPos, Window* window)
     {
+        int screenWidth, screenHeight;
+        SDL_GetWindowSize(window->GetSDLWindow(), &screenWidth, &screenHeight);
+
         float x = PIXELS_PER_METER * worldPos.x + screenWidth / 2;
         float y = screenHeight / 2 - PIXELS_PER_METER * worldPos.y;
         return Vector2{ x, y };
     }
 
-    // Convert Screen Coordinates (pixels) to World coordinates (pixels).
-    inline Vector2 ScreenToWorld(const Vector2& screenPos, std::size_t screenWidth, std::size_t screenHeight)
+    // Given the center position (world coordinates) of a rect and his size, create a SDL_Rect
+    // that can be drawn on the screen.
+    inline SDL_Rect WorldToScreenRect(const Vector2& center, const Vector2& size)
     {
+        SDL_Rect rect = {
+            center.x - (size.x / 2) * PIXELS_PER_METER, center.y - (size.y / 2) * PIXELS_PER_METER,
+            size.x * PIXELS_PER_METER, size.y * PIXELS_PER_METER
+        };
+
+        return rect;
+    }
+
+    // Convert Screen Coordinates (pixels) to World coordinates (pixels).
+    inline Vector2 ScreenToWorld(const Vector2& screenPos, Window* window)
+    {
+        int screenWidth, screenHeight;
+        SDL_GetWindowSize(window->GetSDLWindow(), &screenWidth, &screenHeight);
+
         float x = screenPos.x * METERS_PER_PIXEL - screenWidth / 2 * METERS_PER_PIXEL;
         float y = (screenHeight / 2 - screenPos.y) * METERS_PER_PIXEL;
         return Vector2{ x, y };

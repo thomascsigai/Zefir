@@ -62,28 +62,16 @@ namespace Zefir
 
 	void Renderer::RenderFilledRect(Vector2 position, Vector2 size)
 	{
-		int screenWidth, screenHeight;
-		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
-		Vector2 screenPos = WorldToScreenPosition(position, screenWidth, screenHeight);
-
-		SDL_Rect rect = {
-			screenPos.x - (size.x / 2) * PIXELS_PER_METER, screenPos.y - (size.y / 2) * PIXELS_PER_METER,
-			size.x * PIXELS_PER_METER, size.y * PIXELS_PER_METER
-		};
+		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
 		SDL_RenderFillRect(m_SDLRenderer, &rect);
 	}
 
 	void Renderer::RenderRect(Vector2 position, Vector2 size)
 	{
-		int screenWidth, screenHeight;
-		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
-		Vector2 screenPos = WorldToScreenPosition(position, screenWidth, screenHeight);
-
-		SDL_Rect rect = {
-			screenPos.x - (size.x / 2) * PIXELS_PER_METER, screenPos.y - (size.y / 2) * PIXELS_PER_METER,
-			size.x * PIXELS_PER_METER, size.y * PIXELS_PER_METER
-		};
+		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
 		SDL_RenderDrawRect(m_SDLRenderer, &rect);
 	}
@@ -91,14 +79,8 @@ namespace Zefir
 	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size, 
 		double rotationAngle)
 	{
-		int screenWidth, screenHeight;
-		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
-		Vector2 screenPos = WorldToScreenPosition(position, screenWidth, screenHeight);
-
-		SDL_Rect rect = {
-			screenPos.x - (size.x / 2) * PIXELS_PER_METER, screenPos.y - (size.y / 2) * PIXELS_PER_METER,
-			size.x * PIXELS_PER_METER, size.y * PIXELS_PER_METER
-		};
+		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
 		SDL_RenderCopyEx(m_SDLRenderer, texture, NULL, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
 	}
@@ -106,19 +88,18 @@ namespace Zefir
 	void Renderer::RenderAnimFrame(SDL_Texture* texture, Vector2 position, Vector2 size,
 		Uint16 frameW, Uint16 frameH, int frameNumber, double rotationAngle)
 	{
-		SDL_Rect rect = {
-				position.x, position.y,
-				size.x, size.y
-		};
-		SDL_Rect frame = {
-			frameNumber * frameW, 0, frameW, frameH
-		};
+		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size);
+		SDL_Rect frame = { frameNumber * frameW, 0, frameW, frameH };
+
 		SDL_RenderCopyEx(m_SDLRenderer, texture, &frame, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
 	}
 
 	void Renderer::RenderCircle(Vector2 position, float radius)
 	{
-		const int centerX = static_cast<int>(position.x);
+		// TO DO
+
+		/*const int centerX = static_cast<int>(position.x);
 		const int centerY = static_cast<int>(position.y);
 		const int r = static_cast<int>(radius);
 
@@ -128,12 +109,14 @@ namespace Zefir
 			int x = static_cast<int>(centerX + r * cosf(angle));
 			int y = static_cast<int>(centerY + r * sinf(angle));
 			SDL_RenderDrawPoint(m_SDLRenderer, x, y);
-		}
+		}*/
 	}
 
 	void Renderer::RenderFilledCircle(Vector2 position, float radius)
 	{
-		const int centerX = static_cast<int>(position.x);
+		// TO DO
+
+		/*const int centerX = static_cast<int>(position.x);
 		const int centerY = static_cast<int>(position.y);
 		const int r = static_cast<int>(radius);
 
@@ -143,15 +126,13 @@ namespace Zefir
 			int x1 = centerX - dx;
 			int x2 = centerX + dx;
 			SDL_RenderDrawLine(m_SDLRenderer, x1, centerY + y, x2, centerY + y);
-		}
+		}*/
 	}
 
 	void Renderer::RenderLine(Vector2 pos1, Vector2 pos2)
 	{
-		int screenWidth, screenHeight;
-		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
-		Vector2 screenPos1 = WorldToScreenPosition(pos1, screenWidth, screenHeight);
-		Vector2 screenPos2 = WorldToScreenPosition(pos2, screenWidth, screenHeight);
+		Vector2 screenPos1 = WorldToScreenPosition(pos1, m_Window);
+		Vector2 screenPos2 = WorldToScreenPosition(pos2, m_Window);
 				
 		SDL_RenderDrawLineF(m_SDLRenderer, screenPos1.x, screenPos1.y, screenPos2.x, screenPos2.y);
 	}
