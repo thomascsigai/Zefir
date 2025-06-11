@@ -62,12 +62,30 @@ namespace Zefir
 
 	void Renderer::RenderFilledRect(Vector2 position, Vector2 size)
 	{
-		// TO DO
+		int screenWidth, screenHeight;
+		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
+		Vector2 screenPos = WorldToScreenPosition(position, screenWidth, screenHeight);
+
+		SDL_Rect rect = {
+			screenPos.x - (size.x / 2) * PIXELS_PER_METER, screenPos.y - (size.y / 2) * PIXELS_PER_METER,
+			size.x * PIXELS_PER_METER, size.y * PIXELS_PER_METER
+		};
+
+		SDL_RenderFillRect(m_SDLRenderer, &rect);
 	}
 
 	void Renderer::RenderRect(Vector2 position, Vector2 size)
 	{
-		// TO DO
+		int screenWidth, screenHeight;
+		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
+		Vector2 screenPos = WorldToScreenPosition(position, screenWidth, screenHeight);
+
+		SDL_Rect rect = {
+			screenPos.x - (size.x / 2) * PIXELS_PER_METER, screenPos.y - (size.y / 2) * PIXELS_PER_METER,
+			size.x * PIXELS_PER_METER, size.y * PIXELS_PER_METER
+		};
+
+		SDL_RenderDrawRect(m_SDLRenderer, &rect);
 	}
 
 	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size, 
