@@ -8,7 +8,9 @@ namespace Zefir
 	struct Transform2D
 	{
 		Vector2 position = Vector2(0, 0);
-		Vector2 size = Vector2(0, 0);
+		Vector2 size = Vector2(0, 0); // In Meters
+		double rotation = 0; // In Radians
+
 
 		void SetPosition(float _x, float _y)
 		{
@@ -23,6 +25,11 @@ namespace Zefir
 		void SetSize(float _w, float _h)
 		{
 			size = Vector2(_w, _h);
+		}
+
+		void SetRotation(double r)
+		{
+			rotation = r;
 		}
 	};
 }
