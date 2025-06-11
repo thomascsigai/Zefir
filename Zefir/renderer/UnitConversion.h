@@ -45,4 +45,9 @@ namespace Zefir
         return Vector2{ x, y };
     }
 
+    // Convert the position from world coordinates to camera related position
+    inline Vector2 WorldToCamera(const Vector2& position, const Camera& cam)
+    {
+        return { position.x - cam.position.x, position.y - cam.position.y };
+    }
 }

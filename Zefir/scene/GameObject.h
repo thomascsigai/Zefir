@@ -1,13 +1,14 @@
 #pragma once
 
 #include <SDL.h>
+#include <box2d/box2d.h>
+#include <iostream>
+
 #include <scene/Transform2D.h>
 #include <resource/types/Texture.h>
 #include <resource/types/AnimatedTexture.h>
 #include <core/time/Timer.h>
-#include <box2d/box2d.h>
-
-#include <iostream>
+#include <scene/Camera.h>
 
 namespace Zefir
 {
@@ -37,7 +38,7 @@ namespace Zefir
 		// Setup a Circle collider for the Go
 		void SetupCollider(Vector2 position, float radius);
 
-		virtual void Render(Renderer* renderer);
+		virtual void Render(Renderer* renderer, const Camera& cam);
 
 		virtual void Update(double deltaTime) = 0;
 		virtual void HandleEvent(const SDL_Event& e) = 0;

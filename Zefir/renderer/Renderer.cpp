@@ -60,27 +60,33 @@ namespace Zefir
 		m_SDLRenderer = nullptr;
 	}
 
-	void Renderer::RenderFilledRect(Vector2 position, Vector2 size)
+	void Renderer::RenderFilledRect(const Vector2& position, const Vector2& size, const Camera& cam)
 	{
-		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		Vector2 screenPos = Vector2(position);
+		screenPos = WorldToCamera(screenPos, cam);
+		screenPos = WorldToScreenPosition(screenPos, m_Window);
 		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
 		SDL_RenderFillRect(m_SDLRenderer, &rect);
 	}
 
-	void Renderer::RenderRect(Vector2 position, Vector2 size)
+	void Renderer::RenderRect(const Vector2& position, const Vector2& size, const Camera& cam)
 	{
-		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		Vector2 screenPos = Vector2(position);
+		screenPos = WorldToCamera(screenPos, cam);
+		screenPos = WorldToScreenPosition(screenPos, m_Window);
 		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
 		SDL_RenderDrawRect(m_SDLRenderer, &rect);
 	}
 
 	// rotation angle : radians
-	void Renderer::RenderStaticTexture(SDL_Texture* texture, Vector2 position, Vector2 size, 
-		double rotationAngle)
+	void Renderer::RenderStaticTexture(SDL_Texture* texture, const Vector2& position, const Vector2& size,
+		const double& rotationAngle, const Camera& cam)
 	{
-		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		Vector2 screenPos = Vector2(position);
+		screenPos = WorldToCamera(screenPos, cam);
+		screenPos = WorldToScreenPosition(screenPos, m_Window);
 		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
@@ -89,16 +95,32 @@ namespace Zefir
 	}
 
 	// rotation angle : radians
-	void Renderer::RenderAnimFrame(SDL_Texture* texture, Vector2 position, Vector2 size,
-		Uint16 frameW, Uint16 frameH, int frameNumber, double rotationAngle)
+	void Renderer::RenderAnimFrame(SDL_Texture* texture, const Vector2& position, const Vector2& size,
+		Uint16 frameW, Uint16 frameH, int frameNumber, const double& rotationAngle,
+		const Camera& cam)
 	{
-		Vector2 screenPos = WorldToScreenPosition(position, m_Window);
+		Vector2 screenPos = Vector2(position);
+		screenPos = WorldToCamera(screenPos, cam);
+		screenPos = WorldToScreenPosition(screenPos, m_Window);
 		SDL_Rect rect = WorldToScreenRect(screenPos, size);
 		SDL_Rect frame = { frameNumber * frameW, 0, frameW, frameH };
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
 		SDL_RenderCopyEx(m_SDLRenderer, texture, &frame, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
+	}
+
+	void Renderer::RenderLine(const Vector2& pos1, const Vector2& pos2, const Camera& cam)
+	{
+		Vector2 screenPos1 = Vector2(pos1);
+		screenPos1 = WorldToCamera(screenPos1, cam);
+		screenPos1 = WorldToScreenPosition(screenPos1, m_Window);
+
+		Vector2 screenPos2 = Vector2(pos2);
+		screenPos2 = WorldToCamera(screenPos2, cam);
+		screenPos2 = WorldToScreenPosition(screenPos2, m_Window);
+				
+		SDL_RenderDrawLineF(m_SDLRenderer, screenPos1.x, screenPos1.y, screenPos2.x, screenPos2.y);
 	}
 
 	void Renderer::RenderCircle(Vector2 position, float radius)
@@ -135,30 +157,24 @@ namespace Zefir
 		}*/
 	}
 
-	void Renderer::RenderLine(Vector2 pos1, Vector2 pos2)
-	{
-		Vector2 screenPos1 = WorldToScreenPosition(pos1, m_Window);
-		Vector2 screenPos2 = WorldToScreenPosition(pos2, m_Window);
-				
-		SDL_RenderDrawLineF(m_SDLRenderer, screenPos1.x, screenPos1.y, screenPos2.x, screenPos2.y);
-	}
-
 #ifndef NDEBUG
-	void Renderer::RenderDebugAxis()
+	void Renderer::RenderDebugAxis(const Camera& cam)
 	{
 		// Draw other lines
 		SDL_SetRenderDrawColor(m_SDLRenderer, 64, 64, 64, 100);
 		for (int i = 0; i < 2000; i++)
 		{
-			RenderLine({ -1000, 1000 - (float)i }, { 1000, 1000 - (float)i });
-			RenderLine({ -1000 + (float)i, -1000 }, { -1000 + (float)i, 1000 });
+			RenderLine({ -1000, 1000 - (float)i }, { 1000, 1000 - (float)i }, cam);
+			RenderLine({ -1000 + (float)i, -1000 }, { -1000 + (float)i, 1000 }, cam);
 		}
 		
-		// Draw x & y axis
+		// Draw x axis
 		SDL_SetRenderDrawColor(m_SDLRenderer, 155, 0, 0, 100);
-		RenderLine({ -1000, 0 }, { 1000, 0 });
+		RenderLine({ -1000, 0 }, { 1000, 0 }, cam);
+
+		// Draw y axis
 		SDL_SetRenderDrawColor(m_SDLRenderer, 0, 0, 155, 100);
-		RenderLine({ 0, 1000 }, { 0, -1000 });
+		RenderLine({ 0, 1000 }, { 0, -1000 }, cam);
 
 		// Reset drawing color to white
 		SDL_SetRenderDrawColor(m_SDLRenderer, 255, 255, 255, 100);

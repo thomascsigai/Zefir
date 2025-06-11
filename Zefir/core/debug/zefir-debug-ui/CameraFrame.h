@@ -17,7 +17,7 @@ namespace Zefir
 
 		void ShowContent() override
 		{
-			if (ImGui::DragFloat2("Position", pos, 0.05f, -2000.0f, 2000.0f, "%.2f"))
+			if (ImGui::DragFloat2("Position", pos, 0.1f, -1000.0f, 1000.0f, "%.2f"))
 			{
 				SDL_Event e;
 				e.type = EngineEvents::CAMERA_MOVE;
