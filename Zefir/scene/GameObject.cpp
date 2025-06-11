@@ -4,27 +4,33 @@ namespace Zefir
 {
 	GameObject::GameObject()
 		: m_Name("Gameobject"), m_Transform2D(), m_Texture(nullptr),
-		m_AnimFrameTimer(), m_Rigidbody2D(), m_Collider(nullptr) {}
+		m_AnimFrameTimer()
+	{
+		m_BodyDef = b2DefaultBodyDef();
+		m_BodyId = {};
+		m_ShapeDef = b2DefaultShapeDef();
+		m_Box = b2MakeBox(0.5f, 0.5f);
+	}
 
 	GameObject::GameObject(std::string name)
 		: m_Name(name), m_Transform2D(), m_Texture(nullptr), 
-		m_AnimFrameTimer(), m_Rigidbody2D(), m_Collider(nullptr) { }
+		m_AnimFrameTimer()
+	{
+		m_BodyDef = b2DefaultBodyDef();
+		m_BodyId = {};
+		m_ShapeDef = b2DefaultShapeDef();
+		m_Box = b2MakeBox(0.5f, 0.5f);
+	}
 
 	GameObject::GameObject(std::string name, float x, float y)
 		: m_Name(name), m_Transform2D(), m_Texture(nullptr),
-		m_AnimFrameTimer(), m_Rigidbody2D(), m_Collider(nullptr)
+		m_AnimFrameTimer()
 	{
 		m_Transform2D.position = { x, y };
-	}
-
-	void GameObject::SetupCollider(Vector2 position, Vector2 size)
-	{
-		m_Collider = std::make_unique<BoxCollider>(position, size);
-	}
-
-	void GameObject::SetupCollider(Vector2 position, float radius)
-	{
-		m_Collider = std::make_unique<CircleCollider>(position, radius);
+		m_BodyDef = b2DefaultBodyDef();
+		m_BodyId = {};
+		m_ShapeDef = b2DefaultShapeDef();
+		m_Box = b2MakeBox(0.5f, 0.5f);
 	}
 
 	void GameObject::Render(Renderer* renderer)
@@ -38,7 +44,7 @@ namespace Zefir
 				AnimatedTexture* ptr_anim = dynamic_cast<AnimatedTexture*>(m_Texture.get());
 				
 				renderer->RenderAnimFrame(m_Texture->GetSDLTexture(), m_Transform2D.position, m_Transform2D.size,
-					ptr_anim->GetFrameW(), ptr_anim->GetFrameH(), numberFrame, 0);
+					ptr_anim->GetFrameW(), ptr_anim->GetFrameH(), numberFrame, m_Transform2D.rotation);
 				
 				if (m_AnimFrameTimer.GetTicks() >= ptr_anim->GetFrameTime())
 				{
@@ -54,7 +60,7 @@ namespace Zefir
 			}
 			else
 			{
-				renderer->RenderStaticTexture(m_Texture->GetSDLTexture(), m_Transform2D.position, m_Transform2D.size, 0);
+				renderer->RenderStaticTexture(m_Texture->GetSDLTexture(), m_Transform2D.position, m_Transform2D.size, m_Transform2D.rotation);
 			}
 		}
 		else
@@ -65,7 +71,10 @@ namespace Zefir
 
 		
 #ifndef NDEBUG
-		m_Collider->Render(renderer);
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 0, 0, 255);
+		Vector2 pos = Vector2(b2Body_GetPosition(m_BodyId).x, b2Body_GetPosition(m_BodyId).y);
+		renderer->RenderRect(pos, m_Transform2D.size);
+		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
 #endif
 				
 	}

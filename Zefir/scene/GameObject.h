@@ -5,8 +5,7 @@
 #include <resource/types/Texture.h>
 #include <resource/types/AnimatedTexture.h>
 #include <core/time/Timer.h>
-#include <physics/Rigidbody2D.h>
-#include <physics/Colliders.h>
+#include <box2d/box2d.h>
 
 #include <iostream>
 
@@ -18,8 +17,11 @@ namespace Zefir
 	public:
 		std::string m_Name;
 		Transform2D m_Transform2D;
-		Rigidbody2D m_Rigidbody2D;
-		std::unique_ptr<Collider> m_Collider;
+		
+		b2BodyDef m_BodyDef;
+		b2BodyId m_BodyId;
+		b2ShapeDef m_ShapeDef;
+		b2Polygon m_Box;
 
 	protected:
 		std::shared_ptr<Texture> m_Texture;

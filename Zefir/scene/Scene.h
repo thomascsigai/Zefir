@@ -2,7 +2,8 @@
 
 #include <core/EngineContext.h>
 #include <scene/GameObject.h>
-#include <physics/PhysicsWorld.h>
+
+#include <box2d/box2d.h>
 
 namespace Zefir
 {
@@ -11,13 +12,14 @@ namespace Zefir
 	protected:
 		EngineContext* m_EngineContext;
 		std::vector<std::unique_ptr<GameObject>> m_SceneObjects;
-		std::unique_ptr<PhysicsWorld> m_PhysicsWorld;
+		b2WorldDef m_WorldDef;
+		b2WorldId m_WorldId;
 
 		void AddObjectToScene(std::unique_ptr<GameObject> go);
 
 	public:
 		Scene();
-		virtual ~Scene() = default;
+		~Scene();
 
 
 		virtual void OnLoad() = 0;
