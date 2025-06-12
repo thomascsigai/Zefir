@@ -63,9 +63,8 @@ namespace Zefir
 	void Renderer::RenderFilledRect(const Vector2& position, const Vector2& size, const Camera& cam)
 	{
 		Vector2 screenPos = Vector2(position);
-		screenPos = WorldToCamera(screenPos, cam);
-		screenPos = WorldToScreenPosition(screenPos, m_Window);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size);
+		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
 
 		SDL_RenderFillRect(m_SDLRenderer, &rect);
 	}
@@ -73,9 +72,8 @@ namespace Zefir
 	void Renderer::RenderRect(const Vector2& position, const Vector2& size, const Camera& cam)
 	{
 		Vector2 screenPos = Vector2(position);
-		screenPos = WorldToCamera(screenPos, cam);
-		screenPos = WorldToScreenPosition(screenPos, m_Window);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size);
+		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
 
 		SDL_RenderDrawRect(m_SDLRenderer, &rect);
 	}
@@ -85,9 +83,8 @@ namespace Zefir
 		const double& rotationAngle, const Camera& cam)
 	{
 		Vector2 screenPos = Vector2(position);
-		screenPos = WorldToCamera(screenPos, cam);
-		screenPos = WorldToScreenPosition(screenPos, m_Window);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size);
+		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
@@ -100,9 +97,8 @@ namespace Zefir
 		const Camera& cam)
 	{
 		Vector2 screenPos = Vector2(position);
-		screenPos = WorldToCamera(screenPos, cam);
-		screenPos = WorldToScreenPosition(screenPos, m_Window);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size);
+		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
+		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
 		SDL_Rect frame = { frameNumber * frameW, 0, frameW, frameH };
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
@@ -113,12 +109,10 @@ namespace Zefir
 	void Renderer::RenderLine(const Vector2& pos1, const Vector2& pos2, const Camera& cam)
 	{
 		Vector2 screenPos1 = Vector2(pos1);
-		screenPos1 = WorldToCamera(screenPos1, cam);
-		screenPos1 = WorldToScreenPosition(screenPos1, m_Window);
+		screenPos1 = WorldToScreenPosition(screenPos1, m_Window, cam);
 
 		Vector2 screenPos2 = Vector2(pos2);
-		screenPos2 = WorldToCamera(screenPos2, cam);
-		screenPos2 = WorldToScreenPosition(screenPos2, m_Window);
+		screenPos2 = WorldToScreenPosition(screenPos2, m_Window, cam);
 				
 		SDL_RenderDrawLineF(m_SDLRenderer, screenPos1.x, screenPos1.y, screenPos2.x, screenPos2.y);
 	}

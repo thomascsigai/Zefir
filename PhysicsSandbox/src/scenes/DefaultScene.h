@@ -37,7 +37,7 @@ namespace ZefirApp
 					int screenWidth, screenHeight;
 					SDL_GetWindowSize(m_EngineContext->window->GetSDLWindow(), &screenWidth, &screenHeight);
 					
-					Zefir::Vector2 worldCoords = Zefir::ScreenToWorld({ (float)mouseX, (float)mouseY }, m_EngineContext->window);
+					Zefir::Vector2 worldCoords = Zefir::ScreenToWorld({ (float)mouseX, (float)mouseY }, m_EngineContext->window, m_Cam);
 
 					AddObjectToScene(std::make_unique<PhysicObject>(worldCoords.x, worldCoords.y, 
 						m_EngineContext->resourceManager->GetTexture("resources\\textures\\bloc.jpg")));

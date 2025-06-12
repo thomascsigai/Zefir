@@ -28,6 +28,13 @@ namespace Zefir
 			delete(newPos);
 		}
 
+		if (e.type == EngineEvents::CAMERA_ZOOM)
+		{
+			double *newZoom = static_cast<double*>(e.user.data1);
+			m_Cam.zoom = *newZoom;
+			delete newZoom;
+		}
+
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{
 			go->HandleEvent(e);

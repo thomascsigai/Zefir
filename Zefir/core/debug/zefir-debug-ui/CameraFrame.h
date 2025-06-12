@@ -25,7 +25,13 @@ namespace Zefir
 				SDL_PushEvent(&e);
 			}
 
-			ImGui::DragFloat("Zoom", &zoom);
+			if (ImGui::DragFloat("Zoom", &zoom, 0.1f))
+			{
+				SDL_Event e;
+				e.type = EngineEvents::CAMERA_ZOOM;
+				e.user.data1 = new double(zoom);
+				SDL_PushEvent(&e);
+			}
 		}
 	};
 }
