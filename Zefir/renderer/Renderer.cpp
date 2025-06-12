@@ -155,7 +155,7 @@ namespace Zefir
 	void Renderer::RenderDebugAxis(const Camera& cam)
 	{
 		// Draw other lines
-		SDL_SetRenderDrawColor(m_SDLRenderer, 64, 64, 64, 100);
+		SDL_SetRenderDrawColor(m_SDLRenderer, 40, 40, 40, 100);
 		for (int i = 0; i < 2000; i++)
 		{
 			RenderLine({ -1000, 1000 - (float)i }, { 1000, 1000 - (float)i }, cam);
