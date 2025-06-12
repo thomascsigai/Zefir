@@ -14,6 +14,4 @@ namespace ZefirApp
 	};
 
 	constexpr MoveKeybind MOVE_KEYBIND = { SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT };
-
-	constexpr int PLAYER_SPEED = 1000;
 }

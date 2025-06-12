@@ -16,5 +16,7 @@ namespace ZefirApp
 	private:
 		std::shared_ptr<Zefir::Texture> m_IdleTexture;
 		std::shared_ptr<Zefir::Texture> m_WalkTexture;
+
+		float PLAYER_SPEED = 20.0f;
 	};
 }

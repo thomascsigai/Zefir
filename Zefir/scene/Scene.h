@@ -28,6 +28,7 @@ namespace Zefir
 
 		virtual void OnLoad() = 0;
 		virtual void OnUnload() = 0;
+		virtual void OnUpdate() = 0;
 		// Events handled by the user in his scene
 		virtual void OnSceneEvent(const SDL_Event& e) = 0;
 

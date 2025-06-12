@@ -18,6 +18,10 @@ namespace ZefirApp
 			APP_LOG_INFO("Scene 2 unload");
 		}
 
+		void OnUpdate() override
+		{
+		}
+
 		void OnSceneEvent(const SDL_Event& e)
 		{
 		}

@@ -26,6 +26,10 @@ namespace ZefirApp
 			APP_LOG_INFO("Scene unloaded");
 		}
 
+		void OnUpdate() override
+		{
+		}
+
 		void OnSceneEvent(const SDL_Event& e)
 		{
 			if (e.type == SDL_MOUSEBUTTONDOWN)

@@ -13,6 +13,7 @@ namespace ZefirApp
 		void OnLoad() override
 		{
 			APP_LOG_INFO("Scene load");
+			m_Cam.zoom = -20;
 			AddObjectToScene(std::make_unique<ZefirApp::Player>(ZefirApp::Player(
 				m_EngineContext->resourceManager->GetTexture("resources\\textures\\player.png"),
 				m_EngineContext->resourceManager->GetAnimatedTexture("resources\\anims\\cat.png")
@@ -22,6 +23,11 @@ namespace ZefirApp
 		void OnUnload() override
 		{
 			APP_LOG_INFO("Scene unload");
+		}
+
+		void OnUpdate() override
+		{
+			m_Cam.position = m_SceneObjects[0]->m_Transform2D.position;
 		}
 
 		void OnSceneEvent(const SDL_Event& e)
