@@ -47,6 +47,14 @@ namespace Zefir
 		// Update the scene
 		OnUpdate();
 
+		// Update physics
+		accumulator += deltaTime;
+		while (accumulator >= TIME_STEP)
+		{
+			b2World_Step(m_WorldId, TIME_STEP, 4);
+			accumulator -= TIME_STEP;
+		}
+
 		// Update all gameobjects
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{
@@ -59,9 +67,6 @@ namespace Zefir
 				-b2Rot_GetAngle(b2Body_GetRotation(go->m_BodyId))
 			);
 		}
-		
-		// Update physics
-		b2World_Step(m_WorldId, 1.0f / 60.0f, 4);
 	}
 
 	void Scene::Render(Renderer* renderer)

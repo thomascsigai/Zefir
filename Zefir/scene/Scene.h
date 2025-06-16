@@ -36,5 +36,10 @@ namespace Zefir
 		void Update(double deltaTime);
 		void Render(Renderer* renderer);
 		void OnAttach(EngineContext* context);
+
+	private:
+		// PHYSICS RELATED ATTRIBUTES
+		double accumulator = 0.0f;
+		double TIME_STEP = 1.0f / 60.0f;
 	};
 }
