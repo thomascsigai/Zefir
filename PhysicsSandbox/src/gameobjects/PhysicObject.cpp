@@ -11,6 +11,7 @@ namespace ZefirApp
 
 		SetTexture(texture);
 
+		m_UsePhysics = true;
 		m_BodyDef.type = b2_dynamicBody;
 		m_BodyDef.position = { x, y };
 		m_ShapeDef.material.friction = 0.3f;
