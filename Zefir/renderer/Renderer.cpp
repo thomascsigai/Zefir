@@ -28,6 +28,7 @@ namespace Zefir
 		}
 
 		m_SDLRenderer = SDL_CreateRenderer(window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		SDL_SetRenderDrawBlendMode(m_SDLRenderer, SDL_BLENDMODE_BLEND);
 
 		if (m_SDLRenderer == nullptr)
 		{
@@ -155,7 +156,7 @@ namespace Zefir
 	void Renderer::RenderDebugAxis(const Camera& cam)
 	{
 		// Draw other lines
-		SDL_SetRenderDrawColor(m_SDLRenderer, 40, 40, 40, 100);
+		SDL_SetRenderDrawColor(m_SDLRenderer, 80, 80, 80, 100);
 		for (int i = 0; i < 2000; i++)
 		{
 			RenderLine({ -1000, 1000 - (float)i }, { 1000, 1000 - (float)i }, cam);
@@ -163,11 +164,11 @@ namespace Zefir
 		}
 		
 		// Draw x axis
-		SDL_SetRenderDrawColor(m_SDLRenderer, 155, 0, 0, 100);
+		SDL_SetRenderDrawColor(m_SDLRenderer, 155, 0, 0, 150);
 		RenderLine({ -1000, 0 }, { 1000, 0 }, cam);
 
 		// Draw y axis
-		SDL_SetRenderDrawColor(m_SDLRenderer, 0, 0, 155, 100);
+		SDL_SetRenderDrawColor(m_SDLRenderer, 0, 0, 155, 150);
 		RenderLine({ 0, 1000 }, { 0, -1000 }, cam);
 
 		// Reset drawing color to white

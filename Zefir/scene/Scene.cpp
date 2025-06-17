@@ -75,15 +75,14 @@ namespace Zefir
 
 	void Scene::Render(Renderer* renderer)
 	{
-
-#ifndef NDEBUG
-		renderer->RenderDebugAxis(m_Cam);
-#endif
-
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{
 			go->Render(renderer, m_Cam);
 		}
+
+#ifndef NDEBUG
+		renderer->RenderDebugAxis(m_Cam);
+#endif
 	}
 
 	void Scene::OnAttach(EngineContext* context)
