@@ -6,6 +6,7 @@ namespace Zefir
 		: m_Name("Gameobject"), m_Transform2D(), m_Texture(nullptr),
 		m_AnimFrameTimer()
 	{
+		m_UsePhysics = false;
 		m_BodyDef = b2DefaultBodyDef();
 		m_BodyId = {};
 		m_ShapeDef = b2DefaultShapeDef();
@@ -16,6 +17,7 @@ namespace Zefir
 		: m_Name(name), m_Transform2D(), m_Texture(nullptr), 
 		m_AnimFrameTimer()
 	{
+		m_UsePhysics = false;
 		m_BodyDef = b2DefaultBodyDef();
 		m_BodyId = {};
 		m_ShapeDef = b2DefaultShapeDef();
@@ -27,6 +29,8 @@ namespace Zefir
 		m_AnimFrameTimer()
 	{
 		m_Transform2D.position = { x, y };
+
+		m_UsePhysics = false;
 		m_BodyDef = b2DefaultBodyDef();
 		m_BodyId = {};
 		m_ShapeDef = b2DefaultShapeDef();
@@ -72,10 +76,15 @@ namespace Zefir
 
 		
 #ifndef NDEBUG
-		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 0, 0, 255);
-		Vector2 pos = Vector2(b2Body_GetPosition(m_BodyId).x, b2Body_GetPosition(m_BodyId).y);
-		renderer->RenderRect(pos, m_Transform2D.size, cam);
-		SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
+		// Draw collider
+
+		if (m_UsePhysics)
+		{
+			SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 0, 0, 255);
+			Vector2 pos = Vector2(b2Body_GetPosition(m_BodyId).x, b2Body_GetPosition(m_BodyId).y);
+			renderer->RenderRect(pos, m_Transform2D.size, cam);
+			SDL_SetRenderDrawColor(renderer->GetSDLRenderer(), 255, 255, 255, 255);
+		}
 #endif
 				
 	}

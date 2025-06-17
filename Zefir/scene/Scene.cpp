@@ -59,13 +59,17 @@ namespace Zefir
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{
 			go->Update(deltaTime);
-			go->m_Transform2D.SetPosition(
-				b2Body_GetPosition(go->m_BodyId).x, 
-				b2Body_GetPosition(go->m_BodyId).y
-			);
-			go->m_Transform2D.SetRotation(
-				-b2Rot_GetAngle(b2Body_GetRotation(go->m_BodyId))
-			);
+
+			if (go->m_UsePhysics)
+			{
+				go->m_Transform2D.SetPosition(
+					b2Body_GetPosition(go->m_BodyId).x, 
+					b2Body_GetPosition(go->m_BodyId).y
+				);
+				go->m_Transform2D.SetRotation(
+					-b2Rot_GetAngle(b2Body_GetRotation(go->m_BodyId))
+				);
+			}
 		}
 	}
 
@@ -89,8 +93,12 @@ namespace Zefir
 
 	void Scene::AddObjectToScene(std::unique_ptr<GameObject> go)
 	{
-		go->m_BodyId = b2CreateBody(m_WorldId, &go.get()->m_BodyDef);
-		b2CreatePolygonShape(go->m_BodyId, &go->m_ShapeDef, &go->m_Box);
+		if (go->m_UsePhysics)
+		{
+			go->m_BodyId = b2CreateBody(m_WorldId, &go.get()->m_BodyDef);
+			b2CreatePolygonShape(go->m_BodyId, &go->m_ShapeDef, &go->m_Box);
+		}
+
 		m_SceneObjects.push_back(std::move(go));
 	}
 }

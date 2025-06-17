@@ -19,6 +19,7 @@ namespace Zefir
 		std::string m_Name;
 		Transform2D m_Transform2D;
 		
+		bool m_UsePhysics;
 		b2BodyDef m_BodyDef;
 		b2BodyId m_BodyId;
 		b2ShapeDef m_ShapeDef;
