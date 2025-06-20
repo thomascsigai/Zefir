@@ -3,7 +3,7 @@
 namespace Zefir
 {
 	GameObject::GameObject()
-		: m_Name("Gameobject"), m_Transform2D(), m_Texture(nullptr),
+		: m_Name("Gameobject"), m_Transform2D(0, 0), m_Texture(nullptr),
 		m_AnimFrameTimer()
 	{
 		m_UsePhysics = false;
@@ -14,7 +14,7 @@ namespace Zefir
 	}
 
 	GameObject::GameObject(std::string name)
-		: m_Name(name), m_Transform2D(), m_Texture(nullptr), 
+		: m_Name(name), m_Transform2D(0, 0), m_Texture(nullptr), 
 		m_AnimFrameTimer()
 	{
 		m_UsePhysics = false;
@@ -25,11 +25,9 @@ namespace Zefir
 	}
 
 	GameObject::GameObject(std::string name, float x, float y)
-		: m_Name(name), m_Transform2D(), m_Texture(nullptr),
+		: m_Name(name), m_Transform2D(x, y), m_Texture(nullptr),
 		m_AnimFrameTimer()
 	{
-		m_Transform2D.position = { x, y };
-
 		m_UsePhysics = false;
 		m_BodyDef = b2DefaultBodyDef();
 		m_BodyId = {};

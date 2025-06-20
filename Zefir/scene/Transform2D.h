@@ -12,6 +12,8 @@ namespace Zefir
 		Vector2 size = Vector2(0, 0); // In Meters
 		double rotation = 0; // In Radians
 
+		Transform2D(float x, float y) : position(x, y), oldPosition(x, y)
+		{}
 
 		void SetPosition(float _x, float _y)
 		{
