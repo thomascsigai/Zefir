@@ -4,9 +4,8 @@
 namespace ZefirApp
 {
 	PhysicObject::PhysicObject(float x, float y, std::shared_ptr<Zefir::Texture> texture)
-		: GameObject("Physic Object")
+		: GameObject("Physic Object", x, y)
 	{
-		m_Transform2D.SetPosition(x, y);
 		m_Transform2D.SetSize(1, 1);
 
 		SetTexture(texture);
