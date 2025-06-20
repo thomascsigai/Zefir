@@ -65,18 +65,18 @@ namespace Zefir
 	{
 		Vector2 screenPos = Vector2(position);
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
+		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 
-		SDL_RenderFillRect(m_SDLRenderer, &rect);
+		SDL_RenderFillRectF(m_SDLRenderer, &rect);
 	}
 
 	void Renderer::RenderRect(const Vector2& position, const Vector2& size, const Camera& cam)
 	{
 		Vector2 screenPos = Vector2(position);
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
+		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 
-		SDL_RenderDrawRect(m_SDLRenderer, &rect);
+		SDL_RenderDrawRectF(m_SDLRenderer, &rect);
 	}
 
 	// rotation angle : radians
@@ -85,11 +85,11 @@ namespace Zefir
 	{
 		Vector2 screenPos = Vector2(position);
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
+		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
-		SDL_RenderCopyEx(m_SDLRenderer, texture, NULL, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyExF(m_SDLRenderer, texture, NULL, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
 	}
 
 	// rotation angle : radians
@@ -99,12 +99,12 @@ namespace Zefir
 	{
 		Vector2 screenPos = Vector2(position);
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
-		SDL_Rect rect = WorldToScreenRect(screenPos, size, cam);
+		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 		SDL_Rect frame = { frameNumber * frameW, 0, frameW, frameH };
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
-		SDL_RenderCopyEx(m_SDLRenderer, texture, &frame, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyExF(m_SDLRenderer, texture, &frame, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
 	}
 
 	void Renderer::RenderLine(const Vector2& pos1, const Vector2& pos2, const Camera& cam)

@@ -33,9 +33,9 @@ namespace Zefir
 
     // Given the center position (world coordinates) of a rect and his size, create a SDL_Rect
     // that can be drawn on the screen.
-    inline SDL_Rect WorldToScreenRect(const Vector2& center, const Vector2& size, const Camera& cam)
+    inline SDL_FRect WorldToScreenRect(const Vector2& center, const Vector2& size, const Camera& cam)
     {
-        SDL_Rect rect = {
+        SDL_FRect rect = {
             center.x - (size.x / 2) * (PIXELS_PER_METER + cam.zoom), center.y - (size.y / 2) * (PIXELS_PER_METER + cam.zoom),
             size.x * (PIXELS_PER_METER + cam.zoom), size.y * (PIXELS_PER_METER + cam.zoom)
         };
