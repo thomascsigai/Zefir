@@ -51,21 +51,30 @@ namespace Zefir
 		accumulator += deltaTime;
 		while (accumulator >= TIME_STEP)
 		{
+			for (auto& go : m_SceneObjects)
+			{
+				if (go->m_UsePhysics)
+					go->m_Transform2D.oldPosition = Vector2(b2Body_GetPosition(go->m_BodyId).x, b2Body_GetPosition(go->m_BodyId).y); // ajouter ce champ
+			}
+
 			b2World_Step(m_WorldId, TIME_STEP, 4);
 			accumulator -= TIME_STEP;
 		}
 
 		// Update all gameobjects
+		float alpha = static_cast<float>(accumulator / TIME_STEP);
+
 		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
 		{
 			go->Update(deltaTime);
 
 			if (go->m_UsePhysics)
 			{
-				go->m_Transform2D.SetPosition(
-					b2Body_GetPosition(go->m_BodyId).x, 
-					b2Body_GetPosition(go->m_BodyId).y
-				);
+				b2Vec2 currPos = b2Body_GetPosition(go->m_BodyId);
+				Vector2 interpolatedPos = go->m_Transform2D.oldPosition * (1.0f - alpha) + currPos * alpha;
+
+				go->m_Transform2D.SetPosition(interpolatedPos);
+
 				go->m_Transform2D.SetRotation(
 					-b2Rot_GetAngle(b2Body_GetRotation(go->m_BodyId))
 				);
