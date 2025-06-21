@@ -7,13 +7,15 @@
 
 #include <box2d/box2d.h>
 
+#include <unordered_map>
+
 namespace Zefir
 {
 	class Scene
 	{
 	protected:
 		EngineContext* m_EngineContext;
-		std::vector<std::unique_ptr<GameObject>> m_SceneObjects;
+		std::unordered_map<int, std::unique_ptr<GameObject>> m_SceneObjects;
 		b2WorldDef m_WorldDef;
 		b2WorldId m_WorldId;
 

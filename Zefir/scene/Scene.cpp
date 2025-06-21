@@ -35,9 +35,9 @@ namespace Zefir
 			delete newZoom;
 		}
 
-		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
+		for (auto& go : m_SceneObjects)
 		{
-			go->HandleEvent(e);
+			go.second->HandleEvent(e);
 		}
 		OnSceneEvent(e);
 	}
@@ -53,30 +53,56 @@ namespace Zefir
 		{
 			for (auto& go : m_SceneObjects)
 			{
-				if (go->m_UsePhysics)
-					go->m_Transform2D.oldPosition = Vector2(b2Body_GetPosition(go->m_BodyId).x, b2Body_GetPosition(go->m_BodyId).y); // ajouter ce champ
+				if (go.second->m_UsePhysics)
+					go.second->m_Transform2D.oldPosition = Vector2(
+						b2Body_GetPosition(go.second->m_BodyId).x,
+						b2Body_GetPosition(go.second->m_BodyId).y
+					); 
 			}
 
 			b2World_Step(m_WorldId, TIME_STEP, 4);
+			b2ContactEvents contactEvents = b2World_GetContactEvents(m_WorldId);
+			for (int i = 0; i < contactEvents.beginCount; ++i)
+			{
+				b2ContactBeginTouchEvent* e = contactEvents.beginEvents + i;
+				m_SceneObjects[e->shapeIdA.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdB.index1].get());
+				m_SceneObjects[e->shapeIdB.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdA.index1].get());
+			}
+
+			for (int i = 0; i < contactEvents.endCount; ++i)
+			{
+				b2ContactEndTouchEvent* e = contactEvents.endEvents + i;
+				if (b2Shape_IsValid(e->shapeIdA) && b2Shape_IsValid(e->shapeIdB))
+				{
+					m_SceneObjects[e->shapeIdA.index1]->OnCollisionExit(m_SceneObjects[e->shapeIdB.index1].get());
+					m_SceneObjects[e->shapeIdB.index1]->OnCollisionExit(m_SceneObjects[e->shapeIdA.index1].get());
+				}
+			}
+
+			for (int i = 0; i < contactEvents.hitCount; ++i) {
+				auto* hitEvent = contactEvents.hitEvents + i;
+			}
+
 			accumulator -= TIME_STEP;
 		}
+
 
 		// Update all gameobjects
 		float alpha = static_cast<float>(accumulator / TIME_STEP);
 
-		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
+		for (auto& go : m_SceneObjects)
 		{
-			go->Update(deltaTime);
+			go.second->Update(deltaTime);
 
-			if (go->m_UsePhysics)
+			if (go.second->m_UsePhysics)
 			{
-				b2Vec2 currPos = b2Body_GetPosition(go->m_BodyId);
-				Vector2 interpolatedPos = go->m_Transform2D.oldPosition * (1.0f - alpha) + currPos * alpha;
+				b2Vec2 currPos = b2Body_GetPosition(go.second->m_BodyId);
+				Vector2 interpolatedPos = go.second->m_Transform2D.oldPosition * (1.0f - alpha) + currPos * alpha;
 
-				go->m_Transform2D.SetPosition(interpolatedPos);
+				go.second->m_Transform2D.SetPosition(interpolatedPos);
 
-				go->m_Transform2D.SetRotation(
-					-b2Rot_GetAngle(b2Body_GetRotation(go->m_BodyId))
+				go.second->m_Transform2D.SetRotation(
+					-b2Rot_GetAngle(b2Body_GetRotation(go.second->m_BodyId))
 				);
 			}
 		}
@@ -84,9 +110,9 @@ namespace Zefir
 
 	void Scene::Render(Renderer* renderer)
 	{
-		for (std::unique_ptr<GameObject>& go : m_SceneObjects)
+		for (auto& go : m_SceneObjects)
 		{
-			go->Render(renderer, m_Cam);
+			go.second->Render(renderer, m_Cam);
 		}
 
 #ifndef NDEBUG
@@ -107,6 +133,6 @@ namespace Zefir
 			b2CreatePolygonShape(go->m_BodyId, &go->m_ShapeDef, &go->m_Box);
 		}
 
-		m_SceneObjects.push_back(std::move(go));
+		m_SceneObjects[go->m_BodyId.index1] = std::move(go);
 	}
 }
