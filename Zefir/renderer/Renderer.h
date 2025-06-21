@@ -26,11 +26,12 @@ namespace Zefir
 		void RenderFilledCircle(Vector2 position, float radius);
 		
 		void RenderStaticTexture(SDL_Texture* texture, const Vector2& position, 
-			const Vector2& size, const double& rotationAngle, const Camera& cam);
+			const Vector2& size, const double& rotationAngle, const Camera& cam,
+			bool horizontalFlip = false, bool verticalFlip = false);
 		
 		void RenderAnimFrame(SDL_Texture* texture, const Vector2& position, const Vector2& size,
 			Uint16 frameW, Uint16 frameH, int frameNumber, const double& rotationAngle,
-			const Camera& cam);
+			const Camera& cam, bool horizontalFlip = false, bool verticalFlip = false);
 
 		// Given the world coordinates of two points, render a line between them.
 		void RenderLine(const Vector2& pos1, const Vector2& pos2, const Camera& cam);

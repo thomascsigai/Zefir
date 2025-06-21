@@ -81,7 +81,7 @@ namespace Zefir
 
 	// rotation angle : radians
 	void Renderer::RenderStaticTexture(SDL_Texture* texture, const Vector2& position, const Vector2& size,
-		const double& rotationAngle, const Camera& cam)
+		const double& rotationAngle, const Camera& cam, bool horizontalFlip, bool verticalFlip)
 	{
 		Vector2 screenPos = Vector2(position);
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
@@ -89,13 +89,16 @@ namespace Zefir
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
-		SDL_RenderCopyExF(m_SDLRenderer, texture, NULL, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
+		SDL_RendererFlip flip = horizontalFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+		flip = verticalFlip ? (SDL_RendererFlip)(flip | SDL_FLIP_VERTICAL) : flip;
+
+		SDL_RenderCopyExF(m_SDLRenderer, texture, NULL, &rect, angleDegrees, NULL, flip);
 	}
 
 	// rotation angle : radians
 	void Renderer::RenderAnimFrame(SDL_Texture* texture, const Vector2& position, const Vector2& size,
 		Uint16 frameW, Uint16 frameH, int frameNumber, const double& rotationAngle,
-		const Camera& cam)
+		const Camera& cam, bool horizontalFlip, bool verticalFlip)
 	{
 		Vector2 screenPos = Vector2(position);
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
@@ -104,7 +107,10 @@ namespace Zefir
 
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
-		SDL_RenderCopyExF(m_SDLRenderer, texture, &frame, &rect, angleDegrees, NULL, SDL_FLIP_NONE);
+		SDL_RendererFlip flip = horizontalFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+		flip = verticalFlip ? (SDL_RendererFlip)(flip | SDL_FLIP_VERTICAL) : flip;
+
+		SDL_RenderCopyExF(m_SDLRenderer, texture, &frame, &rect, angleDegrees, NULL, flip);
 	}
 
 	void Renderer::RenderLine(const Vector2& pos1, const Vector2& pos2, const Camera& cam)

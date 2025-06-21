@@ -11,6 +11,9 @@ namespace Zefir
 		Vector2 oldPosition = Vector2(0, 0); // Used to render interpolated position
 		Vector2 size = Vector2(0, 0); // In Meters
 		double rotation = 0; // In Radians
+		
+		bool horizontalFlip = false;
+		bool verticalFlip = false;
 
 		Transform2D(float x, float y) : position(x, y), oldPosition(x, y)
 		{}

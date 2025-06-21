@@ -46,7 +46,8 @@ namespace Zefir
 				AnimatedTexture* ptr_anim = dynamic_cast<AnimatedTexture*>(m_Texture.get());
 				
 				renderer->RenderAnimFrame(m_Texture->GetSDLTexture(), m_Transform2D.position, m_Transform2D.size,
-					ptr_anim->GetFrameW(), ptr_anim->GetFrameH(), numberFrame, m_Transform2D.rotation, cam);
+					ptr_anim->GetFrameW(), ptr_anim->GetFrameH(), numberFrame, m_Transform2D.rotation, cam,
+					m_Transform2D.horizontalFlip, m_Transform2D.verticalFlip);
 				
 				if (m_AnimFrameTimer.GetTicks() >= ptr_anim->GetFrameTime())
 				{
@@ -63,7 +64,8 @@ namespace Zefir
 			else
 			{
 				renderer->RenderStaticTexture(m_Texture->GetSDLTexture(), m_Transform2D.position,
-					m_Transform2D.size, m_Transform2D.rotation, cam);
+					m_Transform2D.size, m_Transform2D.rotation, cam, m_Transform2D.horizontalFlip,
+					m_Transform2D.verticalFlip);
 			}
 		}
 		else
