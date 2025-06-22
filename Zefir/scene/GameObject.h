@@ -39,7 +39,7 @@ namespace Zefir
 		virtual void Update(double deltaTime) = 0;
 		virtual void HandleEvent(const SDL_Event& e) = 0;
 
-		virtual void OnCollisionEnter(GameObject* other) {}
+		virtual void OnCollisionEnter(GameObject* other, b2Manifold manifold) {}
 		virtual void OnCollisionExit(GameObject* other) {}
 
 		//Setters

@@ -8,7 +8,7 @@ namespace Zefir
 		m_SceneObjects.reserve(10);
 
 		m_WorldDef = b2DefaultWorldDef();
-		m_WorldDef.gravity = { 0.0f, -10.0f };
+		m_WorldDef.gravity = { 0.0f, -30.0f };
 		m_WorldId = b2CreateWorld(&m_WorldDef);
 
 		m_Cam = Camera();
@@ -65,8 +65,12 @@ namespace Zefir
 			for (int i = 0; i < contactEvents.beginCount; ++i)
 			{
 				b2ContactBeginTouchEvent* e = contactEvents.beginEvents + i;
-				m_SceneObjects[e->shapeIdA.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdB.index1].get());
-				m_SceneObjects[e->shapeIdB.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdA.index1].get());
+				APP_LOG_INFO("ShapeA : ", m_SceneObjects[e->shapeIdA.index1].get()->m_Name);
+				APP_LOG_INFO("ShapeB : ", m_SceneObjects[e->shapeIdB.index1].get()->m_Name);
+
+				m_SceneObjects[e->shapeIdB.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdA.index1].get(), e->manifold);
+				e->manifold.normal = -e->manifold.normal;
+				m_SceneObjects[e->shapeIdA.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdB.index1].get(), e->manifold);
 			}
 
 			for (int i = 0; i < contactEvents.endCount; ++i)
