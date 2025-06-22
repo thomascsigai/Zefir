@@ -65,8 +65,6 @@ namespace Zefir
 			for (int i = 0; i < contactEvents.beginCount; ++i)
 			{
 				b2ContactBeginTouchEvent* e = contactEvents.beginEvents + i;
-				APP_LOG_INFO("ShapeA : ", m_SceneObjects[e->shapeIdA.index1].get()->m_Name);
-				APP_LOG_INFO("ShapeB : ", m_SceneObjects[e->shapeIdB.index1].get()->m_Name);
 
 				m_SceneObjects[e->shapeIdB.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdA.index1].get(), e->manifold);
 				e->manifold.normal = -e->manifold.normal;
