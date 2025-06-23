@@ -66,9 +66,9 @@ namespace Zefir
 			{
 				b2ContactBeginTouchEvent* e = contactEvents.beginEvents + i;
 
-				m_SceneObjects[e->shapeIdB.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdA.index1].get(), e->manifold);
-				e->manifold.normal = -e->manifold.normal;
 				m_SceneObjects[e->shapeIdA.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdB.index1].get(), e->manifold);
+				e->manifold.normal = -e->manifold.normal;
+				m_SceneObjects[e->shapeIdB.index1]->OnCollisionEnter(m_SceneObjects[e->shapeIdA.index1].get(), e->manifold);
 			}
 
 			for (int i = 0; i < contactEvents.endCount; ++i)
