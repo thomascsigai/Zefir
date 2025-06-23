@@ -28,6 +28,7 @@ namespace Zefir
 	protected:
 		std::shared_ptr<Texture> m_Texture;
 		Timer m_AnimFrameTimer;
+		int m_AnimFrameNumber;
 
 	public:
 		GameObject();
