@@ -31,4 +31,9 @@ namespace Zefir
 	{ 
 		return m_MetaData.frameTime; 
 	}
+
+	bool AnimatedTexture::IsRepeat() const
+	{
+		return m_MetaData.repeat;
+	}
 }

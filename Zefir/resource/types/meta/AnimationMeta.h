@@ -12,6 +12,7 @@ namespace Zefir
 		float frameTime = 0.0f;
 		Uint32 frameW = 0;
 		Uint32 frameH = 0;
+		bool repeat = true;
 	};
 
 	class AnimationDataParser : public IParser
@@ -43,6 +44,7 @@ namespace Zefir
 			meta.frameW = j["frameW"];
 			meta.frameH = j["frameH"];
 			meta.frameTime = j["frameTime"];
+			meta.repeat = j["repeat"];
 
             return true;
 		}

@@ -50,12 +50,16 @@ namespace Zefir
 				if (m_AnimFrameTimer.GetTicks() >= ptr_anim->GetFrameTime())
 				{
 					m_AnimFrameNumber++;
+
 					m_AnimFrameTimer.Stop();
 					m_AnimFrameTimer.Start();
 
 					if (m_AnimFrameNumber >= ptr_anim->GetFrameCount())
 					{
-						m_AnimFrameNumber = 0;
+						if (ptr_anim->IsRepeat())
+							m_AnimFrameNumber = 0;
+						else
+							m_AnimFrameNumber--;
 					}
 				}
 			}
