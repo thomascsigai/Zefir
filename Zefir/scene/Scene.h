@@ -22,6 +22,7 @@ namespace Zefir
 		Camera m_Cam;
 
 		void AddObjectToScene(std::unique_ptr<GameObject> go);
+		void RemoveObject(int objectId);
 
 	public:
 		Scene();

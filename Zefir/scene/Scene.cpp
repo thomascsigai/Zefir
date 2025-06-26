@@ -35,6 +35,13 @@ namespace Zefir
 			delete newZoom;
 		}
 
+		if (e.type == EngineEvents::SCENE_REMOVE_OBJECT)
+		{
+			int* objectId = static_cast<int*>(e.user.data1);
+			RemoveObject(*objectId);
+			delete objectId;
+		}
+
 		for (auto& go : m_SceneObjects)
 		{
 			go.second->HandleEvent(e);
@@ -136,5 +143,18 @@ namespace Zefir
 		}
 
 		m_SceneObjects[go->m_BodyId.index1] = std::move(go);
+	}
+
+	void Scene::RemoveObject(int objectId)
+	{
+		if (m_SceneObjects.contains(objectId))
+		{
+			b2DestroyBody(m_SceneObjects[objectId]->m_BodyId);
+			m_SceneObjects.erase(objectId);
+		}
+		else
+		{
+			LOG_WARN("Trying to remove an object that does not exist.");
+		}
 	}
 }

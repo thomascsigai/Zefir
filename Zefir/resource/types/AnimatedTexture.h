@@ -25,6 +25,9 @@ namespace Zefir
 		Uint16 GetFrameCount() const;
 		float GetFrameTime() const;
 		bool IsRepeat() const;
+		bool IsEnded() const;
+
+		void SetEnded();
 
 	private:
 		AnimationData m_MetaData;

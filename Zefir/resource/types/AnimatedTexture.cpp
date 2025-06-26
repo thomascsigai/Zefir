@@ -36,4 +36,14 @@ namespace Zefir
 	{
 		return m_MetaData.repeat;
 	}
+
+	bool AnimatedTexture::IsEnded() const
+	{
+		return m_MetaData.ended;
+	}
+
+	void AnimatedTexture::SetEnded()
+	{
+		m_MetaData.ended = true;
+	}
 }

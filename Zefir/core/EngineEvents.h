@@ -17,5 +17,8 @@ namespace Zefir
 		// Camera Events
 		const inline Uint32 CAMERA_MOVE = SDL_RegisterEvents(1);
 		const inline Uint32 CAMERA_ZOOM = SDL_RegisterEvents(1);
+
+		// Current Loaded Scene Events
+		const inline Uint32 SCENE_REMOVE_OBJECT = SDL_RegisterEvents(1);
 	}
 }

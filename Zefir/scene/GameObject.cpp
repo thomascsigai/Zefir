@@ -57,9 +57,14 @@ namespace Zefir
 					if (m_AnimFrameNumber >= ptr_anim->GetFrameCount())
 					{
 						if (ptr_anim->IsRepeat())
+						{
 							m_AnimFrameNumber = 0;
+						}
 						else
+						{
 							m_AnimFrameNumber--;
+							ptr_anim->SetEnded();
+						}
 					}
 				}
 			}

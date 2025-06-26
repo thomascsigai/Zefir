@@ -13,6 +13,7 @@ namespace Zefir
 		Uint32 frameW = 0;
 		Uint32 frameH = 0;
 		bool repeat = true;
+		bool ended = false;
 	};
 
 	class AnimationDataParser : public IParser
