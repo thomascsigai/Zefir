@@ -63,7 +63,7 @@ namespace Zefir
 						else
 						{
 							m_AnimFrameNumber--;
-							ptr_anim->SetEnded();
+							ptr_anim->SetEnded(true);
 						}
 					}
 				}

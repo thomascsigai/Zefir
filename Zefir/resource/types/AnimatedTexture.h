@@ -27,7 +27,7 @@ namespace Zefir
 		bool IsRepeat() const;
 		bool IsEnded() const;
 
-		void SetEnded();
+		void SetEnded(bool b);
 
 	private:
 		AnimationData m_MetaData;
