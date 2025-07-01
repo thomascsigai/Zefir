@@ -30,6 +30,8 @@ namespace Zefir
 		Timer m_AnimFrameTimer;
 		int m_AnimFrameNumber;
 
+		bool m_AnimEnded;
+
 	public:
 		GameObject();
 		GameObject(std::string name);
