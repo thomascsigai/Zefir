@@ -13,7 +13,7 @@ namespace ZefirApp
 		void OnInit() override
 		{
 			m_SceneManager->LoadScene(std::make_unique<DefaultScene>(), &m_EngineContext);
-			m_Window->SetSettings({ "Physics Sandbox", 1080, 720, false });
+			m_Window->SetSettings({ "Physics Sandbox", 1080, 720, true });
 		}
 
 		void HandleEvents(SDL_Event& e) override
