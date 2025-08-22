@@ -136,6 +136,10 @@ namespace Zefir
 
 	void Application::Render()
 	{
+#ifndef NDEBUG
+		Uint64 start = SDL_GetPerformanceCounter();
+#endif // !NDEBUG
+
 		SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 0, 0, 0, 255);
 		SDL_RenderClear(m_Renderer->GetSDLRenderer());
 		SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 255, 255, 255, 255);
@@ -144,6 +148,17 @@ namespace Zefir
 		m_ImGuiManager->Render(m_Renderer.get());
 
 		SDL_RenderPresent(m_Renderer->GetSDLRenderer());
+
+#ifndef NDEBUG
+		Uint64 end = SDL_GetPerformanceCounter();
+		double elapsedMSeconds = (double)(end - start) / (double)SDL_GetPerformanceFrequency() * 1000;
+
+		SDL_Event e = { EngineEvents::UPDATE_PROFILING_DATA };
+		ProfilingData* data = new ProfilingData();
+		data->renderTime = elapsedMSeconds;
+		e.user.data1 = data;
+		SDL_PushEvent(&e);
+#endif // !NDEBUG
 	}
 
 	void Application::Exit()
