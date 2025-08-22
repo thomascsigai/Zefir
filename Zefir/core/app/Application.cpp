@@ -8,6 +8,11 @@ namespace Zefir
 		m_DeltaTime = 0;
 		m_CurrentTime = 0;
 		m_PreviousTime = SDL_GetTicks();
+
+#ifndef NDEBUG
+		m_ProfilingData = ProfilingData();
+#endif 
+
 	}
 
 	bool Application::Init()
@@ -138,7 +143,7 @@ namespace Zefir
 	{
 #ifndef NDEBUG
 		Uint64 start = SDL_GetPerformanceCounter();
-#endif // !NDEBUG
+#endif
 
 		SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 0, 0, 0, 255);
 		SDL_RenderClear(m_Renderer->GetSDLRenderer());
@@ -152,13 +157,8 @@ namespace Zefir
 #ifndef NDEBUG
 		Uint64 end = SDL_GetPerformanceCounter();
 		double elapsedMSeconds = (double)(end - start) / (double)SDL_GetPerformanceFrequency() * 1000;
-
-		SDL_Event e = { EngineEvents::UPDATE_PROFILING_DATA };
-		ProfilingData* data = new ProfilingData();
-		data->renderTime = elapsedMSeconds;
-		e.user.data1 = data;
-		SDL_PushEvent(&e);
-#endif // !NDEBUG
+		m_ProfilingData.renderTime = elapsedMSeconds;
+#endif
 	}
 
 	void Application::Exit()
@@ -170,4 +170,16 @@ namespace Zefir
 	{
 		return m_IsRunning;
 	}
+
+#ifndef NDEBUG
+	void Application::SendProfilingData()
+	{
+		SDL_Event e = { EngineEvents::UPDATE_PROFILING_DATA };
+		ProfilingData* data = new ProfilingData();
+		data->renderTime = m_ProfilingData.renderTime;
+		e.user.data1 = data;
+		SDL_PushEvent(&e);
+	}
+#endif
+
 }

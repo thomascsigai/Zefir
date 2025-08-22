@@ -49,6 +49,11 @@ namespace Zefir
 
 		bool IsRunning();
 
+#ifndef NDEBUG
+		void SendProfilingData();
+#endif
+
+
 	private:
 		bool m_IsRunning;
 		bool m_IsPaused;
@@ -57,5 +62,9 @@ namespace Zefir
 		double m_DeltaTime;
 		int m_PreviousTime;
 		int m_CurrentTime;
+
+#ifndef NDEBUG
+		ProfilingData m_ProfilingData;
+#endif 
 	};
 }

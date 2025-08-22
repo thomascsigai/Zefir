@@ -20,6 +20,10 @@ namespace Zefir
 
 			while (app.IsRunning())
 			{
+#ifndef NDEBUG
+				app.SendProfilingData();
+#endif
+
 				app.OnEvent(e);
 				app.Update();
 				app.Render();
