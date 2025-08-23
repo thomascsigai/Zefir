@@ -18,86 +18,91 @@ namespace Zefir
 		void ShowContent() override
 		{
             static bool profilingPaused = false;
+            static int fpsIndex = 0;
 
-			static int fpsIndex = 0;
+            static constexpr int historySize = 100;
+            static float fpsHistory[historySize] = { 0.0f };
+            static float avgFPSHistory[historySize] = { 0.0f };
+            static float frameTimeHistory[historySize] = { 0.0f };
 
-			static float fpsHistory[100] = { 0.0f };
-            static float avgHistory[100] = { 0.0f };
-			
-            static float avg = 0.0f;
             static float fps = 0.0f;
+            static float avgFPS = 0.0f;
             static float frameTimeMs = 0.0f;
             static float deltaTime = 0.0f;
-			
+
+            // History updates
             if (!profilingPaused)
             {
-			    fpsHistory[fpsIndex] = 1000 / m_ProfilingData.frameTime;
+                frameTimeHistory[fpsIndex] = m_ProfilingData.frameTime;
+                fpsHistory[fpsIndex] = 1000.0f / m_ProfilingData.frameTime;
 
-			    fpsIndex = (fpsIndex + 1) % IM_ARRAYSIZE(fpsHistory);
-			    
-                for (float f : fpsHistory) avg += f;
-			    avg /= IM_ARRAYSIZE(fpsHistory);
-                avgHistory[fpsIndex] = avg;
+                float sumFPS = 0.0f;
+                for (float f : fpsHistory) sumFPS += f;
+                avgFPS = sumFPS / historySize;
+                avgFPSHistory[fpsIndex] = avgFPS;
 
-                fps = fpsHistory[(fpsIndex - 1 + IM_ARRAYSIZE(fpsHistory)) % IM_ARRAYSIZE(fpsHistory)];
-                frameTimeMs = m_ProfilingData.frameTime;
+                fps = fpsHistory[fpsIndex];
+                frameTimeMs = frameTimeHistory[fpsIndex];
                 deltaTime = m_ProfilingData.deltaTime;
+
+                fpsIndex = (fpsIndex + 1) % historySize;
             }
 
             if (profilingPaused)
             {
-                if (ImGui::Button("Resume Profiling"))
-                    profilingPaused = false;
+                if (ImGui::Button("Resume Profiling")) profilingPaused = false;
             }
             else
             {
-                if (ImGui::Button("Pause Profiling"))
-                    profilingPaused = true;
+                if (ImGui::Button("Pause Profiling")) profilingPaused = true;
             }
 
             ImGui::Separator();
 
-            ImGui::Text("Average FPS: %.1f", avg);
-            ImGui::PlotLines("##avgfps", avgHistory, IM_ARRAYSIZE(avgHistory), 0, nullptr, 0.0f, 240.0f, ImVec2(-1, 80));
+            ImGui::Text("Avg FPS: %.1f", fps, avgFPS);
+            ImGui::PlotLines("##avgfps", avgFPSHistory, historySize, fpsIndex, nullptr, 0.0f, 240.0f, ImVec2(-1, 80));
+
             ImGui::Text("Frame Time: %.3f ms", frameTimeMs);
             ImGui::Text("Delta Time: %.3f s", deltaTime);
 
             ImGui::Separator();
 
-            if (ImGui::CollapsingHeader("Frame Stats"))
+            // =========================
+            // Frame Stats
+            // =========================
+            if (ImGui::CollapsingHeader("Frame Stats", ImGuiTreeNodeFlags_DefaultOpen))
             {
                 static float minFrame = FLT_MAX, maxFrame = 0.0f, avgFrame = 0.0f;
                 static float updateMs = 0.0f, renderMs = 0.0f, eventsMs = 0.0f, totalMs = 0.0f;
-                
+
                 if (!profilingPaused)
                 {
-                    for (int i = 0; i < IM_ARRAYSIZE(fpsHistory); i++)
+                    minFrame = FLT_MAX;
+                    maxFrame = 0.0f;
+                    avgFrame = 0.0f;
+
+                    for (float ft : frameTimeHistory)
                     {
-                        float ft = m_ProfilingData.frameTime;
                         minFrame = (ft < minFrame) ? ft : minFrame;
                         maxFrame = (ft > maxFrame) ? ft : maxFrame;
                         avgFrame += ft;
                     }
-                    avgFrame /= IM_ARRAYSIZE(fpsHistory);
-                    
+                    avgFrame /= historySize;
+
                     updateMs = m_ProfilingData.updateTime;
                     renderMs = m_ProfilingData.renderTime;
                     eventsMs = m_ProfilingData.eventHandlingTime;
                     totalMs = updateMs + renderMs + eventsMs;
-                }            
+                }
 
-                // Affichage résumé
-                ImGui::Text("Frame Time: Avg %.2f ms | Min %.2f ms | Max %.2f ms",
-                    avgFrame, minFrame, maxFrame);
+                ImGui::Text("Frame Time: Avg %.2f ms | Min %.2f ms | Max %.2f ms", avgFrame, minFrame, maxFrame);
 
-                // Affichage temps par sous-système
-                ImGui::Text("(0) Update: %.3f ms (%.0f%%)", updateMs, (updateMs / totalMs) * 100.0f);
-                ImGui::Text("(1) Render: %.3f ms (%.0f%%)", renderMs, (renderMs / totalMs) * 100.0f);
-                ImGui::Text("(2) Events Handling: %.3f ms (%.0f%%)", eventsMs, (eventsMs / totalMs) * 100.0f);
+                ImGui::Text("(1) Update: %.3f ms (%.0f%%)", updateMs, (updateMs / totalMs) * 100.0f);
+                ImGui::Text("(2) Render: %.3f ms (%.0f%%)", renderMs, (renderMs / totalMs) * 100.0f);
+                ImGui::Text("(3) Events: %.3f ms (%.0f%%)", eventsMs, (eventsMs / totalMs) * 100.0f);
 
-                // Histogramme comparatif simple (update, render, events)
                 float times[3] = { updateMs, renderMs, eventsMs };
-                ImGui::PlotHistogram("##framebreakdown", times, 3, 0, nullptr, 0.0f, maxFrame, ImVec2(-1, 80));
+                ImGui::PlotHistogram("##breakdown", times, 3, 0, nullptr, 0.0f, maxFrame, ImVec2(-1, 80));
             }
 		}
 
