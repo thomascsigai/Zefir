@@ -25,28 +25,15 @@ namespace Zefir
             static float avgFPSHistory[historySize] = { 0.0f };
             static float frameTimeHistory[historySize] = { 0.0f };
 
+            static float renderTime = 0.0f;
+            static float avgRenderTime = 0.0f;
+            static float renderHistory[historySize] = { 0.0f };
+            static float renderAvgHistory[historySize] = { 0.0f };
+
             static float fps = 0.0f;
             static float avgFPS = 0.0f;
             static float frameTimeMs = 0.0f;
             static float deltaTime = 0.0f;
-
-            // History updates
-            if (!profilingPaused)
-            {
-                frameTimeHistory[fpsIndex] = m_ProfilingData.frameTime;
-                fpsHistory[fpsIndex] = 1000.0f / m_ProfilingData.frameTime;
-
-                float sumFPS = 0.0f;
-                for (float f : fpsHistory) sumFPS += f;
-                avgFPS = sumFPS / historySize;
-                avgFPSHistory[fpsIndex] = avgFPS;
-
-                fps = fpsHistory[fpsIndex];
-                frameTimeMs = frameTimeHistory[fpsIndex];
-                deltaTime = m_ProfilingData.deltaTime;
-
-                fpsIndex = (fpsIndex + 1) % historySize;
-            }
 
             if (profilingPaused)
             {
@@ -55,6 +42,32 @@ namespace Zefir
             else
             {
                 if (ImGui::Button("Pause Profiling")) profilingPaused = true;
+            }
+            
+            // History updates
+            if (!profilingPaused)
+            {
+                frameTimeHistory[fpsIndex] = m_ProfilingData.frameTime;
+                fpsHistory[fpsIndex] = 1000.0f / m_ProfilingData.frameTime;
+                
+                float sumFPS = 0.0f;
+                for (float f : fpsHistory) sumFPS += f;
+                avgFPS = sumFPS / historySize;
+                avgFPSHistory[fpsIndex] = avgFPS;
+                
+                renderHistory[fpsIndex] = m_ProfilingData.renderTime;
+                renderTime = m_ProfilingData.renderTime;
+                
+                float sumRenderTime = 0.0f;
+                for (float f : renderHistory) sumRenderTime += f;
+                avgRenderTime = sumRenderTime / historySize;
+                renderAvgHistory[fpsIndex] = avgRenderTime;
+
+                fps = fpsHistory[fpsIndex];
+                frameTimeMs = frameTimeHistory[fpsIndex];
+                deltaTime = m_ProfilingData.deltaTime;
+
+                fpsIndex = (fpsIndex + 1) % historySize;
             }
 
             ImGui::Separator();
@@ -67,9 +80,7 @@ namespace Zefir
 
             ImGui::Separator();
 
-            // =========================
             // Frame Stats
-            // =========================
             if (ImGui::CollapsingHeader("Frame Stats", ImGuiTreeNodeFlags_DefaultOpen))
             {
                 static float minFrame = FLT_MAX, maxFrame = 0.0f, avgFrame = 0.0f;
@@ -103,6 +114,21 @@ namespace Zefir
 
                 float times[3] = { updateMs, renderMs, eventsMs };
                 ImGui::PlotHistogram("##breakdown", times, 3, 0, nullptr, 0.0f, maxFrame, ImVec2(-1, 80));
+            }
+
+            // Renderer
+            if (ImGui::CollapsingHeader("Renderer", ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                // Draw Calls
+                // Textures loaded
+                ImGui::Text("Render Time: %.3f ms | Avg %.3f ms", renderTime, avgRenderTime);
+                ImGui::PlotLines("##avgrendertime", renderHistory, historySize, fpsIndex, nullptr, 0.0f, 33.3f, ImVec2(-1, 80));
+            }
+
+            // Memory
+            if (ImGui::CollapsingHeader("Memory", ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                // Resources allocated
             }
 		}
 
