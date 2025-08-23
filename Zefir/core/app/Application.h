@@ -59,7 +59,8 @@ namespace Zefir
 		bool m_IsPaused;
 		bool m_SpeedUp;
 
-		double m_DeltaTime;
+		double m_DeltaTime; // s
+		double m_FrameTime; // ms
 		int m_PreviousTime;
 		int m_CurrentTime;
 

@@ -5,6 +5,7 @@ namespace Zefir
 {
 	Application::Application() : m_IsRunning(false), m_IsPaused(false), m_SpeedUp(false)
 	{
+		m_FrameTime = 0;
 		m_DeltaTime = 0;
 		m_CurrentTime = 0;
 		m_PreviousTime = SDL_GetTicks();
@@ -73,6 +74,9 @@ namespace Zefir
 		Uint64 end = SDL_GetPerformanceCounter();
 		double elapsedMSeconds = (double)(end - start) / (double)SDL_GetPerformanceFrequency() * 1000;
 		m_ProfilingData.updateTime = elapsedMSeconds;
+
+		m_ProfilingData.deltaTime = m_DeltaTime;
+		m_ProfilingData.frameTime = m_FrameTime;
 
 		if (!m_HideDebugUI && m_DebugUI != nullptr)
 		{
@@ -191,6 +195,11 @@ namespace Zefir
 #ifndef NDEBUG
 	void Application::SendProfilingData()
 	{
+		static Uint64 currentTime = 0, previousTime = 0;
+		currentTime = SDL_GetPerformanceCounter();
+		m_FrameTime = (double)(currentTime - previousTime) / (double)SDL_GetPerformanceFrequency() * 1000;
+		previousTime = currentTime;
+
 		SDL_Event e = { EngineEvents::UPDATE_PROFILING_DATA };
 		ProfilingData* data = new ProfilingData(m_ProfilingData);
 		e.user.data1 = data;

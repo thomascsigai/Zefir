@@ -48,7 +48,7 @@ namespace Zefir
 				return;
 			}
 
-			//ImGui::ShowDemoWindow();
+			ImGui::ShowDemoWindow();
 			if (m_PerformanceFrame) imGuiManager->NewFrame(m_PerformanceFrame.get());
 			if (m_LogFrame) imGuiManager->NewFrame(m_LogFrame.get());
 			if (m_SimulationControlFrame) imGuiManager->NewFrame(m_SimulationControlFrame.get());
