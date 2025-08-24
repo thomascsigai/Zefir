@@ -165,6 +165,7 @@ namespace Zefir
 #ifndef NDEBUG
 		Uint64 start = SDL_GetPerformanceCounter();
 #endif
+		m_Renderer->ResetDrawCallsCounter();
 
 		SDL_SetRenderDrawColor(m_Renderer->GetSDLRenderer(), 0, 0, 0, 255);
 		SDL_RenderClear(m_Renderer->GetSDLRenderer());
@@ -178,7 +179,9 @@ namespace Zefir
 #ifndef NDEBUG
 		Uint64 end = SDL_GetPerformanceCounter();
 		double elapsedMSeconds = (double)(end - start) / (double)SDL_GetPerformanceFrequency() * 1000;
+		
 		m_ProfilingData.renderTime = elapsedMSeconds;
+		m_ProfilingData.drawCallsCount = m_Renderer->GetDrawCallsCount();
 #endif
 	}
 

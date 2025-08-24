@@ -10,6 +10,7 @@ namespace Zefir
 		}
 
 		m_Window = window;
+		m_DrawCallsCount = 0;
 	}
 
 	Renderer::~Renderer()
@@ -67,7 +68,10 @@ namespace Zefir
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
 		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 
+		if (IsOutsideOfScreen(rect)) return; // Camera Culling
+
 		SDL_RenderFillRectF(m_SDLRenderer, &rect);
+		m_DrawCallsCount++;
 	}
 
 	void Renderer::RenderRect(const Vector2& position, const Vector2& size, const Camera& cam)
@@ -76,7 +80,10 @@ namespace Zefir
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
 		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 
+		if (IsOutsideOfScreen(rect)) return; // Camera Culling
+
 		SDL_RenderDrawRectF(m_SDLRenderer, &rect);
+		m_DrawCallsCount++;
 	}
 
 	// rotation angle : radians
@@ -87,12 +94,15 @@ namespace Zefir
 		screenPos = WorldToScreenPosition(screenPos, m_Window, cam);
 		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 
+		if (IsOutsideOfScreen(rect)) return; // Camera Culling
+
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
 		SDL_RendererFlip flip = horizontalFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		flip = verticalFlip ? (SDL_RendererFlip)(flip | SDL_FLIP_VERTICAL) : flip;
 
 		SDL_RenderCopyExF(m_SDLRenderer, texture, NULL, &rect, angleDegrees, NULL, flip);
+		m_DrawCallsCount++;
 	}
 
 	// rotation angle : radians
@@ -105,12 +115,15 @@ namespace Zefir
 		SDL_FRect rect = WorldToScreenRect(screenPos, size, cam);
 		SDL_Rect frame = { frameNumber * frameW, 0, frameW, frameH };
 
+		if (IsOutsideOfScreen(rect)) return; // Camera Culling
+
 		double angleDegrees = rotationAngle * 180 / M_PI;
 
 		SDL_RendererFlip flip = horizontalFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		flip = verticalFlip ? (SDL_RendererFlip)(flip | SDL_FLIP_VERTICAL) : flip;
 
 		SDL_RenderCopyExF(m_SDLRenderer, texture, &frame, &rect, angleDegrees, NULL, flip);
+		m_DrawCallsCount++;
 	}
 
 	void Renderer::RenderLine(const Vector2& pos1, const Vector2& pos2, const Camera& cam)
@@ -122,6 +135,7 @@ namespace Zefir
 		screenPos2 = WorldToScreenPosition(screenPos2, m_Window, cam);
 				
 		SDL_RenderDrawLineF(m_SDLRenderer, screenPos1.x, screenPos1.y, screenPos2.x, screenPos2.y);
+		m_DrawCallsCount++;
 	}
 
 	void Renderer::RenderCircle(Vector2 position, float radius)
@@ -156,6 +170,32 @@ namespace Zefir
 			int x2 = centerX + dx;
 			SDL_RenderDrawLine(m_SDLRenderer, x1, centerY + y, x2, centerY + y);
 		}*/
+	}
+
+	int Renderer::GetDrawCallsCount()
+	{
+		return m_DrawCallsCount;
+	}
+
+	void Renderer::ResetDrawCallsCounter()
+	{
+		m_DrawCallsCount = 0;
+	}
+
+	bool Renderer::IsOutsideOfScreen(SDL_FRect rect)
+	{
+		float offset = 100;
+
+		int screenWidth, screenHeight;
+		SDL_GetWindowSize(m_Window->GetSDLWindow(), &screenWidth, &screenHeight);
+
+		SDL_FRect screenRect = {
+			-offset, -offset,
+			(float)screenWidth + offset, (float)screenHeight + offset
+		};
+
+		// If rect doesn't collide with screen, is outside of screen
+		return (!SDL_HasIntersectionF(&rect, &screenRect));
 	}
 
 #ifndef NDEBUG

@@ -119,8 +119,7 @@ namespace Zefir
             // Renderer
             if (ImGui::CollapsingHeader("Renderer", ImGuiTreeNodeFlags_DefaultOpen))
             {
-                // Draw Calls
-                // Textures loaded
+                ImGui::Text("Draw Calls : %d", m_ProfilingData.drawCallsCount);
                 ImGui::Text("Render Time: %.3f ms | Avg %.3f ms", renderTime, avgRenderTime);
                 ImGui::PlotLines("##avgrendertime", renderHistory, historySize, fpsIndex, nullptr, 0.0f, 33.3f, ImVec2(-1, 80));
             }

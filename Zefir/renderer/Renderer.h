@@ -36,6 +36,9 @@ namespace Zefir
 		// Given the world coordinates of two points, render a line between them.
 		void RenderLine(const Vector2& pos1, const Vector2& pos2, const Camera& cam);
 
+		int GetDrawCallsCount();
+		void ResetDrawCallsCounter();
+
 #ifndef NDEBUG
 
 		// Render the world coordinates axis (origin in the center of the screen).
@@ -44,10 +47,15 @@ namespace Zefir
 #endif
 
 	private:
+		bool IsOutsideOfScreen(SDL_FRect rect);
+
+	private:
 		bool Init(Window* window);
 		void Shutdown();
 
 		SDL_Renderer* m_SDLRenderer;
 		Window* m_Window;
+
+		int m_DrawCallsCount;
 	};
 }
