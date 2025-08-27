@@ -19,6 +19,7 @@ namespace Zefir
 		}
 
 		std::string ToString();
+		b2Vec2 ToB2Vec2();
 
 		// Operators overloads ------------------
 

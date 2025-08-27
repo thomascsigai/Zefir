@@ -59,4 +59,9 @@ namespace Zefir
 		oss << "(" << x << ", " << y << ")";
 		return oss.str();
 	}
+
+	b2Vec2 Vector2::ToB2Vec2()
+	{
+		return { x, y };
+	}
 }
