@@ -8,19 +8,6 @@ namespace Zefir
 		{
 			LOG_FATAL("Unable to init Renderer System.");
 		}
-
-		m_Window = window;
-		m_DrawCallsCount = 0;
-
-		m_ScreenWidth = 0;
-		m_ScreenHeight = 0;
-		SDL_GetWindowSize(m_Window->GetSDLWindow(), &m_ScreenWidth, &m_ScreenHeight);
-
-		float offset = 100;
-		m_ScreenRect = {
-			-offset, -offset,
-			(float)m_ScreenWidth + offset, (float)m_ScreenHeight + offset
-		};
 	}
 
 	Renderer::~Renderer()
@@ -38,6 +25,8 @@ namespace Zefir
 			success = false;
 		}
 
+		m_Window = window;
+
 		m_SDLRenderer = SDL_CreateRenderer(window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		SDL_SetRenderDrawBlendMode(m_SDLRenderer, SDL_BLENDMODE_BLEND);
 
@@ -46,6 +35,9 @@ namespace Zefir
 			LOG_FATAL("Renderer could not be created ! SDL_Error: ", SDL_GetError());
 			success = false;
 		}
+
+		m_DrawCallsCount = 0;
+		UpdateScreenSize();
 
 		int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
 		if (!(IMG_Init(imgFlags) & imgFlags))
@@ -200,6 +192,23 @@ namespace Zefir
 			(rect.x > m_ScreenRect.x + m_ScreenRect.w) ||
 			(rect.y + rect.h < m_ScreenRect.y) ||
 			(rect.y > m_ScreenRect.y + m_ScreenRect.h);
+	}
+
+	void Renderer::UpdateScreenSize()
+	{
+		int newScreenWidth, newScreenHeight;
+		SDL_GetWindowSize(m_Window->GetSDLWindow(), &newScreenWidth, &newScreenHeight);
+		m_ScreenWidth = newScreenWidth;
+		m_ScreenHeight = newScreenHeight;
+
+		// Offset outside of screen that will be rendered
+		// Used for camera culling to render a little bit more than what the camera view
+		// to avoid clipping.
+		float offset = 100;
+		m_ScreenRect = {
+			-offset, -offset,
+			(float)m_ScreenWidth + offset, (float)m_ScreenHeight + offset
+		};
 	}
 
 #ifndef NDEBUG

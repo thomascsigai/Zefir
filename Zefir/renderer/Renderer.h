@@ -39,6 +39,8 @@ namespace Zefir
 		int GetDrawCallsCount();
 		void ResetDrawCallsCounter();
 
+		void UpdateScreenSize();
+
 #ifndef NDEBUG
 
 		// Render the world coordinates axis (origin in the center of the screen).

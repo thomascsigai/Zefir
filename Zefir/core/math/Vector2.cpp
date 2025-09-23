@@ -17,7 +17,7 @@ namespace Zefir
 		x *= s; y *= s;
 		return (*this);
 	}
-
+	
 	Vector2& Vector2::operator /=(float s)
 	{
 		x /= s; y /= s;
@@ -34,7 +34,7 @@ namespace Zefir
 		x -= v.x; y -= v.y;
 		return (*this);
 	}
-
+	
 	Vector2& Vector2::operator +=(const b2Vec2& v)
 	{
 		x += v.x, y += v.y;
@@ -52,7 +52,7 @@ namespace Zefir
 		std::cout << "(" << v[0] << ", " << v[1] << ")";
 		return os;
 	}
-
+	
 	std::string Vector2::ToString()
 	{
 		std::ostringstream oss;

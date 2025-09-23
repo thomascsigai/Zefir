@@ -134,6 +134,11 @@ namespace Zefir
 				m_ResourceManager->UnloadAllResources();
 			}
 
+			if (e.type == EngineEvents::WINDOW_RESIZE)
+			{
+				m_Renderer->UpdateScreenSize();
+			}
+
 			m_SceneManager->OnEvent(e);
 			HandleEvents(e);
 

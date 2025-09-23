@@ -23,5 +23,8 @@ namespace Zefir
 
 		// Profiling Events
 		const inline Uint32 UPDATE_PROFILING_DATA = SDL_RegisterEvents(1);
+
+		// Window Events
+		const inline Uint32 WINDOW_RESIZE = SDL_RegisterEvents(1);
 	}
 }
