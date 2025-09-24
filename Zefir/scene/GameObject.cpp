@@ -1,4 +1,5 @@
 #include <scene/GameObject.h>
+#include <core/EngineEvents.h>
 
 namespace Zefir
 {
@@ -94,5 +95,13 @@ namespace Zefir
 		}
 #endif
 				
+	}
+
+	void GameObject::RemoveObjectFromScene()
+	{
+		SDL_Event e;
+		e.type = Zefir::EngineEvents::SCENE_REMOVE_OBJECT;
+		e.user.data1 = new int(m_BodyId.index1);
+		SDL_PushEvent(&e);
 	}
 }

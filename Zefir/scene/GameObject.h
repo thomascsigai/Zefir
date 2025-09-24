@@ -45,6 +45,8 @@ namespace Zefir
 		virtual void OnCollisionEnter(GameObject* other, b2Manifold manifold) {}
 		virtual void OnCollisionExit(GameObject* other) {}
 
+		void RemoveObjectFromScene();
+
 		//Setters
 		void SetTexture(std::shared_ptr<Texture> texture) 
 		{ 
