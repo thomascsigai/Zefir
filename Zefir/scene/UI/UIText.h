@@ -8,7 +8,7 @@ namespace Zefir
 	class UIText : public UIObject
 	{
 	public:
-		UIText(float x, float y, float w, float h, const std::string& text, std::shared_ptr<Font> font,
+		UIText(float x, float y, const std::string& text, std::shared_ptr<Font> font,
 			int fontSize, SDL_Color color);
 		~UIText();
 

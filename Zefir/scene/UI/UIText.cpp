@@ -1,10 +1,11 @@
 #include <scene/UI/UIText.h>
+#include <renderer/UnitConversion.h>
 
 namespace Zefir
 {
-	UIText::UIText(float x, float y, float w, float h, const std::string& text, std::shared_ptr<Font> font,
+	UIText::UIText(float x, float y, const std::string& text, std::shared_ptr<Font> font,
 		int fontSize, SDL_Color color)
-		: UIObject(x, y, w, h), m_Text(text), m_Font(font), m_FontSize(fontSize), m_Color(color)
+		: UIObject(x, y, 0, 0), m_Text(text), m_Font(font), m_FontSize(fontSize), m_Color(color)
 	{
 		m_SDLTexture = nullptr;
 		LoadTextSurface();
@@ -34,7 +35,7 @@ namespace Zefir
 			CreateTextTexture(renderer);
 		}
 
-		renderer->RenderStaticTexture(m_SDLTexture, m_Position, m_Size, 0,
+		renderer->RenderStaticTexture(m_SDLTexture, m_Position, m_SDLTextureSize, 0,
 			cam, false, false);
 	}
 
@@ -69,6 +70,11 @@ namespace Zefir
 			LOG_WARN("Unable to create texture from rendered text! SDL Error: ", SDL_GetError());
 		}
 		SDL_FreeSurface(m_SDLSurface);
+
+		int width, height;
+		SDL_QueryTexture(m_SDLTexture, NULL, NULL, &width, &height);
+
+		m_SDLTextureSize = { (float)width / PIXELS_PER_METER, (float)height / PIXELS_PER_METER };
 	}
 
 	void UIText::SetText(const std::string& text)
