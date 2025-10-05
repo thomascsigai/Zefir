@@ -4,6 +4,7 @@
 #include <core/EngineEvents.h>
 #include <scene/GameObject.h>
 #include <scene/Camera.h>
+#include <scene/UI/UIObject.h>
 
 #include <box2d/box2d.h>
 
@@ -15,7 +16,10 @@ namespace Zefir
 	{
 	protected:
 		EngineContext* m_EngineContext;
+		
 		std::unordered_map<int, std::unique_ptr<GameObject>> m_SceneObjects;
+		std::unordered_map<int, std::unique_ptr<UIObject>> m_UIObjects;
+		
 		b2WorldDef m_WorldDef;
 		b2WorldId m_WorldId;
 
@@ -23,6 +27,9 @@ namespace Zefir
 
 		void AddObjectToScene(std::unique_ptr<GameObject> go);
 		void RemoveObject(int objectId);
+		
+		void AddUIToScene(std::unique_ptr<UIObject> ui_obj);
+		void RemoveUI(int objectId);
 
 	public:
 		Scene();

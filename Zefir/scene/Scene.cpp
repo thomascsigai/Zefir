@@ -115,13 +115,26 @@ namespace Zefir
 				);
 			}
 		}
+
+		// Update UI
+		for (auto& ui_obj : m_UIObjects)
+		{
+			ui_obj.second->Update();
+		}
 	}
 
 	void Scene::Render(Renderer* renderer)
 	{
+		// Render Gameobjects
 		for (auto& go : m_SceneObjects)
 		{
 			go.second->Render(renderer, m_Cam);
+		}
+
+		//Render UI
+		for (auto& ui_obj : m_UIObjects)
+		{
+			ui_obj.second->Render(renderer, m_Cam);
 		}
 
 #ifndef NDEBUG
@@ -155,6 +168,26 @@ namespace Zefir
 		else
 		{
 			LOG_WARN("Trying to remove an object that does not exist.");
+		}
+	}
+
+	void Scene::AddUIToScene(std::unique_ptr<UIObject> ui_obj)
+	{
+		static int id = 0;
+		ui_obj->m_Id = id;
+		m_UIObjects[id] = std::move(ui_obj);
+		id++;
+	}
+	
+	void Scene::RemoveUI(int ui_objID)
+	{
+		if (m_UIObjects.contains(ui_objID))
+		{
+			m_UIObjects.erase(ui_objID);
+		}
+		else
+		{
+			LOG_WARN("Trying to remove a UI object that does not exist.");
 		}
 	}
 }
