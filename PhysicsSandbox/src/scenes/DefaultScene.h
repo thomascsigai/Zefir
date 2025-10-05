@@ -2,6 +2,7 @@
 
 #include <scene/Scene.h>
 #include <core/debug/Log.h>
+#include <scene/UI/UIText.h>
 
 #include <gameobjects/PhysicObject.h>
 #include <gameobjects/Ground.h>
@@ -19,6 +20,22 @@ namespace ZefirApp
 			std::unique_ptr<Zefir::GameObject> ground = std::make_unique<Ground>(0.0f, -5.0f);
 			//ground->SetTexture(m_EngineContext->resourceManager->GetTexture("resources\\textures\\bloc.png"));
 			AddObjectToScene(std::move(ground));
+
+			AddUIToScene(std::make_unique<Zefir::UIText>(
+				0.0f, 2.0f, // Position
+				10.0f, 0.6f, // Size
+				std::string("Click anywhere to spawn square"), // Text
+				m_EngineContext->resourceManager->GetFont("resources\\fonts\\bit5x3.ttf"), // Font
+				10, SDL_Color(255, 255, 255, 255) // Font Size, Color
+			));
+			
+			AddUIToScene(std::make_unique<Zefir::UIText>(
+				0.0f, 1.0f, // Position
+				11.0f, 0.6f, // Size
+				std::string("Press T to update text, R to remove it"), // Text
+				m_EngineContext->resourceManager->GetFont("resources\\fonts\\bit5x3.ttf"), // Font
+				10, SDL_Color(255, 255, 255, 255) // Font Size, Color
+			));
 		}
 
 		void OnUnload() override
@@ -45,6 +62,22 @@ namespace ZefirApp
 
 					AddObjectToScene(std::make_unique<PhysicObject>(worldCoords.x, worldCoords.y, 
 						m_EngineContext->resourceManager->GetTexture("resources\\textures\\bloc.jpg")));
+				}
+			}
+
+			if (e.type == SDL_KEYDOWN)
+			{
+				if (e.key.keysym.sym == SDLK_t)
+				{
+					APP_LOG_INFO("Text updated");
+					static_cast<Zefir::UIText*>(m_UIObjects[0].get())->SetText("Text Update");
+					m_UIObjects[0]->m_Size = { 7.0f, 1.2f };
+				}
+
+				if (e.key.keysym.sym == SDLK_r)
+				{
+					APP_LOG_INFO("Text removed");
+					RemoveUI(0);
 				}
 			}
 		}
