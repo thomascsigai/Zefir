@@ -173,10 +173,9 @@ namespace Zefir
 
 	void Scene::AddUIToScene(std::unique_ptr<UIObject> ui_obj)
 	{
-		static int id = 0;
-		ui_obj->m_Id = id;
-		m_UIObjects[id] = std::move(ui_obj);
-		id++;
+		ui_obj->m_Id = m_NextUIId;
+		m_UIObjects[m_NextUIId] = std::move(ui_obj);
+		m_NextUIId++;
 	}
 	
 	void Scene::RemoveUI(int ui_objID)

@@ -51,5 +51,7 @@ namespace Zefir
 		// PHYSICS RELATED ATTRIBUTES
 		double accumulator = 0.0f;
 		double TIME_STEP = 1.0f / 60.0f;
+
+		int m_NextUIId = 0;
 	};
 }
