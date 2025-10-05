@@ -23,18 +23,16 @@ namespace ZefirApp
 
 			AddUIToScene(std::make_unique<Zefir::UIText>(
 				0.0f, 2.0f, // Position
-				10.0f, 0.6f, // Size
 				std::string("Click anywhere to spawn square"), // Text
 				m_EngineContext->resourceManager->GetFont("resources\\fonts\\bit5x3.ttf"), // Font
-				10, SDL_Color(255, 255, 255, 255) // Font Size, Color
+				50, SDL_Color(255, 255, 255, 255) // Font Size, Color
 			));
 			
 			AddUIToScene(std::make_unique<Zefir::UIText>(
 				0.0f, 1.0f, // Position
-				11.0f, 0.6f, // Size
 				std::string("Press T to update text, R to remove it"), // Text
 				m_EngineContext->resourceManager->GetFont("resources\\fonts\\bit5x3.ttf"), // Font
-				10, SDL_Color(255, 255, 255, 255) // Font Size, Color
+				50, SDL_Color(255, 255, 255, 255) // Font Size, Color
 			));
 		}
 
