@@ -22,7 +22,6 @@
 
 // Renderer components
 #include <renderer/Renderer.h>
-#include <renderer/text/TextRendering.h>
 
 // Scene components
 #include <scene/GameObject.h>

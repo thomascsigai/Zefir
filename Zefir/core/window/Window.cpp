@@ -1,4 +1,5 @@
 #include <core/window/Window.h>
+#include <core/EngineEvents.h>
 
 namespace Zefir
 {
@@ -43,5 +44,9 @@ namespace Zefir
 		SDL_RenderSetVSync(SDL_GetRenderer(m_SDLWindow), settings.vsync);
 
 		m_Settings = settings;
+
+		SDL_Event e;
+		e.type = EngineEvents::WINDOW_RESIZE;
+		SDL_PushEvent(&e);
 	}
 }

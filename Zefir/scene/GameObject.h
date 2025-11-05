@@ -19,6 +19,7 @@ namespace Zefir
 		std::string m_Name;
 		Transform2D m_Transform2D;
 		
+		bool m_UsePhysics;
 		b2BodyDef m_BodyDef;
 		b2BodyId m_BodyId;
 		b2ShapeDef m_ShapeDef;
@@ -27,21 +28,24 @@ namespace Zefir
 	protected:
 		std::shared_ptr<Texture> m_Texture;
 		Timer m_AnimFrameTimer;
+		int m_AnimFrameNumber;
+
+		bool m_AnimEnded;
 
 	public:
 		GameObject();
 		GameObject(std::string name);
 		GameObject(std::string name, float x, float y);
 
-		// Setup a AABB collider for the Go
-		void SetupCollider(Vector2 position, Vector2 size);
-		// Setup a Circle collider for the Go
-		void SetupCollider(Vector2 position, float radius);
-
 		virtual void Render(Renderer* renderer, const Camera& cam);
 
 		virtual void Update(double deltaTime) = 0;
 		virtual void HandleEvent(const SDL_Event& e) = 0;
+
+		virtual void OnCollisionEnter(GameObject* other, b2Manifold manifold) {}
+		virtual void OnCollisionExit(GameObject* other) {}
+
+		void RemoveObjectFromScene();
 
 		//Setters
 		void SetTexture(std::shared_ptr<Texture> texture) 

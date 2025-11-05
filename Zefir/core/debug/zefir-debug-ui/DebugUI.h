@@ -28,6 +28,16 @@ namespace Zefir
 			{
 				HandleAppLogEvent(e);
 			}
+			
+			if (e.type == EngineEvents::UPDATE_PROFILING_DATA)
+			{
+				if (m_PerformanceFrame)
+				{
+					ProfilingData* newData = static_cast<ProfilingData*>(e.user.data1);
+					m_PerformanceFrame->UpdateProfilingData(*newData);
+					delete(newData);
+				}
+			}
 		}
 
 		void ShowUI(ImGuiManager* imGuiManager)
@@ -38,7 +48,7 @@ namespace Zefir
 				return;
 			}
 
-			//ImGui::ShowDemoWindow();
+			ImGui::ShowDemoWindow();
 			if (m_PerformanceFrame) imGuiManager->NewFrame(m_PerformanceFrame.get());
 			if (m_LogFrame) imGuiManager->NewFrame(m_LogFrame.get());
 			if (m_SimulationControlFrame) imGuiManager->NewFrame(m_SimulationControlFrame.get());

@@ -49,13 +49,23 @@ namespace Zefir
 
 		bool IsRunning();
 
+#ifndef NDEBUG
+		void SendProfilingData();
+#endif
+
+
 	private:
 		bool m_IsRunning;
 		bool m_IsPaused;
 		bool m_SpeedUp;
 
-		double m_DeltaTime;
+		double m_DeltaTime; // s
+		double m_FrameTime; // ms
 		int m_PreviousTime;
 		int m_CurrentTime;
+
+#ifndef NDEBUG
+		ProfilingData m_ProfilingData;
+#endif 
 	};
 }

@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 
+#include <box2d/math_functions.h>
+
 namespace Zefir
 {
 	struct Vector2
@@ -17,6 +19,7 @@ namespace Zefir
 		}
 
 		std::string ToString();
+		b2Vec2 ToB2Vec2();
 
 		// Operators overloads ------------------
 
@@ -31,6 +34,9 @@ namespace Zefir
 		// Addition & substraction
 		Vector2& operator +=(const Vector2& v);
 		Vector2& operator -=(const Vector2& v);
+		// With Box2D vectors
+		Vector2& operator +=(const b2Vec2& v);
+		Vector2& operator -=(const b2Vec2& v);
 	};
 
 	// Vector2 operations functions
@@ -65,7 +71,17 @@ namespace Zefir
 		return (Vector2(v1.x + v2.x, v1.y + v2.y));
 	}
 	
+	inline Vector2 operator+(const Vector2& v1, const b2Vec2& v2)
+	{
+		return (Vector2(v1.x + v2.x, v1.y + v2.y));
+	}
+	
 	inline Vector2 operator-(const Vector2& v1, const Vector2& v2)
+	{
+		return (Vector2(v1.x - v2.x, v1.y - v2.y));
+	}
+
+	inline Vector2 operator-(const Vector2& v1, const b2Vec2& v2)
 	{
 		return (Vector2(v1.x - v2.x, v1.y - v2.y));
 	}

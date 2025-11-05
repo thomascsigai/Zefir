@@ -10,6 +10,8 @@ namespace ZefirApp
 		Ground(float x, float y) : GameObject("Ground", x, y)
 		{
 			m_Transform2D.size = { 16, 1 };
+
+			m_UsePhysics = true;
 			m_BodyDef.position = { x, y };
 			m_Box = b2MakeBox(8.0f, 0.5f);
 		}

@@ -31,4 +31,19 @@ namespace Zefir
 	{ 
 		return m_MetaData.frameTime; 
 	}
+
+	bool AnimatedTexture::IsRepeat() const
+	{
+		return m_MetaData.repeat;
+	}
+
+	bool AnimatedTexture::IsEnded() const
+	{
+		return m_MetaData.ended;
+	}
+
+	void AnimatedTexture::SetEnded(bool b)
+	{
+		m_MetaData.ended = b;
+	}
 }
