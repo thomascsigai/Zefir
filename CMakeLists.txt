@@ -7,5 +7,4 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(Zefir)
 
 # Apps directories
-add_subdirectory(Sandbox)
 add_subdirectory(PhysicsSandbox)
