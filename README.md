@@ -3,7 +3,7 @@
 **Zefir** is a lightweight and simple 2D game engine built with **C++** and **SDL2**.
 Designed to go *against the wind*, Zefir gives you just enough to build focused, expressive 2D games — and nothing more.
 
-## Showcase Video :
+## Showcase Video
 
 [![Showcase video](https://img.youtube.com/vi/zG2O-vBHgxc/0.jpg)](https://www.youtube.com/watch?v=zG2O-vBHgxc)
 
